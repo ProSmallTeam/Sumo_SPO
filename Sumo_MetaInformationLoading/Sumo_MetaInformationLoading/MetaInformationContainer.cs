@@ -6,44 +6,49 @@
     public class MetaInformationContainer
     {
         /// <summary>
-        /// Название книги на русском.
+        /// Получает ссылку на книгу.
         /// </summary>
-        public string RuTitle { get; private set; }
+        public string Link { get; set; }
 
         /// <summary>
-        /// Название книги на английском языке.
+        /// Получает ссылку на обложку книги.
         /// </summary>
-        public string EnTitle { get; private set; }
+        public string PictureLink { get; set; }
+
+        /// <summary>
+        /// Получает название книги.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Получает формат файла книги.
+        /// </summary>
+        public string FileFormat { get; private set; }
 
         /// <summary>
         /// Получает автора книги.
         /// </summary>
-        public string Author { get; private set; }
+        public string Author { get; set; }
 
         /// <summary>
-        /// Получает информацию о переводчике.
+        /// Получает внутренний ID книги на сайте.
         /// </summary>
-        public string Translator { get; private set; }
-
-        /// <summary>
-        /// Получает внутренний ID книги.
-        /// </summary>
-        public string InternalId { get; private set; }
+        public string InternalId { get; set; }
 
         /// <summary>
         /// Получает ISBN книги.
         /// </summary>
-        public string Isbn { get; private set; }
+        public string ISBN { get; set; }
 
         /// <summary>
         /// Получает язык, на котором написана книга.
         /// </summary>
-        public string Language { get; private set; }
+        public string Language { get; set; }
 
         /// <summary>
-        /// Gets the publish house.
+        /// Получает издателя.
         /// </summary>
-        public string PublishHouse { get; private set; }
+        public string PublishHouse { get; set; }
 
         /// <summary>
         /// Получает год издания книги.
@@ -53,38 +58,17 @@
         /// <summary>
         /// Получает количество страниц в книге.
         /// </summary>
-        public string PageCount { get; private set; }
-
-        /// <summary>
-        /// Получает Формат книги.
-        /// </summary>
-        public string Format { get; private set; }
-
-        /// <summary>
-        /// Получает тираж книги.
-        /// </summary>
-        public string Edition { get; private set; }
+        public string PageCount { get; set; }
 
         /// <summary>
         /// Получает категорию.
         /// </summary>
-        public string Сategory { get; private set; }
-
-        /// <summary>
-        /// Получает серию книги.
-        /// </summary>
-        public string Series { get; private set; }
-
-        /// <summary>
-        /// Получает информацию о переплете книги.
-        /// Надо ли нам его хранить?
-        /// </summary>
-        public string Binding { get; private set; }
+        public string Сategory { get; set; }
 
         /// <summary>
         /// Получает аннотацию к книге.
         /// </summary>
-        public string Annotation { get; private set; }
+        public string Annotation { get; set; }
 
         /// <summary>
         /// Получает коментарии пользователей на книгу.
