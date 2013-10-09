@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zverev_no_commit", "source\Zverev_no_commit\Zverev_no_commit.csproj", "{E1FEA6FA-B20F-4A2A-AD9F-F0513673D709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader", "source\Sumo_MetaInformationLoading\MetaInformationLoader.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo_MetaInformationLoading", "source\Sumo_MetaInformationLoading\Sumo_MetaInformationLoading.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo_MetaInformationLoading.Tests", "source\Sumo_MetaInformationLoading.Tests\Sumo_MetaInformationLoading.Tests.csproj", "{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader.Tests", "source\Sumo_MetaInformationLoading.Tests\MetaInformationLoader.Tests.csproj", "{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "source\DataBase\DataBase.csproj", "{6FACE83D-891F-4C57-8443-29DD9C28472B}"
 EndProject
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E1FEA6FA-B20F-4A2A-AD9F-F0513673D709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1FEA6FA-B20F-4A2A-AD9F-F0513673D709}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1FEA6FA-B20F-4A2A-AD9F-F0513673D709}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1FEA6FA-B20F-4A2A-AD9F-F0513673D709}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7161608D-7526-4A0B-A575-5ADEFBF577E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7161608D-7526-4A0B-A575-5ADEFBF577E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7161608D-7526-4A0B-A575-5ADEFBF577E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
