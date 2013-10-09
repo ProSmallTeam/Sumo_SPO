@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}</ProjectGuid>
+    <ProjectGuid>{7161608D-7526-4A0B-A575-5ADEFBF577E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sumo_MetaInformationLoading.Tests</RootNamespace>
-    <AssemblyName>Sumo_MetaInformationLoading.Tests</AssemblyName>
+    <RootNamespace>Sumo_MetaInformationLoading</RootNamespace>
+    <AssemblyName>Sumo_MetaInformationLoading</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,29 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\..\Sumo_SRC\nunit.framework.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetaInformationLoadingTests.cs" />
+    <Compile Include="MetaInformationContainer.cs" />
+    <Compile Include="MetaInformationLoading.cs" />
+    <Compile Include="OzonPageParser.cs" />
+    <Compile Include="Page.cs" />
+    <Compile Include="PageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sumo_MetaInformationLoading\Sumo_MetaInformationLoading.csproj">
-      <Project>{7161608d-7526-4a0b-a575-5adefbf577e5}</Project>
-      <Name>Sumo_MetaInformationLoading</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
