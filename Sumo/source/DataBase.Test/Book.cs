@@ -1,4 +1,4 @@
-﻿namespace InitializeDataBase
+﻿namespace DataBase.Test
 {
     public class Book
     {

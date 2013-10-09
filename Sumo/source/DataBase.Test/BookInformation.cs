@@ -1,10 +1,13 @@
-﻿namespace InitializeDataBase
-{
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace DataBase.Test
+{
     public class BookInformation : IBookInformation
     {
-
         public string Name;
 
         public string ISBN;
@@ -18,6 +21,7 @@
         public string Language;
 
         public string Edition;
+
 
     }
 }
