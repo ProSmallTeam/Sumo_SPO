@@ -48,12 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute.cs" />
-    <Compile Include="Book.cs" />
-    <Compile Include="BookInformation.cs" />
+    <Compile Include="BookContainer.cs" />
     <Compile Include="DataBase.Test.cs" />
-    <Compile Include="IAttribute.cs" />
-    <Compile Include="IBookInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

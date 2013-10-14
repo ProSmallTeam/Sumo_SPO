@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace DataBase.Test
 {
     using System.Diagnostics;
     using System.Globalization;
-
-    using MongoDB.Driver;
     using MongoDB.Driver.Builders;
-    using MongoDB.Bson;
-
     using NUnit.Framework;
 
     [TestFixture]
     public class DataBaseTest
     {
         private DataBase database;
-
-        private MongoCollection<BsonDocument> collection;
 
         private readonly int numberOfRecords = 10000;
        
@@ -29,15 +24,14 @@ namespace DataBase.Test
         {
             database = new DataBase("mongodb://localhost/?safe=true"); // получение объекта, с которым будем работать
 
-            database.SetCollection("Books"); // получение ссылки на колекцию, то есть создание новой
         }
 
-        [Ignore]
+        //[Ignore]
         [Test]
         public void AssertOfCorrectInitialize()
         {
             database.Drop();
-            this.InitializeDB();
+            this.InitializeDb();
             Assert.AreEqual(numberOfRecords, database.GetCountOfBooks());
         }
 
@@ -46,16 +40,24 @@ namespace DataBase.Test
         {
             var query = Query.And
                 (
-                    Query.GTE("BookInformation.YearOfPublication", 2000),
-                    Query.EQ("BookInformation.Language", "Russian")
+                    Query.GTE("PublishYear", 2000),
+                    Query.EQ("Language", "Russian")
                 );
 
-            var result = database.Find(query);
+            var result = database.Find(query, database.Database.GetCollection("Books"));
            
-            Assert.AreEqual(613, result.Count());
+            Assert.AreEqual(633, result.Count());
         }
 
-        private void InitializeDB()
+        [Test]
+        [ExpectedException]
+        public void ReAddCategoryWillThrowExeption()
+        {
+            database.InsertCategory("Tex");
+            database.InsertCategory("Tex");
+        }
+
+        private void InitializeDb()
         {
            var nameBook = new[]
                                {
@@ -79,32 +81,23 @@ namespace DataBase.Test
 
             for (var index = 0; index < numberOfRecords; ++index)
             {
-                database.Insert(
-                    new Book
+                database.InsertBook(
+                    new BookContainer
                         {
-                            _id = index.ToString(),
-                            BookInformation =
-                                new BookInformation
-                                    {
-                                        Name = nameBook[random.Next(0, 14)],
-                                        CountOfPages = random.Next(90, 500) + 100,
-                                        ISBN = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture),
-                                        YearOfPublication = random.Next(1900, 2014),
-                                        Authors = new List<string>(new[] { authors[random.Next(0, 19)], authors[random.Next(0, 19)] }),
-                                        Language = language[index % 2],
-                                        Edition = "Цифровая книга"
-                                    },
-                            Attribute =
-                                new Attribute
-                                    {
-                                        ReferenceToTheBook = @"C:\Users\Documents\GitHub\Sumo_SPO\" + random.Next(0, 14) + ".pdf",
-                                        fileExtension = "pdf",
-                                        Categories = new List<string>(new[] { "Tex" })
-                                    }
-                        }.ToBsonDocument());
+                            Authors = new List<string>(new[] {authors[random.Next(0, 19)], authors[random.Next(0, 19)]}),
+                            ISBN = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture),
+                            Title = nameBook[random.Next(0, 14)],
+                            Language = language[index%2],
+                            PageCount = random.Next(90, 500) + 100,
+                            PublishHouse = "Цифровая книга",
+                            Сategory = new List<string>(new[] {"Tex", "ABC"}),
+                            PublishYear = random.Next(1900, 2015),
+                        }.ToBsonDocument()
+                    );
             }
-
+       
             Trace.WriteLine(DateTime.Now - time);
         }
     }
 }
+

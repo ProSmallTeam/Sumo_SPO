@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataBase
 {
@@ -10,50 +8,75 @@ namespace DataBase
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
 
-    public class DataBase
+    public class DataBase : IDataBase
     {
-        public readonly MongoDatabase database;
+        public readonly MongoDatabase Database;
 
         private const string NameOfDataBase = "library";
 
-        private MongoCollection<BsonDocument> currentCollection { get; set; }
+        private const string BookCollection = "Books";
+
+        private const string SettingsCollection = "Settings";
+
+        private const string CategoryCollection = "Category";
 
         public DataBase(string connectiongString)
         {
             var server = MongoServer.Create(connectiongString);
 
-            database = server.GetDatabase(NameOfDataBase);
+            Database = server.GetDatabase(NameOfDataBase);
         }
 
-        public void SetCollection(string collection)
+        public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
         {
-            currentCollection = database.GetCollection<BsonDocument>(collection);
+            return collection.FindAs<BsonDocument>(query).ToList();
         }
 
-        public List<BsonDocument> Find(IMongoQuery query)
+        private static void Insert(BsonDocument document, MongoCollection collection)
         {
-            return currentCollection.FindAs<BsonDocument>(query).ToList();
+            collection.Insert(document);
         }
 
-        public void Insert(BsonDocument document)
+        public void InsertBook(BsonDocument book)
         {
-            currentCollection.Insert(document);
+            Insert(book, Database.GetCollection(BookCollection));
+        }
+
+        public void InsertSetting(BsonDocument setting)
+        {
+            //поиск данной настройки
+            Insert(setting, Database.GetCollection(SettingsCollection));
+        }
+
+        public void InsertCategory(string nameOfCategory)
+        {
+            var collection = Database.GetCollection(CategoryCollection);
+            var query = Query.EQ("name", nameOfCategory);
+
+            var match = Find(query, collection);  
+
+            if (match.Count != 0)
+                throw new Exception();
+
+            var category = new BsonDocument {{"name", nameOfCategory}};
+            
+            Insert(category, collection);
         }
 
         public long GetStatistic(string name, string value)
         {
             var query = Query.EQ(name, value);
-            return this.Find(query).Count;
+            return Find(query, Database.GetCollection(BookCollection)).Count;
         }
         
         public long GetCountOfBooks()
         {
-            return database.GetCollection("Books").Count();
+            return Database.GetCollection(BookCollection).Count();
         }
 
         public void Drop()
         {
-            database.Drop();
+            Database.Drop();
         }
     }
 }
