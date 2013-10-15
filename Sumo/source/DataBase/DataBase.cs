@@ -10,21 +10,28 @@ namespace DataBase
 
     public class DataBase : IDataBase
     {
-        public readonly MongoDatabase Database;
+        public MongoDatabase Database;
 
         private const string NameOfDataBase = "library";
-
-        private const string BookCollection = "Books";
-
-        private const string SettingsCollection = "Settings";
-
-        private const string CategoryCollection = "Category";
 
         public DataBase(string connectiongString)
         {
             var server = MongoServer.Create(connectiongString);
 
             Database = server.GetDatabase(NameOfDataBase);
+
+            SetCollections();
+        }
+
+        private void SetCollections()
+        {
+            Collections.Books = Database.GetCollection<BsonDocument>("Books");
+            Collections.Settings = Database.GetCollection<BsonDocument>("Settings");
+
+            Collections.Category = Database.GetCollection<BsonDocument>("Category");
+            Collections.Authors = Database.GetCollection<BsonDocument>("Authors");
+            Collections.Years = Database.GetCollection<BsonDocument>("Years");
+            
         }
 
         public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
@@ -37,41 +44,70 @@ namespace DataBase
             collection.Insert(document);
         }
 
-        public void InsertBook(BsonDocument book)
+        public void InsertBook(BookInformation book)
         {
-            Insert(book, Database.GetCollection(BookCollection));
+            Insert(book.ToBsonDocument(), Collections.Books);
+            UpdateStatistic(book);
+        }
+
+        private static void UpdateStatistic(BookInformation bookInformation)
+        {
+            Update(Collections.Years, bookInformation.YearOfPublication);
+            
+            foreach (var category in bookInformation.Category)
+            {
+                Update(Collections.Category, category);
+            }
+
+            foreach (var author in bookInformation.Authors)
+            {
+                Update(Collections.Authors, author);
+            }
+            
+        }
+
+        private static void Update(MongoCollection<BsonDocument> collection, BsonValue updateValue)
+        {
+            var query = new QueryDocument(new BsonDocument { { "_id", updateValue } });
+
+            var result = collection.Find(new QueryDocument(query));
+
+            if (!result.Any())
+                collection.Insert(new BsonDocument
+                    {
+                        {"_id", updateValue},
+                        {"Statistic", 1}
+                    });
+            else
+            {
+                var update = MongoDB.Driver.Builders.Update.Inc("Statistic", 1);
+                collection.Update(query, update);
+            }
         }
 
         public void InsertSetting(BsonDocument setting)
         {
-            //поиск данной настройки
-            Insert(setting, Database.GetCollection(SettingsCollection));
+            Insert(setting, Collections.Settings);
         }
 
-        public void InsertCategory(string nameOfCategory)
+        public int GetStatistic(MongoCollection<BsonDocument> collection, BsonValue value)
         {
-            var collection = Database.GetCollection(CategoryCollection);
-            var query = Query.EQ("name", nameOfCategory);
+            var query = new QueryDocument(new BsonDocument{{"_id", value}});
 
-            var match = Find(query, collection);  
+            var find = collection.FindOne(query);
 
-            if (match.Count != 0)
-                throw new Exception();
+            var subStringIndex = "Statistic".Length + 1;
 
-            var category = new BsonDocument {{"name", nameOfCategory}};
-            
-            Insert(category, collection);
-        }
+            var statisticString = find.GetElement("Statistic").ToString();
 
-        public long GetStatistic(string name, string value)
-        {
-            var query = Query.EQ(name, value);
-            return Find(query, Database.GetCollection(BookCollection)).Count;
+            var result = int.Parse(statisticString.Substring(subStringIndex));
+
+            return result;
         }
         
-        public long GetCountOfBooks()
+        public void Indexing(string name)
         {
-            return Database.GetCollection(BookCollection).Count();
+            Collections.Books.EnsureIndex(new[] { name });
         }
 
         public void Drop()

@@ -23,7 +23,6 @@ namespace DataBase.Test
         public void SetUp()
         {
             database = new DataBase("mongodb://localhost/?safe=true"); // получение объекта, с которым будем работать
-
         }
 
         //[Ignore]
@@ -32,17 +31,13 @@ namespace DataBase.Test
         {
             database.Drop();
             this.InitializeDb();
-            Assert.AreEqual(numberOfRecords, database.GetCountOfBooks());
+            Assert.AreEqual(numberOfRecords, database.Database.GetCollection("Books"));
         }
 
         [Test]
-        public void AssertOfCorrectExecuteQuery()
+        public void AssertOfCorrectExecuteQueryByYearOfPublication()
         {
-            var query = Query.And
-                (
-                    Query.GTE("PublishYear", 2000),
-                    Query.EQ("Language", "Russian")
-                );
+            var query = Query.EQ("YearOfPublication", 2000);
 
             var result = database.Find(query, database.Database.GetCollection("Books"));
            
@@ -50,11 +45,26 @@ namespace DataBase.Test
         }
 
         [Test]
-        [ExpectedException]
-        public void ReAddCategoryWillThrowExeption()
+        public void AssertOfCorrectExecuteQueryByAuthor()
         {
-            database.InsertCategory("Tex");
-            database.InsertCategory("Tex");
+            var query = Query.EQ("Authors", "Марина Виннер");
+
+            var result = database.Find(query, database.Database.GetCollection("Books"));
+
+            Assert.AreEqual(633, result.Count());
+        }
+
+        [Test]
+        public void CorrectOfGettingStatisticByYear()
+        {
+            Assert.AreEqual(83, database.GetStatistic(database.Database.GetCollection("Years"), 2002));
+        }
+
+        [Test]
+        public void Indexing()
+        {
+            database.Indexing("Name");
+            database.Indexing("Year");
         }
 
         private void InitializeDb()
@@ -76,23 +86,22 @@ namespace DataBase.Test
             var language = new[] { "Russian", "English" };
     
             var random = new Random();
-            
+
             var time = DateTime.Now;
 
             for (var index = 0; index < numberOfRecords; ++index)
             {
                 database.InsertBook(
-                    new BookContainer
+                    new BookInformation
                         {
-                            Authors = new List<string>(new[] {authors[random.Next(0, 19)], authors[random.Next(0, 19)]}),
-                            ISBN = random.Next(100000000, 999999999).ToString(CultureInfo.InvariantCulture),
-                            Title = nameBook[random.Next(0, 14)],
-                            Language = language[index%2],
-                            PageCount = random.Next(90, 500) + 100,
-                            PublishHouse = "Цифровая книга",
-                            Сategory = new List<string>(new[] {"Tex", "ABC"}),
-                            PublishYear = random.Next(1900, 2015),
-                        }.ToBsonDocument()
+                            Name = nameBook[random.Next(0, 14)],
+                            Category = new List<string>(new[] { "Tex", "ABC" }),
+                            YearOfPublication = random.Next(1900, 2015),
+                            Authors = new List<string>
+                                {
+                                    authors[random.Next(0, 19)]
+                                }
+                        }
                     );
             }
        
