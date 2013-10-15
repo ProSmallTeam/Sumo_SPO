@@ -38,12 +38,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ozon\OzonChainCategories.cs" />
+    <Compile Include="Ozon\OzonComentsList.cs" />
+    <Compile Include="Labirint\LabirintPageParser.cs" />
     <Compile Include="MetaInformationContainer.cs" />
-    <Compile Include="MetaInformationLoading.cs" />
-    <Compile Include="OzonPageParser.cs" />
+    <Compile Include="Ozon\OzonPageParser.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="PageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ozon\OzonUserComent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

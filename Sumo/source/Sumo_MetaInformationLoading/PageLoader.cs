@@ -7,25 +7,25 @@
     /// <summary>
     /// Класс, отвечающий за загрузку метаинформации о книге.
     /// </summary>
-    public static class PageLoader
+    internal static class PageLoader
     {
         /// <summary>
         /// Метод загрузки текста страници по конкретному url.
         /// </summary>
-        /// <param name="url">
+        /// <param name="absoluteUrl">
         /// Url страници.
         /// </param>
         /// <returns>
         /// Текст загруженной страници.
         /// </returns>
-        public static Page LoadPageFromUrl(string url)
+        public static Page LoadFromUrl(string absoluteUrl)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(absoluteUrl);
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
+             
             Stream stream = resp.GetResponseStream();
 
-            return new Page(resp.ResponseUri.AbsoluteUri, TextOfPageLoader(stream));
+            return new Page(resp.ResponseUri.AbsoluteUri, TextOfPageReader(stream));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@
         /// <returns>
         /// Текст загруженной страници.
         /// </returns>
-        private static string TextOfPageLoader(Stream stream)
+        private static string TextOfPageReader(Stream stream)
         {
             StreamReader reader = new StreamReader(stream, Encoding.Default);
             return reader.ReadToEnd();

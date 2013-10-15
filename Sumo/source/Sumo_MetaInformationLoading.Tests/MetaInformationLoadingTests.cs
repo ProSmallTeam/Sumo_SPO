@@ -1,8 +1,12 @@
 ﻿namespace Sumo_MetaInformationLoading.Tests
 {
+    using System.Diagnostics;
+
     using NUnit.Framework;
 
-//    using HtmlAgilityPack;
+    using Sumo_MetaInformationLoading.Ozon;
+
+    //    using HtmlAgilityPack;
 
     /// <summary>
     /// Тестирование класса загрузки мета информации.
@@ -13,24 +17,26 @@
         [Test]
         public void LoadPageTextTest()
         {
-//            var htmlPage =
-//                new MetaInformationLoading("C:\\Users\\Vaigard\\Учеба\\sumo\\ozon.ru\\пример страници с книгой - Книга HTML5 для веб-дизайнеров - купить книжку html5 для веб-дизайнеров от Кит Джереми в книжном интернет магазине OZON.ru с доставкой по выгодной цене.htm", LoadingMod.FormFile);
-//            var doc = new HtmlDocument();
-//            doc.LoadHtml(htmlPage.TextOfPage);
-//
-//            var title = doc.DocumentNode.SelectNodes("//h1[@itemprop=\"name\"]");
-//            var author = doc.DocumentNode.SelectNodes("//p[@itemprop=\"author\"]/a");
-//            var language = doc.DocumentNode.SelectNodes("//p[@itemprop=\"inLanguage\"]");
-//            var publisher = doc.DocumentNode.SelectNodes("//p[@itemprop=\"publisher\"]/a");
-//            var isbn = doc.DocumentNode.SelectNodes("//p[@itemprop=\"isbn\"]");
-//            var pages = doc.DocumentNode.SelectNodes("//span[@itemprop=\"numberOfPages\"]");
-//            var category = doc.DocumentNode.SelectNodes("//li[@class=\"prevLast\"]/a");
-//            var annotation = doc.DocumentNode.SelectNodes("//div[@class=\"mDetail_SidePadding\"]/table/tbody/tr/td");
-//            var comments = doc.DocumentNode.SelectNodes("");
-//            var link = doc.DocumentNode.SelectNodes("");
-//            var linkImage = doc.DocumentNode.SelectNodes("");
-//
-//            Assert.AreEqual("Кит Джереми", author[0].InnerText);
+            var a = OzonPageParser.Parse("978-5-91671-156-1");
+            Trace.WriteLine(a.ToString());
+            //            var htmlPage =
+            //                new MetaInformationLoading("C:\\Users\\Vaigard\\Учеба\\sumo\\ozon.ru\\пример страници с книгой - Книга HTML5 для веб-дизайнеров - купить книжку html5 для веб-дизайнеров от Кит Джереми в книжном интернет магазине OZON.ru с доставкой по выгодной цене.htm", LoadingMod.FormFile);
+            //            var doc = new HtmlDocument();
+            //            doc.LoadHtml(htmlPage.TextOfPage);
+            //
+            //            var title = doc.DocumentNode.SelectNodes("//h1[@itemprop=\"name\"]");
+            //            var author = doc.DocumentNode.SelectNodes("//p[@itemprop=\"author\"]/a");
+            //            var language = doc.DocumentNode.SelectNodes("//p[@itemprop=\"inLanguage\"]");
+            //            var publisher = doc.DocumentNode.SelectNodes("//p[@itemprop=\"publisher\"]/a");
+            //            var isbn = doc.DocumentNode.SelectNodes("//p[@itemprop=\"isbn\"]");
+            //            var pages = doc.DocumentNode.SelectNodes("//span[@itemprop=\"numberOfPages\"]");
+            //            var category = doc.DocumentNode.SelectNodes("//li[@class=\"prevLast\"]/a");
+            //            var annotation = doc.DocumentNode.SelectNodes("//div[@class=\"mDetail_SidePadding\"]/table/tbody/tr/td");
+            //            var comments = doc.DocumentNode.SelectNodes("");
+            //            var link = doc.DocumentNode.SelectNodes("");
+            //            var linkImage = doc.DocumentNode.SelectNodes("");
+            //
+            //            Assert.AreEqual("Кит Джереми", author[0].InnerText);
         }
     }
 }

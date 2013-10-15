@@ -3,27 +3,36 @@
     /// <summary>
     /// Класс html страници.
     /// </summary>
-    public class Page
+    internal class Page
     {
         /// <summary>
-        /// Инициализарует класс html страници
+        /// Инициализарует класс html страници.
         /// </summary>
-        /// <param name="url">
-        /// Url страници.
+        public Page()
+        {
+            this.AbsoluteUrl = null;
+            this.TextOfPage = null;
+        }
+
+        /// <summary>
+        /// Инициализарует класс html страници.
+        /// </summary>
+        /// <param name="absoluteUrl">
+        /// Полный url страници.
         /// </param>
         /// <param name="textOfPageLoader">
         /// Текст страници.
         /// </param>
-        public Page(string url, string textOfPageLoader)
+        internal Page(string absoluteUrl, string textOfPageLoader)
         {
-            this.Url = url;
+            this.AbsoluteUrl = absoluteUrl;
             this.TextOfPage = textOfPageLoader;
         }
 
         /// <summary>
-        /// Получает Url страници.
+        /// Получает полный Url страници.
         /// </summary>
-        public string Url { get; private set; }
+        public string AbsoluteUrl { get; private set; }
 
         /// <summary>
         /// Получает текст страници.

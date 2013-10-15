@@ -1,5 +1,9 @@
-﻿namespace Sumo_MetaInformationLoading
+﻿using System.Collections.Generic;
+
+namespace Sumo_MetaInformationLoading
 {
+    using Sumo_MetaInformationLoading.Ozon;
+
     /// <summary>
     /// Контейнер хранения метаинформации.
     /// </summary>
@@ -16,9 +20,14 @@
         public string PictureLink { get; set; }
 
         /// <summary>
-        /// Получает название книги.
+        /// Получает название книги на английском.
         /// </summary>
-        public string Title { get; set; }
+        public string EnTitle { get; set; }
+
+        /// <summary>
+        /// Получает название книги на русском.
+        /// </summary>
+        public string RuTitle { get; set; }
 
         /// <summary>
         /// Получает формат файла книги.
@@ -38,12 +47,12 @@
         /// <summary>
         /// Получает ISBN книги.
         /// </summary>
-        public string ISBN { get; set; }
+        public List<string> ISBN { get; set; }
 
         /// <summary>
         /// Получает язык, на котором написана книга.
         /// </summary>
-        public string Language { get; set; }
+        public string Languages { get; set; }
 
         /// <summary>
         /// Получает издателя.
@@ -53,17 +62,17 @@
         /// <summary>
         /// Получает год издания книги.
         /// </summary>
-        public string PublishYear { get; private set; }
+        public string PublishYear { get; set; }
 
         /// <summary>
         /// Получает количество страниц в книге.
         /// </summary>
-        public string PageCount { get; set; }
+        public int PageCount { get; set; }
 
         /// <summary>
         /// Получает категорию.
         /// </summary>
-        public string Сategory { get; set; }
+        public OzonChainCategories Сategories { get; set; }
 
         /// <summary>
         /// Получает аннотацию к книге.
@@ -73,6 +82,6 @@
         /// <summary>
         /// Получает коментарии пользователей на книгу.
         /// </summary>
-        public string[] UsersComents { get; private set; }
+        public OzonComentsList UsersComents { get; set; }
     }
 }
