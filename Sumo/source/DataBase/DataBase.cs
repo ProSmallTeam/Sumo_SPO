@@ -29,8 +29,13 @@ namespace DataBase
             Collections.Settings = Database.GetCollection<BsonDocument>("Settings");
 
             Collections.Category = Database.GetCollection<BsonDocument>("Category");
+            Collections.TypeOfCollection.Add("Category", Collections.Category);
+
             Collections.Authors = Database.GetCollection<BsonDocument>("Authors");
+            Collections.TypeOfCollection.Add("Authors", Collections.Authors);
+
             Collections.Years = Database.GetCollection<BsonDocument>("Years");
+            Collections.TypeOfCollection.Add("Years", Collections.Years);
             
         }
 
@@ -49,6 +54,7 @@ namespace DataBase
             Insert(book.ToBsonDocument(), Collections.Books);
             UpdateStatistic(book);
         }
+
 
         private static void UpdateStatistic(BookInformation bookInformation)
         {
@@ -90,7 +96,18 @@ namespace DataBase
             Insert(setting, Collections.Settings);
         }
 
-        public int GetStatistic(MongoCollection<BsonDocument> collection, BsonValue value)
+        public int GetStatistic(string typeOfStatistic, string inputValue)
+        {
+
+            var collection = Collections.TypeOfCollection[typeOfStatistic];
+
+            if (typeOfStatistic == "Years")
+                return GetStatistic(collection, int.Parse(inputValue)); ;
+
+            return GetStatistic(collection, inputValue);
+        }
+
+        private static int GetStatistic(MongoCollection<BsonDocument> collection, BsonValue value)
         {
             var query = new QueryDocument(new BsonDocument{{"_id", value}});
 

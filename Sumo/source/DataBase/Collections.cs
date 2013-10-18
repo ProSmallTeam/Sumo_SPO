@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataBase
@@ -21,5 +22,7 @@ namespace DataBase
         public static MongoCollection<BsonDocument> Years;
 
         public static MongoCollection<BsonDocument> Users;
+
+        public static Dictionary<string, MongoCollection<BsonDocument>> TypeOfCollection = new Dictionary<string, MongoCollection<BsonDocument>>();
     }
 }

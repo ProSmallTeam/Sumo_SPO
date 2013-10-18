@@ -25,7 +25,7 @@ namespace DataBase.Test
             database = new DataBase("mongodb://localhost/?safe=true"); // получение объекта, с которым будем работать
         }
 
-        //[Ignore]
+        [Ignore]
         [Test]
         public void AssertOfCorrectInitialize()
         {
@@ -41,7 +41,7 @@ namespace DataBase.Test
 
             var result = database.Find(query, database.Database.GetCollection("Books"));
            
-            Assert.AreEqual(633, result.Count());
+            Assert.AreEqual(88, result.Count());
         }
 
         [Test]
@@ -51,13 +51,25 @@ namespace DataBase.Test
 
             var result = database.Find(query, database.Database.GetCollection("Books"));
 
-            Assert.AreEqual(633, result.Count());
+            Assert.AreEqual(493, result.Count());
         }
 
         [Test]
         public void CorrectOfGettingStatisticByYear()
         {
-            Assert.AreEqual(83, database.GetStatistic(database.Database.GetCollection("Years"), 2002));
+            Assert.AreEqual(85, database.GetStatistic("Years", "1982"));
+        }
+
+        [Test]
+        public void CorrectOfGettingStatisticByAuthor()
+        {
+            Assert.AreEqual(498, database.GetStatistic("Authors", "Дмитрий Макарский"));
+        }
+
+        [Test]
+        public void CorrectOfGettingStatisticByCategory()
+        {
+            Assert.AreEqual(10000, database.GetStatistic("Category", "Tex"));
         }
 
         [Test]
