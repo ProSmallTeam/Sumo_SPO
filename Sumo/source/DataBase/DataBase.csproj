@@ -49,6 +49,7 @@
     <Compile Include="BookInformation.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="GenresHierarchy.cs" />
     <Compile Include="IDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
