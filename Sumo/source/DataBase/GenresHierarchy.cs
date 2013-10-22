@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace DataBase
 {
-    static class GenresHierarchy
+    public static class GenresHierarchy
     {
-        static ArrayList root = new ArrayList();
+        private static ArrayList root = new ArrayList();
 
-        static Dictionary<string, string> categoryCodeDictionary = new Dictionary<string, string>();
+        private static Dictionary<string, string> categoryCodeDictionary = new Dictionary<string, string>();
 
         public static ArrayList FindCategory(string categoryName)
         {
@@ -35,12 +35,17 @@ namespace DataBase
                 return;
             }
 
+            if (parentCategoryName == categoryName)
+            {
+                return;
+            }
+
             if (categoryCodeDictionary.ContainsKey(categoryName))
             {
                 return;
             }
 
-            var categoryCode = parentCategoryName == "root" ? "" : categoryCodeDictionary[categoryName];
+            var categoryCode = parentCategoryName == "root" ? "" : categoryCodeDictionary[parentCategoryName];
 
             var parentCategoryList = FindCategory(parentCategoryName);
             categoryCodeDictionary.Add(categoryName, categoryCode + parentCategoryList.Count);
@@ -50,6 +55,11 @@ namespace DataBase
         public static void DeleteCategory(string categoryName)
         {
             if (categoryName == "root")
+            {
+                return;
+            }
+
+            if (!categoryCodeDictionary.ContainsKey(categoryName))
             {
                 return;
             }
@@ -73,7 +83,7 @@ namespace DataBase
 
             FindCategory(parentCategoryName).Remove(categoryCode[categoryCode.Length - 1]);
 
-            // удаление из dictionary категории и всех подкатегорий
+            // удаление из dictionary категории и всех подкатегорий этой категории
 
             foreach (var key in categoryCodeDictionary.Keys)
             {
@@ -101,11 +111,10 @@ namespace DataBase
                 {
                     if (categoryCodeDictionary[key] == categoryCode.Substring(0, i + 1))
                     {
-                        result += " -> " + categoryCode.Substring(0, i + 1);
+                        result += " -> " + key;
                         break;
                     }
                 }
-                
             }
 
             return result;

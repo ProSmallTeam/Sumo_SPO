@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BookContainer.cs" />
     <Compile Include="DataBase.Test.cs" />
+    <Compile Include="GenresHierarchyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
