@@ -30,7 +30,7 @@
                                                                 "978-5-7502-0413-7",
                                                                 "978-5-9775-0845-2"
                                                             });
-            Assert.AreEqual(goodContainer.Сategories.chain, new List<string>
+            Assert.AreEqual(goodContainer.Сategories.Chain, new List<string>
                                                             {
                                                                 "Книги",
                                                                 "Нехудожественная литература",

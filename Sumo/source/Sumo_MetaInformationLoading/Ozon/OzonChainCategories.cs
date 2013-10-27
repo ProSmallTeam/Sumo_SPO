@@ -14,7 +14,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         /// <summary>
         /// Список категорий по порядку их следования.
         /// </summary>
-        private readonly List<string> chain  = new List<string>();
+        public readonly List<string> Chain  = new List<string>();
 
         public static OzonChainCategories Parse(string textOfCategoriesBlock)
         {
@@ -39,7 +39,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[this.chain.Count - 1] : null;
+                return (this.Chain.Count > 0) ? this.Chain[this.Chain.Count - 1] : null;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[0] : null;
+                return (this.Chain.Count > 0) ? this.Chain[0] : null;
             }
         }
 
@@ -68,12 +68,12 @@ namespace Sumo_MetaInformationLoading.Ozon
         /// </exception>
         public string Get(int index)
         {
-            if ((index < 0) || (this.chain.Count - 1 < index))
+            if ((index < 0) || (this.Chain.Count - 1 < index))
             {
                 throw new IndexOutOfRangeException();
             }
 
-            return this.chain[index];
+            return this.Chain[index];
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         /// </param>
         public void Add(string category)
         {
-            this.chain.Add(category);
+            this.Chain.Add(category);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         /// </returns>
         public override string ToString()
         {
-            return this.chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
+            return this.Chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
         }
     }
 }
