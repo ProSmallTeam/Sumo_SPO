@@ -15,68 +15,58 @@ namespace DataBase.Test
     [TestFixture]
     public class DataBaseTest
     {
-        private DataBase database;
+        private DataBase _database;
 
-        private readonly int numberOfRecords = 10000;
-       
+        private const int NumberOfRecords = 10000;
+
         [SetUp]
         public void SetUp()
         {
-            database = new DataBase("mongodb://localhost/?safe=true"); // получение объекта, с которым будем работать
+            _database = new DataBase("mongodb://localhost/?safe=true"); // получение объекта, с которым будем работать
         }
 
         [Ignore]
         [Test]
         public void AssertOfCorrectInitialize()
         {
-            database.Drop();
+            
+            _database.Drop();
+
+            var authors = new[]
+                              {
+                                  "Дмитрий Макарский", "М. Ховард", " М. Леви", "Р. Вэймир", "Г. Шмерлинг", "Трев Уилкинс", "В. А. Жарков", "Йен Маклин", "Орин Томас",
+                                  "Джон Гудсон", "Бен Харвелл", "Бен Харвелл", "Том Уайт", "Евгения Пастернак", "Марина Виннер", "Майкл Фриман", "Кристиан Уэнц",
+                                  "Мэтью Мак-Дональд", "Д. Н. Колисниченко", "Андрей Грачев"
+                              };
+
+            foreach(var temp in authors)
+                _database.Database.GetCollection("Attributes").Insert(new BsonDocument
+                    {
+                       {"_id", _database.Database.GetCollection("Attributes").Count()},
+                       {"Name", temp},
+                       {"RootRef", null},
+                       {"FatherRef", null}
+                    }
+                    );
+
+            for (var index = 1950; index < 2011; ++index )
+                _database.Database.GetCollection("Attributes").Insert(new BsonDocument
+                    {
+                       {"_id", _database.Database.GetCollection("Attributes").Count()},
+                       {"Name", index.ToString()},
+                       {"RootRef", null},
+                       {"FatherRef", null}
+                    }
+                    );
+            
             this.InitializeDb();
-            Assert.AreEqual(numberOfRecords, database.Database.GetCollection("Books"));
+            Assert.AreEqual(NumberOfRecords, _database.Database.GetCollection("Books").Count());
         }
 
         [Test]
-        public void AssertOfCorrectExecuteQueryByYearOfPublication()
+        public void AssertOfCorrectGetStatistic()
         {
-            var query = Query.EQ("YearOfPublication", 2000);
-
-            var result = database.Find(query, database.Database.GetCollection("Books"));
-           
-            Assert.AreEqual(88, result.Count());
-        }
-
-        [Test]
-        public void AssertOfCorrectExecuteQueryByAuthor()
-        {
-            var query = Query.EQ("Authors", "Марина Виннер");
-
-            var result = database.Find(query, database.Database.GetCollection("Books"));
-
-            Assert.AreEqual(493, result.Count());
-        }
-
-        [Test]
-        public void CorrectOfGettingStatisticByYear()
-        {
-            Assert.AreEqual(85, database.GetStatistic("Years", "1982"));
-        }
-
-        [Test]
-        public void CorrectOfGettingStatisticByAuthor()
-        {
-            Assert.AreEqual(498, database.GetStatistic("Authors", "Дмитрий Макарский"));
-        }
-
-        [Test]
-        public void CorrectOfGettingStatisticByCategory()
-        {
-            Assert.AreEqual(10000, database.GetStatistic("Category", "Tex"));
-        }
-
-        [Test]
-        public void Indexing()
-        {
-            database.Indexing("Name");
-            database.Indexing("Year");
+            Assert.AreEqual(10, _database.GetStatistic("{Мэтью Мак-Дональд, 1991}"));
         }
 
         private void InitializeDb()
@@ -101,17 +91,18 @@ namespace DataBase.Test
 
             var time = DateTime.Now;
 
-            for (var index = 0; index < numberOfRecords; ++index)
+            for (var index = 0; index < NumberOfRecords; ++index)
             {
-                database.InsertBook(
-                    new BookInformation
+                _database.SaveBookMeta(
+                    new Book
                         {
-                            Name = nameBook[random.Next(0, 14)],
-                            Category = new List<string>(new[] { "Tex", "ABC" }),
-                            YearOfPublication = random.Next(1900, 2015),
-                            Authors = new List<string>
+                            Name = nameBook[random.Next(0, nameBook.Count() - 1)],
+                            Md5Hash = index.ToString(),
+                            Path = null,
+                            SecondaryFields = new Dictionary<string, string>
                                 {
-                                    authors[random.Next(0, 19)]
+                                    {"Year", random.Next(1950, 2010).ToString()},
+                                    {"Author", authors[random.Next(0, authors.Count() - 1)]}
                                 }
                         }
                     );

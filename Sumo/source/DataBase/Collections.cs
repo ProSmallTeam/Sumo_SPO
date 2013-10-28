@@ -9,6 +9,12 @@ namespace DataBase
         // Коллекция, в которой хранится информация о книгах.
         public static MongoCollection<BsonDocument> Books;
 
+        // Коллекция, в которой хранится всесь список аттрибутов.
+        public static MongoCollection<BsonDocument> Attributes;
+
+        public static MongoCollection<BsonDocument> Users;
+
+        /*
         // Коллекция для хранения настроек
         public static MongoCollection<BsonDocument> Settings;
  
@@ -21,8 +27,9 @@ namespace DataBase
         // Коллекция, в которой хранится статистика по годам.
         public static MongoCollection<BsonDocument> Years;
 
-        public static MongoCollection<BsonDocument> Users;
+        
 
         public static Dictionary<string, MongoCollection<BsonDocument>> TypeOfCollection = new Dictionary<string, MongoCollection<BsonDocument>>();
+         */
     }
 }

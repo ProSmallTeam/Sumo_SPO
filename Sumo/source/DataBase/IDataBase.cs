@@ -6,8 +6,15 @@ namespace DataBase
 {
     public interface IDataBase
     {
-        void InsertBook(BookInformation book);
+        //просто добавить информацию о книге в глобальное хранилище
+        void SaveBookMeta(Book book);
 
-        int GetStatistic(string typeOfStatistic, string inputValue);
+        bool IsHaveBookMeta(string md5Hash);
+
+        int GetStatistic(string query); // формат строки запроса {name1, name2, ..., nameN}
+
+        IList<Book> GetBooksByAttrId(List<int> attrId, int limit, int offset);
+
+        void SaveAttribute(string name, int parrentId, int rootId);
     }
 }

@@ -26,17 +26,9 @@ namespace DataBase
         private void SetCollections()
         {
             Collections.Books = Database.GetCollection<BsonDocument>("Books");
-            Collections.Settings = Database.GetCollection<BsonDocument>("Settings");
 
-            Collections.Category = Database.GetCollection<BsonDocument>("Category");
-            Collections.TypeOfCollection.Add("Category", Collections.Category);
+            Collections.Attributes = Database.GetCollection<BsonDocument>("Attributes");
 
-            Collections.Authors = Database.GetCollection<BsonDocument>("Authors");
-            Collections.TypeOfCollection.Add("Authors", Collections.Authors);
-
-            Collections.Years = Database.GetCollection<BsonDocument>("Years");
-            Collections.TypeOfCollection.Add("Years", Collections.Years);
-            
         }
 
         public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
@@ -44,84 +36,6 @@ namespace DataBase
             return collection.FindAs<BsonDocument>(query).ToList();
         }
 
-        private static void Insert(BsonDocument document, MongoCollection collection)
-        {
-            collection.Insert(document);
-        }
-
-        public void InsertBook(BookInformation book)
-        {
-            Insert(book.ToBsonDocument(), Collections.Books);
-            UpdateStatistic(book);
-        }
-
-
-        private static void UpdateStatistic(BookInformation bookInformation)
-        {
-            Update(Collections.Years, bookInformation.YearOfPublication);
-            
-            foreach (var category in bookInformation.Category)
-            {
-                Update(Collections.Category, category);
-            }
-
-            foreach (var author in bookInformation.Authors)
-            {
-                Update(Collections.Authors, author);
-            }
-            
-        }
-
-        private static void Update(MongoCollection<BsonDocument> collection, BsonValue updateValue)
-        {
-            var query = new QueryDocument(new BsonDocument { { "_id", updateValue } });
-
-            var result = collection.Find(new QueryDocument(query));
-
-            if (!result.Any())
-                collection.Insert(new BsonDocument
-                    {
-                        {"_id", updateValue},
-                        {"Statistic", 1}
-                    });
-            else
-            {
-                var update = MongoDB.Driver.Builders.Update.Inc("Statistic", 1);
-                collection.Update(query, update);
-            }
-        }
-
-        public void InsertSetting(BsonDocument setting)
-        {
-            Insert(setting, Collections.Settings);
-        }
-
-        public int GetStatistic(string typeOfStatistic, string inputValue)
-        {
-
-            var collection = Collections.TypeOfCollection[typeOfStatistic];
-
-            if (typeOfStatistic == "Years")
-                return GetStatistic(collection, int.Parse(inputValue)); ;
-
-            return GetStatistic(collection, inputValue);
-        }
-
-        private static int GetStatistic(MongoCollection<BsonDocument> collection, BsonValue value)
-        {
-            var query = new QueryDocument(new BsonDocument{{"_id", value}});
-
-            var find = collection.FindOne(query);
-
-            var subStringIndex = "Statistic".Length + 1;
-
-            var statisticString = find.GetElement("Statistic").ToString();
-
-            var result = int.Parse(statisticString.Substring(subStringIndex));
-
-            return result;
-        }
-        
         public void Indexing(string name)
         {
             Collections.Books.EnsureIndex(new[] { name });
@@ -131,5 +45,99 @@ namespace DataBase
         {
             Database.Drop();
         }
+
+        public void SaveBookMeta(Book book)
+        {
+            
+
+            var attributes = new List<int>();
+
+            foreach (var field in book.SecondaryFields)
+            {
+                var query = new QueryDocument(new BsonDocument {{"Name", field.Value}});
+                var attribute = Collections.Attributes.FindOneAs<BsonDocument>(query);
+
+                if (attribute == null)
+                    throw new NoAttrException();
+
+                attributes.Add(int.Parse(attribute["_id"].ToString()));
+            }
+
+            var document = new BsonDocument
+                {
+                    {"_id", book.Md5Hash}, 
+                    {"Name", book.Name}, 
+                    {"Path", book.Path}, //место подключения поддержки различных пользователей
+                    {"Attributes", new BsonArray(attributes)}
+                };
+
+            Collections.Books.Insert(document);
+        }
+
+        public bool IsHaveBookMeta(string md5Hash)
+        {
+            return Collections.Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
+        }
+
+        public int GetStatistic(string query)
+        {
+            var stringQuery = query.Split(new[] { ", ", "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var attrId = (from nameAttr in stringQuery select new QueryDocument(new BsonDocument {{"Name", nameAttr}}) into queryDocument select Collections.Attributes.FindOneAs<BsonDocument>(queryDocument) into attr select int.Parse(attr["_id"].ToString())).ToList();
+
+            var queries = new QueryDocument(true);
+
+            foreach (var id in attrId)
+            {
+                queries.Add("Attributes", id).AsParallel();
+            }
+
+            return (int) Collections.Books.FindAs<BsonDocument>(queries).Count();
+        }
+
+        public IList<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
+        {
+            var query = new QueryDocument(true);
+            
+            foreach (var id in attrId)
+            {
+                query.Add("Attributes", id).AsParallel();
+            }
+
+            return ConvertToBook(Collections.Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+        }
+
+        public void SaveAttribute(string name, int parrentId, int rootId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private static Dictionary<string, string> GetSecondaryFields(BsonDocument bsonBook)
+        {
+            return new Dictionary<string, string>();
+        }
+
+        private static IList<Book> ConvertToBook(IEnumerable<BsonDocument> list)
+        {
+            IList<Book> listBook = new List<Book>();
+
+            foreach (var bsonBook in list)
+            {
+                listBook.Add(new Book
+                                   {
+                                       Name = bsonBook["Name"].ToString(),
+                                       Md5Hash = bsonBook["_id"].ToString(),
+                                       Path = bsonBook.Contains("Path") ? bsonBook["Path"].ToString() : null,
+                                       SecondaryFields = GetSecondaryFields(bsonBook)
+                                   }
+                            );
+            }
+
+            return listBook;
+        }
+
     }
 }
+
+
