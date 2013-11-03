@@ -2,6 +2,6 @@
 {
     public interface IBookMetaObtainer
     {
-        Book GetMeta(string bookName);
+        BookMeta GetMeta(string bookName);
     }
 }
