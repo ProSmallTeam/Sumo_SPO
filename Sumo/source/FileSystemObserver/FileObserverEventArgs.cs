@@ -5,11 +5,11 @@ namespace FileSystemObserver
 {
     public class FileObserverEventArgs : EventArgs
     {
-        public readonly List<string> ChangedFolders;
+        public readonly List<string> ChangedFilesFullPath;
 
-        public FileObserverEventArgs(List<string> changedFolders)
+        public FileObserverEventArgs(List<string> changedFilesFullPath)
         {
-            ChangedFolders = changedFolders;
+            this.ChangedFilesFullPath = changedFilesFullPath;
         }
     }
 }

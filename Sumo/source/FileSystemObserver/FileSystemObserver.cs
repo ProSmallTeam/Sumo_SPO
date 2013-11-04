@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace FileSystemObserver
@@ -7,78 +6,70 @@ namespace FileSystemObserver
     public class FileSystemObserver
     {
         private readonly List<string> _folders;
-        private readonly List<FileSystemWatcher> _watchers; 
+        private readonly List<FileSystemWatcher> _watchers;
 
         public FileSystemObserver(List<string> folders)
         {
             _folders = folders;
             _watchers = new List<FileSystemWatcher>();
-        }
 
-        public void Run()
-        {
             if (_folders.Count == 0)
             {
                 return;
             }
 
-            foreach (var folderPath in _folders)
+            foreach (string folderPath in _folders)
             {
                 _watchers.Add(CreateWatcher(folderPath));
             }
-
-            foreach (var watcher in _watchers)
-            {
-                StartWatcher(watcher);
-            }
         }
 
-        private void StartWatcher(FileSystemWatcher watcher)
+        public void Run()
         {
-            // Begin watching.
-            watcher.EnableRaisingEvents = true;
+            foreach (FileSystemWatcher watcher in _watchers)
+            {
+                watcher.EnableRaisingEvents = true;
+            }
         }
 
         private FileSystemWatcher CreateWatcher(string path)
         {
-            var watcher = new FileSystemWatcher();
-            watcher.Path = path;
+            var watcher = new FileSystemWatcher
+                {
+                    Path = path,
+                    NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName
+                };
 
-            /* Watch for changes in LastAccess and LastWrite times, and
-           the renaming of files or directories. */
-            watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
-
-            // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
-            watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            watcher.Changed += OnChanged;
+            watcher.Created += OnChanged;
+            watcher.Deleted += OnChanged;
+            watcher.Renamed += OnRenamed;
 
 
             return watcher;
-
         }
 
-        // Define the event handlers.
-        private static void OnChanged(object source, FileSystemEventArgs e)
+        private void OnChanged(object source, FileSystemEventArgs e)
         {
+            var a = new FileObserverEventArgs(new List<string> {e.FullPath});
 
-            throw new NotImplementedException();
+            if (FoldersChanged != null)
+            {
+                FoldersChanged(this, a);
+            }
         }
 
-        private static void OnRenamed(object source, RenamedEventArgs e)
+        private void OnRenamed(object source, RenamedEventArgs e)
         {
+            var a = new FileObserverEventArgs(new List<string> {e.FullPath, e.OldFullPath});
 
-            throw new NotImplementedException();
+            if (FoldersChanged != null)
+            {
+                FoldersChanged(this, a);
+            }
         }
 
-        event FileObserverEventHandler FoldersChanged;
-
-        protected virtual void OnFoldersChanged(FileObserverEventArgs e)
-        {
-            FileObserverEventHandler handler = FoldersChanged;
-            if (handler != null) handler(this, e);
-        }
+        private event FileObserverEventHandler FoldersChanged;
     }
 }
