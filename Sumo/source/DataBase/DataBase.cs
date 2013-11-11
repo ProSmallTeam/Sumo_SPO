@@ -6,17 +6,17 @@ namespace DataBase
 {
     using MongoDB.Bson;
     using MongoDB.Driver;
-    using MongoDB.Driver.Builders;
 
     public class DataBase : IDataBase
     {
         public MongoDatabase Database;
 
-        private const string NameOfDataBase = "library";
+        private string NameOfDataBase;
 
-        public DataBase(string connectiongString)
+        public DataBase(string connectiongString, string nameOfDataBase = "library")
         {
             var server = MongoServer.Create(connectiongString);
+            NameOfDataBase = nameOfDataBase;
 
             Database = server.GetDatabase(NameOfDataBase);
 
@@ -52,16 +52,14 @@ namespace DataBase
 
             var attributes = new List<int>();
 
-            foreach (var field in book.SecondaryFields)
-            {
-                var query = new QueryDocument(new BsonDocument {{"Name", field.Value}});
-                var attribute = Collections.Attributes.FindOneAs<BsonDocument>(query);
+            if (book.SecondaryFields != null)
+                foreach (var attribute in book.SecondaryFields.Select(field => new QueryDocument(new BsonDocument {{"Name", field.Value}})).Select(query => Collections.Attributes.FindOneAs<BsonDocument>(query)))
+                {
+                    if (attribute == null)
+                        throw new NoAttrException();
 
-                if (attribute == null)
-                    throw new NoAttrException();
-
-                attributes.Add(int.Parse(attribute["_id"].ToString()));
-            }
+                    attributes.Add(int.Parse(attribute["_id"].ToString()));
+                }
 
             var document = new BsonDocument
                 {
@@ -115,21 +113,44 @@ namespace DataBase
 
         private static Dictionary<string, string> GetSecondaryFields(BsonDocument bsonBook)
         {
-            return new Dictionary<string, string>();
+            var listOfAttributes = bsonBook.GetValue("Attributes");
+            var listOfSecondaryFields = new Dictionary<string, string>();
+         
+            foreach(var attribute in listOfAttributes.AsBsonArray)
+            {
+                var query = new QueryDocument("_id", attribute);
+
+                var document = Collections.Attributes.FindOneAs<BsonDocument>(query);
+                
+                var id = document["RootRef"];
+                query = new QueryDocument("_id", id);
+
+                var name = Collections.Attributes.FindOneAs<BsonDocument>(query)["Name"].ToString();
+
+                var value = document["Name"].ToString();
+
+                listOfSecondaryFields.Add(name, value);
+            }
+
+            return listOfSecondaryFields;
         }
+
 
         private static IList<Book> ConvertToBook(IEnumerable<BsonDocument> list)
         {
             IList<Book> listBook = new List<Book>();
+            
 
             foreach (var bsonBook in list)
             {
+                var secondaryFields = GetSecondaryFields(bsonBook);
+
                 listBook.Add(new Book
                                    {
                                        Name = bsonBook["Name"].ToString(),
                                        Md5Hash = bsonBook["_id"].ToString(),
                                        Path = bsonBook.Contains("Path") ? bsonBook["Path"].ToString() : null,
-                                       SecondaryFields = GetSecondaryFields(bsonBook)
+                                       SecondaryFields = secondaryFields
                                    }
                             );
             }
