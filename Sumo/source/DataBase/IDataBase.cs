@@ -7,7 +7,7 @@ namespace DataBase
     public interface IDataBase
     {
         //просто добавить информацию о книге в глобальное хранилище
-        void SaveBookMeta(Book book);
+        void SaveBookMeta(Book book, List<Book> alternativeBook );
 
         bool IsHaveBookMeta(string md5Hash);
 

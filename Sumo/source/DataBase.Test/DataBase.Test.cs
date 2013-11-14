@@ -33,8 +33,9 @@ namespace DataBase.Test
             _database.Drop();
 
             InitializeAttr(_database);
-
             InitializeDb(_database, NumberOfRecords);
+            _database.Indexing();
+
             Assert.AreEqual(NumberOfRecords, _database.Database.GetCollection("Books").Count());
         }
 
@@ -48,7 +49,9 @@ namespace DataBase.Test
         public void AssertOfGettingBook()
         {
             var time = DateTime.Now;
-            var book = _database.GetBooksByAttrId(new List<int> {5});
+            var book = _database.GetBooksByAttrId(new List<int> {5, 49});
+            var name = book[1].Name;
+            Trace.Write(name + '\n');
             Trace.Write(DateTime.Now - time);
         }
 
@@ -144,10 +147,30 @@ namespace DataBase.Test
     
             var random = new Random();
 
+
+
             var time = DateTime.Now;
 
             for (var index = 0; index < numberOfRecords; ++index)
             {
+                var listOfAltBook = new List<Book>();
+                for (var indexes = 0; indexes < 5; ++indexes)
+                {
+                    listOfAltBook.Add(
+                        new Book
+                        {
+                            Name = nameBook[random.Next(0, nameBook.Count() - 1)],
+                            Md5Hash = indexes.ToString(),
+                            Path = null,
+                            SecondaryFields = new Dictionary<string, string>
+                                        {
+                                            {"Year", random.Next(1950, 2010).ToString()},
+                                            {"Author", authors[random.Next(0, authors.Count() - 1)]}
+                                        }
+                        }
+                            );
+                }
+
                 dataBase.SaveBookMeta(
                     new Book
                         {
@@ -159,10 +182,11 @@ namespace DataBase.Test
                                     {"Year", random.Next(1950, 2010).ToString()},
                                     {"Author", authors[random.Next(0, authors.Count() - 1)]}
                                 }
-                        }
+                        },
+                        listOfAltBook
                     );
             }
-       
+
             Trace.WriteLine(DateTime.Now - time);
         }
     }
