@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader", "source\Sumo_MetaInformationLoading\MetaInformationLoader.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader.Tests", "source\Sumo_MetaInformationLoading.Tests\MetaInformationLoader.Tests.csproj", "{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}"
@@ -12,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.API", "source\Sumo.API\Sumo.API.csproj", "{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemObserver", "source\FileSystemObserver\FileSystemObserver.csproj", "{50EB3005-4E62-4F1F-BFD3-942CD065C232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessWorkflowActivities", "source\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj", "{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{50EB3005-4E62-4F1F-BFD3-942CD065C232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50EB3005-4E62-4F1F-BFD3-942CD065C232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50EB3005-4E62-4F1F-BFD3-942CD065C232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
