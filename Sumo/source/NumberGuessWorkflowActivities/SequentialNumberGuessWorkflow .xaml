@@ -11,7 +11,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="MaxNumber" Type="InArgument(x:Int32)" />
-    <x:Property Name="Turns" Type="InArgument(x:Int32)" />
+    <x:Property Name="Turns" Type="InOutArgument(x:Int32)" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
   <sap2010:WorkflowViewState.IdRef>NumberGuessWorkflowActivities.SequentialNumberGuessWorkflow_1</sap2010:WorkflowViewState.IdRef>
@@ -75,7 +75,7 @@
             </InArgument>
           </local:Prompt.Text>
         </local:Prompt>
-        <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign DisplayName="Assign" sap2010:WorkflowViewState.IdRef="Assign_2">
           <Assign.To>
             <OutArgument x:TypeArguments="x:Int32">
               <mca:CSharpReference x:TypeArguments="x:Int32">Turns</mca:CSharpReference>
@@ -111,7 +111,7 @@
         </If>
       </Sequence>
     </DoWhile>
-    <sads:DebugSymbol.Symbol>d3hDOlxVc2Vyc1zQldCy0LPQtdC90LjQuVxEb2N1bWVudHNcR2l0SHViXFN1bW9fU1BPXFN1bW9cTnVtYmVyR3Vlc3NXb3JrZmxvd0FjdGl2aXRpZXNcU2VxdWVudGlhbE51bWJlckd1ZXNzV29ya2Zsb3cgLnhhbWwWLANzDgIBATEFPA4CATA9BXEPAgECOQs5cgIBNjQLNFYCATE/CT9XAgErQQdwEgIBA0IJTRgCAR9OCVkSAgEUWglvDgIBBEIkQjACASpKD0p/AgElRQ9FWQIBIFYPVlQCARpRD1FZAgEVXQ9dXQIBBWENbRICAQpkE2RjAgELaBFoagIBEmsRa2sCARBoT2hnAgETa09raAIBEQ==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d39DOlxVc2Vyc1zQldCy0LPQtdC90LjQuVxEb2N1bWVudHNcR2l0SHViXFN1bW9fU1BPXFN1bW9cc291cmNlXE51bWJlckd1ZXNzV29ya2Zsb3dBY3Rpdml0aWVzXFNlcXVlbnRpYWxOdW1iZXJHdWVzc1dvcmtmbG93IC54YW1sFiwDcw4CAQExBTwOAgEwPQVxDwIBAjkLOXICATY0CzRWAgExPwk/VwIBK0EHcBICAQNCCU0YAgEfTglZEgIBFFoJbw4CAQRCJEIwAgEqSg9KfwIBJUUPRVkCASBWD1ZUAgEaUQ9RWQIBFV0PXV0CAQVhDW0SAgEKZBNkYwIBC2gRaGoCARJrEWtrAgEQaE9oZwIBE2tPa2gCARE=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -137,7 +137,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="NumberGuessWorkflowActivities.SequentialNumberGuessWorkflow_1" sap:VirtualizedContainerService.HintSize="699,1120" />
+      <sap2010:ViewStateData Id="NumberGuessWorkflowActivities.SequentialNumberGuessWorkflow_1" sap:VirtualizedContainerService.HintSize="699,1120">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+            <x:Boolean x:Key="ShouldCollapseAll">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
