@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\source\DataBase\DataBase.csproj">
+    <ProjectReference Include="..\DataBase\DataBase.csproj">
       <Project>{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}</Project>
       <Name>DataBase</Name>
     </ProjectReference>

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader", "source\Sumo_MetaInformationLoading\MetaInformationLoader.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.API", "source\Sumo.API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemObserver", "source\FileSystemObserver\FileSystemObserver.csproj", "{50EB3005-4E62-4F1F-BFD3-942CD065C232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParsing", "XmlParsing\XmlParsing.csproj", "{9919BBE0-6350-4446-8282-0492AD0F72DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParsing", "source\XmlParsing\XmlParsing.csproj", "{9919BBE0-6350-4446-8282-0492AD0F72DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParsing.Tests", "XmlParsing.Tests\XmlParsing.Tests.csproj", "{35EC4439-3D63-4547-9F60-B0AB476C34C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParsing.Tests", "source\XmlParsing.Tests\XmlParsing.Tests.csproj", "{35EC4439-3D63-4547-9F60-B0AB476C34C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
