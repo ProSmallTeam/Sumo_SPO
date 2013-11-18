@@ -54,7 +54,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\source\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj">
+    <ProjectReference Include="..\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj">
       <Project>{4a821f91-0df8-456d-962a-3dc8f08ddbb7}</Project>
       <Name>NumberGuessWorkflowActivities</Name>
     </ProjectReference>
