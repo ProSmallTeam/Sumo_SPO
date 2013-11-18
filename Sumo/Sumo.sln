@@ -15,9 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.API", "source\Sumo.API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemObserver", "source\FileSystemObserver\FileSystemObserver.csproj", "{50EB3005-4E62-4F1F-BFD3-942CD065C232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessWorkflowActivities", "source\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj", "{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessWorkflowActivities", "source\WorkFlow\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj", "{4A821F91-0DF8-456D-962A-3DC8F08DDBB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessWorkflowHost", "source\NumberGuessWorkflowHost\NumberGuessWorkflowHost.csproj", "{D121853D-B09A-4C35-BE0C-218D14CC52B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessWorkflowHost", "source\WorkFlow\NumberGuessWorkflowHost\NumberGuessWorkflowHost.csproj", "{D121853D-B09A-4C35-BE0C-218D14CC52B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflow", "Workflow", "{4886653A-D73D-49A3-938D-1494D8D72EDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaObtainer", "source\WorkFlow\MetaObtainer\MetaObtainer.csproj", "{43575EA4-81F1-4B17-ADAA-7CC27E460517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimitiveMetaObtainingSequenceActivity", "source\WorkFlow\PrimitiveMetaObtainingSequenceActivity\PrimitiveMetaObtainingSequenceActivity.csproj", "{CED67D90-9B6B-4810-A070-B295E50EBE7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,8 +115,34 @@ Global
 		{D121853D-B09A-4C35-BE0C-218D14CC52B1}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D121853D-B09A-4C35-BE0C-218D14CC52B1}.Release|x86.ActiveCfg = Release|x86
 		{D121853D-B09A-4C35-BE0C-218D14CC52B1}.Release|x86.Build.0 = Release|x86
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517}.Release|x86.ActiveCfg = Release|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D121853D-B09A-4C35-BE0C-218D14CC52B1} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
+		{4A821F91-0DF8-456D-962A-3DC8F08DDBB7} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
+		{43575EA4-81F1-4B17-ADAA-7CC27E460517} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
+		{CED67D90-9B6B-4810-A070-B295E50EBE7A} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
 	EndGlobalSection
 EndGlobal

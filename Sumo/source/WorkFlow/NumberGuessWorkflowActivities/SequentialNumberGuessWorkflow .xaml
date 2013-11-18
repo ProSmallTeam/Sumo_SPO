@@ -64,6 +64,11 @@
       </DoWhile.Condition>
       <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
         <local:Prompt BookmarkName="EnterGuess" sap2010:WorkflowViewState.IdRef="Prompt_1">
+          <local:Prompt.ProText>
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">Guess.ToString()</mca:CSharpValue>
+            </InArgument>
+          </local:Prompt.ProText>
           <local:Prompt.Result>
             <OutArgument x:TypeArguments="x:Int32">
               <mca:CSharpReference x:TypeArguments="x:Int32">Guess</mca:CSharpReference>
@@ -104,40 +109,70 @@
                 <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Your guess is too low." />
               </If.Then>
               <If.Else>
-                <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="Your guess is too high." />
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <If sap2010:WorkflowViewState.IdRef="If_3">
+                    <If.Condition>
+                      <InArgument x:TypeArguments="x:Boolean">
+                        <mca:CSharpValue x:TypeArguments="x:Boolean">Guess &gt; MaxNumber</mca:CSharpValue>
+                      </InArgument>
+                    </If.Condition>
+                    <If.Then>
+                      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Your guess is much then MaxNumber" />
+                    </If.Then>
+                    <If.Else>
+                      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="Your guess is too high." />
+                    </If.Else>
+                  </If>
+                </Sequence>
               </If.Else>
             </If>
           </If.Then>
         </If>
       </Sequence>
     </DoWhile>
-    <sads:DebugSymbol.Symbol>d39DOlxVc2Vyc1zQldCy0LPQtdC90LjQuVxEb2N1bWVudHNcR2l0SHViXFN1bW9fU1BPXFN1bW9cc291cmNlXE51bWJlckd1ZXNzV29ya2Zsb3dBY3Rpdml0aWVzXFNlcXVlbnRpYWxOdW1iZXJHdWVzc1dvcmtmbG93IC54YW1sFiwDcw4CAQExBTwOAgEwPQVxDwIBAjkLOXICATY0CzRWAgExPwk/VwIBK0EHcBICAQNCCU0YAgEfTglZEgIBFFoJbw4CAQRCJEIwAgEqSg9KfwIBJUUPRVkCASBWD1ZUAgEaUQ9RWQIBFV0PXV0CAQVhDW0SAgEKZBNkYwIBC2gRaGoCARJrEWtrAgEQaE9oZwIBE2tPa2gCARE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d39DOlxVc2Vyc1zQldCy0LPQtdC90LjQuVxEb2N1bWVudHNcR2l0SHViXFN1bW9fU1BPXFN1bW9cc291cmNlXE51bWJlckd1ZXNzV29ya2Zsb3dBY3Rpdml0aWVzXFNlcXVlbnRpYWxOdW1iZXJHdWVzc1dvcmtmbG93IC54YW1sHCwDhgEOAgEBMQU8DgIBPj0FhAEPAgECOQs5cgIBRDQLNFYCAT8/CT9XAgE5QQeDARICAQNCCVIYAgEoUwleEgIBHV8JggEOAgEEQiRCMAIBOE8PT38CATNFD0VcAgEuSg9KWQIBKVsPW1QCASNWD1ZZAgEeYg9iXQIBBWYNgAESAgEKaRNpYwIBC20RbWoCARtwEX4cAgEQbU9tZwIBHHETfRgCARF0GXRsAgESeBd4ewIBGXsXe3ECARd4VXh4AgEae1V7bgIBGA==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="637,62" />
-      <sap2010:ViewStateData Id="Prompt_1" sap:VirtualizedContainerService.HintSize="589,22" />
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="589,62" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="895,62" />
+      <sap2010:ViewStateData Id="Prompt_1" sap:VirtualizedContainerService.HintSize="847,22" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="847,62" />
       <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="211,62" />
+      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="211,61" />
       <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="211,62" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,212" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="589,362" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="611,650">
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,212" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,336">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="637,814" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="659,1040">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="722,486" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="847,636">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="869,924">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="NumberGuessWorkflowActivities.SequentialNumberGuessWorkflow_1" sap:VirtualizedContainerService.HintSize="699,1120">
+      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="895,1088" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="917,1314">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="NumberGuessWorkflowActivities.SequentialNumberGuessWorkflow_1" sap:VirtualizedContainerService.HintSize="957,1394">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
