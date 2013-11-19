@@ -6,6 +6,7 @@ namespace DataBase
 {
     using MongoDB.Bson;
     using MongoDB.Driver;
+    using MongoDB.Driver.Builders;
 
     public class DataBase : IDataBase
     {
@@ -15,7 +16,9 @@ namespace DataBase
 
         public DataBase(string connectiongString, string nameOfDataBase = "library")
         {
-            var server = MongoServer.Create(connectiongString);
+            var client = new MongoClient(connectiongString);
+            var server = client.GetServer();
+
             _nameOfDataBase = nameOfDataBase;
            
             Database = server.GetDatabase(_nameOfDataBase);
@@ -40,8 +43,9 @@ namespace DataBase
 
         public void Indexing()
         {
-            Collections.Books.EnsureIndex(new[] { "Attributes" });
-            Collections.Attributes.EnsureIndex(new[] { "_id" });
+            Collections.Books.EnsureIndex(new IndexKeysBuilder().Ascending( "Attributes" ));
+            Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+            Collections.AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
         }
 
         public void Drop()
@@ -49,22 +53,63 @@ namespace DataBase
             Database.Drop();
         }
 
-        public void SaveBookMeta(Book book, List<Book> alternativeBook = null)
+        public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
+            try
+            {
+                var idOfAltMeta = new List<int>();
+
+                if (alternativeBook != null)
+                    foreach (var altBookMeta in alternativeBook.Select(altBook => CreateBook(altBook, Collections.AlternativeMeta)))
+                    {
+                        Collections.AlternativeMeta.Insert(altBookMeta);
+
+                        idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
+                    }
+
+                var document = CreateBook(book, Collections.Books, idOfAltMeta);
+
+                Collections.Books.Insert(document);
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                
+                return -1;
+            }
             
-            var idOfAltMeta = new List<int>();
+        }
 
-            if (alternativeBook != null)
-                foreach (var altBookMeta in alternativeBook.Select(altBook => CreateBook(altBook, Collections.AlternativeMeta)))
+        public int DeleteBookMeta(string md5Hash)
+        {
+            try
+            {
+                var query = new QueryDocument(new BsonDocument {{"Md5Hash", md5Hash}});
+
+                var book = Collections.Books.FindOneAs<BsonDocument>(query);
+
+                Collections.Books.Remove(query);
+
+                var stringOfid = book["AlternativeMeta"].ToString();
+                var idOfAltMeta =stringOfid
+                                           .Substring(1, stringOfid.Length - 2)
+                                           .Split(new[] {','}).ToList();
+
+                foreach (var id in idOfAltMeta)
                 {
-                    Collections.AlternativeMeta.Insert(altBookMeta);
+                    query = new QueryDocument(new BsonDocument{{"_id", int.Parse(id)}});
 
-                    idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
+                    Collections.AlternativeMeta.Remove(query);
+
                 }
 
-            var document = CreateBook(book, Collections.Books, idOfAltMeta);
-
-            Collections.Books.Insert(document);
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
         }
 
         private static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, List<int> idOfAltMeta = null)
@@ -137,16 +182,25 @@ namespace DataBase
             return ConvertToBook(Collections.Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
         }
 
-        public void SaveAttribute(string name, int parrentId, int rootId)
+        public int SaveAttribute(string name, int parrentId, int rootId)
         {
-            Collections.Attributes.Insert(new BsonDocument
-                {
-                    {"_id", Collections.Attributes.Count()},
-                    {"Name", name},
-                    {"RootRef", rootId},
-                    {"FatherRef", parrentId}
-                }
-                );
+            try
+            {
+                Collections.Attributes.Insert(new BsonDocument
+                    {
+                        {"_id", Collections.Attributes.Count()},
+                        {"Name", name},
+                        {"RootRef", rootId},
+                        {"FatherRef", parrentId}
+                    }
+                    );
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
         }
 
         private static Dictionary<string, string> GetSecondaryFields(BsonDocument bsonBook)
