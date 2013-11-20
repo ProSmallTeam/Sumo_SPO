@@ -7,8 +7,8 @@
     <ProjectGuid>{7161608D-7526-4A0B-A575-5ADEFBF577E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetaLoader</RootNamespace>
-    <AssemblyName>MetaLoader</AssemblyName>
+    <RootNamespace>MetaInformationLoader</RootNamespace>
+    <AssemblyName>MetaInformationLoader</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,6 +51,9 @@
     <Compile Include="PageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ozon\OzonUserComent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

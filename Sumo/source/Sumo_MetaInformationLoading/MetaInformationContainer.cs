@@ -1,8 +1,8 @@
-﻿namespace MetaLoader
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-    using MetaLoader.Ozon;
+namespace MetaInformationLoader
+{
+    using MetaInformationLoader.Ozon;
 
     /// <summary>
     /// Контейнер хранения метаинформации.
@@ -32,7 +32,7 @@
         /// <summary>
         /// Получает формат файла книги.
         /// </summary>
-        public string FileFormat { get; set; }
+        public string FileFormat { get; private set; }
 
         /// <summary>
         /// Получает автора книги.

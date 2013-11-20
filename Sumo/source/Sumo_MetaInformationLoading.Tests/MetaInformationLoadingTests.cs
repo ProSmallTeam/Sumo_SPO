@@ -1,11 +1,11 @@
-﻿namespace MetaLoader.Tests
+﻿namespace MetaInformationLoader.Tests
 {
     using System;
     using System.Collections.Generic;
 
-    using NUnit.Framework;
+    using MetaInformationLoader.Ozon;
 
-    using MetaLoader.Ozon;
+    using NUnit.Framework;
 
     [TestFixture]
     public class MetaInformationLoadingTests

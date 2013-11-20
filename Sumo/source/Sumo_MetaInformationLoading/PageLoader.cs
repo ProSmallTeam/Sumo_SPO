@@ -1,4 +1,4 @@
-﻿namespace MetaLoader
+﻿namespace MetaInformationLoader
 {
     using System.IO;
     using System.Net;
@@ -10,13 +10,13 @@
     internal static class PageLoader
     {
         /// <summary>
-        /// Метод загрузки текста страницы по конкретному url.
+        /// Метод загрузки текста страници по конкретному url.
         /// </summary>
         /// <param name="url">
-        /// Url страницы.
+        /// Url страници.
         /// </param>
         /// <returns>
-        /// Текст загруженной страницы.
+        /// Текст загруженной страници.
         /// </returns>
         public static Page LoadFromUrl(string url)
         {
@@ -31,16 +31,14 @@
         }
 
         /// <summary>
-        /// Метод считывания текста страницы из потока.
+        /// Метод считывания текста страници из потока.
         /// </summary>
         /// <param name="stream">
-        /// Поток для считывания.
+        ///     Поток для считывания.
         /// </param>
-        /// <param name="encoding">
-        /// Кодировка страницы.
-        /// </param>
+        /// <param name="encoding"></param>
         /// <returns>
-        /// Текст загруженной страницы.
+        /// Текст загруженной страници.
         /// </returns>
         private static string ReadTextFromStream(Stream stream, Encoding encoding)
         {

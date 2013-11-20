@@ -1,10 +1,10 @@
-﻿namespace MetaLoader.Ozon
+﻿using HtmlAgilityPack;
+
+namespace MetaInformationLoader.Ozon
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using HtmlAgilityPack;
 
     /// <summary>
     /// Класс, реализующий хранение цепочки коментариев.
@@ -15,6 +15,22 @@
         /// Список категорий по порядку их следования.
         /// </summary>
         public readonly List<string> Chain  = new List<string>();
+
+        public static OzonChainCategories Parse(string textOfCategoriesBlock)
+        {
+            HtmlDocument document = new HtmlDocument();
+            document.LoadHtml(textOfCategoriesBlock);
+
+            var categoryList = document.DocumentNode.SelectNodes("//li");
+
+            OzonChainCategories ozonChainCategories = new OzonChainCategories();
+            foreach (var category in categoryList)
+            {
+                ozonChainCategories.Add(category.InnerText);
+            }
+
+            return ozonChainCategories;
+        }
 
         /// <summary>
         /// Получает последнюю категорию в списке.
@@ -36,31 +52,6 @@
             {
                 return (this.Chain.Count > 0) ? this.Chain[0] : null;
             }
-        }
-
-        /// <summary>
-        /// Парсинг блока коментариев.
-        /// </summary>
-        /// <param name="textOfCategoriesBlock">
-        /// Содержимое блока строки категорий.
-        /// </param>
-        /// <returns>
-        /// Цепочка категорий.
-        /// </returns>
-        public static OzonChainCategories Parse(string textOfCategoriesBlock)
-        {
-            var document = new HtmlDocument();
-            document.LoadHtml(textOfCategoriesBlock);
-
-            var categoryList = document.DocumentNode.SelectNodes("//li");
-
-            var ozonChainCategories = new OzonChainCategories();
-            foreach (var category in categoryList)
-            {
-                ozonChainCategories.Add(category.InnerText);
-            }
-
-            return ozonChainCategories;
         }
 
         /// <summary>

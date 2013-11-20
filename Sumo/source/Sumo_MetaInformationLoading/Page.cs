@@ -1,4 +1,4 @@
-﻿namespace MetaLoader
+﻿namespace MetaInformationLoader
 {
     /// <summary>
     /// Класс html страницы.

@@ -1,4 +1,4 @@
-﻿namespace MetaLoader.Ozon
+﻿namespace MetaInformationLoader.Ozon
 {
     using System.Collections.Generic;
 
@@ -12,7 +12,7 @@
         /// <summary>
         /// Список коментариев, оставленых пользователями.
         /// </summary>
-        private readonly List<OzonUserComent> coments = new List<OzonUserComent>();
+        private readonly List<OzonUserComent> _coments = new List<OzonUserComent>();
 
         /// <summary>
         /// Метод для парсинга коментариев из html текста, содержащего блок со всеми коментариями.
@@ -22,14 +22,14 @@
         /// </param>
         public void Parse(string comentListHtmlText)
         {
-            var document = new HtmlDocument();
+            HtmlDocument document = new HtmlDocument();
             document.LoadHtml(comentListHtmlText);
 
             var blockOfComents = document.DocumentNode.SelectNodes("//div[@class=\"item\"]");
 
             foreach (var comentBlock in blockOfComents)
             {
-                var userComent = new OzonUserComent();
+                OzonUserComent userComent = new OzonUserComent();
                 userComent.Parse(comentBlock.InnerHtml);
 
                 this.Add(userComent);
@@ -44,7 +44,7 @@
         /// </param>
         internal void Add(OzonUserComent coment)
         {
-            this.coments.Add(coment);
+            this._coments.Add(coment);
         }
     }
 }
