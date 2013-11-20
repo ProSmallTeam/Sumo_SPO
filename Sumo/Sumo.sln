@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader", "source\Sumo_MetaInformationLoading\MetaInformationLoader.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoader", "source\Sumo_MetaInformationLoading\MetaLoader.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaInformationLoader.Tests", "source\Sumo_MetaInformationLoading.Tests\MetaInformationLoader.Tests.csproj", "{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}"
 EndProject

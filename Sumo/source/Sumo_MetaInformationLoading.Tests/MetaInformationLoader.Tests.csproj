@@ -42,9 +42,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sumo_MetaInformationLoading\MetaInformationLoader.csproj">
+    <ProjectReference Include="..\Sumo_MetaInformationLoading\MetaLoader.csproj">
       <Project>{7161608d-7526-4a0b-a575-5adefbf577e5}</Project>
-      <Name>MetaInformationLoader</Name>
+      <Name>MetaLoader</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

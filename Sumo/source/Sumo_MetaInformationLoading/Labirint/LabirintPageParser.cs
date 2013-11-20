@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sumo_MetaInformationLoading.Ozon
+namespace MetaLoader.Ozon
 {
     using System;
 
     using HtmlAgilityPack;
 
     /// <summary>
-    /// Класс для парсинга страници с книгой, загруженной с сайта Ozon.ru
+    /// Класс для парсинга страницы с книгой, загруженной с сайта Ozon.ru
     /// </summary>
     public static class LabirintPageParser
     {
         /// <summary>
-        /// Метод для парсинга страници.
+        /// Метод для парсинга страницы.
         /// </summary>
         /// <param name="isbn">
         /// ISBN книги.
@@ -23,7 +23,7 @@ namespace Sumo_MetaInformationLoading.Ozon
         /// </returns>
         public static MetaInformationContainer Parse(string isbn)
         {
-            // Загрузка страници
+            // Загрузка страницы
             Page parsedPage = PageLoader.LoadFromUrl("http://www.labirint.ru/search/" + isbn + "/");
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(parsedPage.TextOfPage);

@@ -1,4 +1,4 @@
-﻿namespace Sumo_MetaInformationLoading.Ozon
+﻿namespace MetaLoader.Ozon
 {
     using System;
 
@@ -42,7 +42,7 @@
         /// </param>
         internal void Parse(string comentHtmlText)
         {
-            HtmlDocument document = new HtmlDocument();
+            var document = new HtmlDocument();
             document.LoadHtml(comentHtmlText);
 
             this.ComentTitle = document.DocumentNode.SelectNodes("//strong[@itemprop=\"name\"]")[0].InnerText;

@@ -1,11 +1,11 @@
-﻿namespace Sumo_MetaInformationLoading.Tests
+﻿namespace MetaLoader.Tests
 {
     using System;
     using System.Collections.Generic;
 
     using NUnit.Framework;
 
-    using Sumo_MetaInformationLoading.Ozon;
+    using MetaLoader.Ozon;
 
     [TestFixture]
     public class MetaInformationLoadingTests

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Sumo_MetaInformationLoading
+﻿namespace MetaLoader
 {
-    using Sumo_MetaInformationLoading.Ozon;
+    using System.Collections.Generic;
+
+    using MetaLoader.Ozon;
 
     /// <summary>
     /// Контейнер хранения метаинформации.
@@ -32,7 +32,7 @@ namespace Sumo_MetaInformationLoading
         /// <summary>
         /// Получает формат файла книги.
         /// </summary>
-        public string FileFormat { get; private set; }
+        public string FileFormat { get; set; }
 
         /// <summary>
         /// Получает автора книги.
