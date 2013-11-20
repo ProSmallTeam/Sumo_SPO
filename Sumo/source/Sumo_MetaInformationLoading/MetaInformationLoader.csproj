@@ -7,8 +7,8 @@
     <ProjectGuid>{7161608D-7526-4A0B-A575-5ADEFBF577E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sumo_MetaInformationLoading</RootNamespace>
-    <AssemblyName>Sumo_MetaInformationLoading</AssemblyName>
+    <RootNamespace>MetaInformationLoader</RootNamespace>
+    <AssemblyName>MetaInformationLoader</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

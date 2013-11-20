@@ -86,7 +86,9 @@ namespace XmlParsing.Tests
     <Name>2</Name>
 	<Path>3</Path>
 	<SecondaryFields>
-		<Authors>4</Authors>
+		<Authors>
+            <Author>Gera</Author>
+        </Authors>
 		<PicturePath>5</PicturePath>	
 		<FileFormat>6</FileFormat>	
 		<InternalId>7</InternalId>

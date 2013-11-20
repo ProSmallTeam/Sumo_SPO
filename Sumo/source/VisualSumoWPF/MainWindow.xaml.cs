@@ -11,7 +11,6 @@ namespace VisualSumoWPF
     using DataBase;
 
     using DevExpress.Utils;
-    using DevExpress.XtraRichEdit.Import.Html;
 
     using MongoDB.Bson;
 

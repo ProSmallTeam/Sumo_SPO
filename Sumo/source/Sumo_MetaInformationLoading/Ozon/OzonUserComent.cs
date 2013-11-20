@@ -1,4 +1,4 @@
-﻿namespace Sumo_MetaInformationLoading.Ozon
+﻿namespace MetaInformationLoader.Ozon
 {
     using System;
 

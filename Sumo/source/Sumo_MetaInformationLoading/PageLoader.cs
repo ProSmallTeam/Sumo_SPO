@@ -1,4 +1,4 @@
-﻿namespace Sumo_MetaInformationLoading
+﻿namespace MetaInformationLoader
 {
     using System.IO;
     using System.Net;
@@ -12,34 +12,37 @@
         /// <summary>
         /// Метод загрузки текста страници по конкретному url.
         /// </summary>
-        /// <param name="absoluteUrl">
+        /// <param name="url">
         /// Url страници.
         /// </param>
         /// <returns>
         /// Текст загруженной страници.
         /// </returns>
-        public static Page LoadFromUrl(string absoluteUrl)
+        public static Page LoadFromUrl(string url)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(absoluteUrl);
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-             
-            Stream stream = resp.GetResponseStream();
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                var encoding = response.CharacterSet != null ? Encoding.GetEncoding(response.CharacterSet) : Encoding.UTF8;
 
-            return new Page(resp.ResponseUri.AbsoluteUri, TextOfPageReader(stream));
+                using (var stream = response.GetResponseStream())
+                    return new Page(response.ResponseUri.AbsoluteUri, ReadTextFromStream(stream, encoding));
+            }
         }
 
         /// <summary>
         /// Метод считывания текста страници из потока.
         /// </summary>
         /// <param name="stream">
-        /// Поток для считывания.
+        ///     Поток для считывания.
         /// </param>
+        /// <param name="encoding"></param>
         /// <returns>
         /// Текст загруженной страници.
         /// </returns>
-        private static string TextOfPageReader(Stream stream)
+        private static string ReadTextFromStream(Stream stream, Encoding encoding)
         {
-            StreamReader reader = new StreamReader(stream, Encoding.Default);
+            var reader = new StreamReader(stream, encoding);
             return reader.ReadToEnd();
         }
     }

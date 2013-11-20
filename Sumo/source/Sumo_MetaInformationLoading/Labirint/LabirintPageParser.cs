@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Sumo_MetaInformationLoading.Ozon
+﻿namespace MetaInformationLoader.Labirint
 {
     using System;
 
@@ -26,13 +23,13 @@ namespace Sumo_MetaInformationLoading.Ozon
             // Загрузка страници
             Page parsedPage = PageLoader.LoadFromUrl("http://www.labirint.ru/search/" + isbn + "/");
             HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(parsedPage.TextOfPage);
+            document.LoadHtml(parsedPage.PageText);
 
             // Заводим контейнер для сохранения информации
             var container = new MetaInformationContainer();
 
             // Вытаскиваем метаинформацию
-            container.Link = parsedPage.AbsoluteUrl;
+            container.Link = parsedPage.Url;
             container.PublishHouse = document.DocumentNode.SelectNodes("//div[@class=\"publisher\"]/a")[0].InnerText;
             container.Annotation = document.DocumentNode.SelectNodes("//div[@id=\"product-about\"]/p/noindex")[0].InnerText;
             container.InternalId = document.DocumentNode.SelectNodes("//div[@class=\"articul\"]/p[1]")[0].InnerText.Substring("ID товар: ".Length);

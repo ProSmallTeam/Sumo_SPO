@@ -1,42 +1,42 @@
-﻿namespace Sumo_MetaInformationLoading
+﻿namespace MetaInformationLoader
 {
     /// <summary>
-    /// Класс html страници.
+    /// Класс html страницы.
     /// </summary>
     internal class Page
     {
         /// <summary>
-        /// Инициализарует класс html страници.
+        /// Инициализарует класс html страницы.
         /// </summary>
         public Page()
         {
-            this.AbsoluteUrl = null;
-            this.TextOfPage = null;
+            Url = null;
+            PageText = null;
         }
 
         /// <summary>
-        /// Инициализарует класс html страници.
+        /// Инициализарует класс html страницы.
         /// </summary>
-        /// <param name="absoluteUrl">
-        /// Полный url страници.
+        /// <param name="url">
+        /// Полный url страницы.
         /// </param>
-        /// <param name="textOfPageLoader">
-        /// Текст страници.
+        /// <param name="pageText">
+        /// Текст страницы.
         /// </param>
-        internal Page(string absoluteUrl, string textOfPageLoader)
+        internal Page(string url, string pageText)
         {
-            this.AbsoluteUrl = absoluteUrl;
-            this.TextOfPage = textOfPageLoader;
+            Url = url;
+            PageText = pageText;
         }
 
         /// <summary>
-        /// Получает полный Url страници.
+        /// Получает полный Url страницы.
         /// </summary>
-        public string AbsoluteUrl { get; private set; }
+        public string Url { get; private set; }
 
         /// <summary>
-        /// Получает текст страници.
+        /// Получает текст страницы.
         /// </summary>
-        public string TextOfPage { get; private set; }
+        public string PageText { get; private set; }
     }
 }

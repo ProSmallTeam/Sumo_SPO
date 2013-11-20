@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Sumo_MetaInformationLoading
+namespace MetaInformationLoader
 {
-    using Sumo_MetaInformationLoading.Ozon;
+    using MetaInformationLoader.Ozon;
 
     /// <summary>
     /// Контейнер хранения метаинформации.
