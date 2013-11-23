@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.IO;
 
 namespace DataBase.Test
 {
@@ -14,22 +16,54 @@ namespace DataBase.Test
     {
         private DataBase _database;
 
-        private bool _flagOfInitializeDb;
-
         private const int NumberOfRecords = 1000000;
 
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
             _database = new DataBase("mongodb://localhost/?safe=false"); // получение объекта, с которым будем работать
-           
-            if (_flagOfInitializeDb)
+
+
+            
+
+            if (_database.Database.GetCollection("Books").Count() != 0)
             {
                 return;
             }
 
-            _flagOfInitializeDb = true;
-             _database.Drop();
+            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+
+            WriteIntoFile("------------- Процессор: ---------------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Наименование: " + queryObj["Name"]);
+                WriteIntoFile("Количество ядер: " + queryObj["NumberOfCores"]);
+            }
+
+            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
+
+            WriteIntoFile("------------- Оперативная память: --------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Маркировка: " + queryObj["BankLabel"]);
+                WriteIntoFile("Размер: " + Math.Round(Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2) + " Gb");
+                WriteIntoFile("Скорость: " + queryObj["Speed"]);
+            }
+
+            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
+
+            WriteIntoFile("------------- Операционная система: --------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Название: " + queryObj["Name"]);
+                WriteIntoFile("Версия: " + queryObj["Version"]);
+            }
+
+            WriteIntoFile("------------- Количество записей в базе данных: --------");
+            WriteIntoFile(NumberOfRecords.ToString());
+            WriteIntoFile("\n");
+
+            _database.Drop();
 
             InitializeAttr(_database);
             InitializeDb(_database, NumberOfRecords);
@@ -71,6 +105,8 @@ namespace DataBase.Test
             var name = book[1].Name;
             Trace.Write(name + '\n');
             Trace.Write(DateTime.Now - time);
+
+            WriteIntoFile("Время выборки книг по заданным id: " + (DateTime.Now - time));
         }
 
         [Test]
@@ -79,6 +115,8 @@ namespace DataBase.Test
             var time = DateTime.Now;
             _database.SaveBookMeta(new Book{Md5Hash = "qwert", Name = "testBook", Path = null});
             Trace.Write(DateTime.Now - time);
+
+            WriteIntoFile("Время вставки одной книги: " + (DateTime.Now - time));
         }
 
         [Test]
@@ -89,6 +127,8 @@ namespace DataBase.Test
             _database.GetStatistic("Орин Томас, 1999");
 
             Trace.Write(DateTime.Now - time);
+
+            WriteIntoFile("Время подсчета статистики по двум аттрибуту: " + (DateTime.Now - time));
         }
 
         [Test]
@@ -99,6 +139,8 @@ namespace DataBase.Test
             _database.GetStatistic("Орин Томас");
 
             Trace.Write(DateTime.Now - time);
+
+            WriteIntoFile("Время подсчета статистики по одному аттрибуту: " + (DateTime.Now - time));
         }
 
         private void InitializeAttr(DataBase dataBase)
@@ -197,6 +239,15 @@ namespace DataBase.Test
             }
 
             Trace.WriteLine(DateTime.Now - time);
+        }
+
+        private static void WriteIntoFile(string result)
+        {
+            var path = "result" + "(" + DateTime.Today.ToShortDateString() + ")" + ".txt";
+            var fileInfo = new FileInfo(path);
+            var streamWriter = fileInfo.AppendText();
+            streamWriter.WriteLine(result);
+            streamWriter.Close();
         }
     }
 }
