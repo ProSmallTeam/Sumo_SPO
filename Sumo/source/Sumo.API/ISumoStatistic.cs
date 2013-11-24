@@ -3,5 +3,6 @@
     //not implented
     public interface ISumoStatistic
     {
+
     }
 }
