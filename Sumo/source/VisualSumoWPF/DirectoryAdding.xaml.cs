@@ -7,27 +7,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FolderPickerLib;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace VisualSumoWPF
 {
     /// <summary>
     /// Interaction logic for DirectoryAdding.xaml
     /// </summary>
-    public partial class DirectoryAdding : Window
+    public partial class DirectoryAdding
     {
-        public DirectoryAdding()
+        public DirectoryAdding(bool isFirstLaunch)
         {
             InitializeComponent();
-            DirectoriesList.Items.Add("Вы ничего не выбрали");
+            if (isFirstLaunch) Title.Content = "Добро пожаловать в SUMO - лучший поисковик информации о ваших книгах!";
+            DirectoriesList.Items.Add("Выберите директории, где лежат ваши книги");
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = true;
             Close();
         }
 
@@ -35,16 +38,24 @@ namespace VisualSumoWPF
         {
             var dirDialog = new FolderPickerDialog();
             if (dirDialog.ShowDialog() != true) return;
-            if (DirectoriesList.Items.Count == 1 && DirectoriesList.Items.Contains("Вы ничего не выбрали"))
-                DirectoriesList.Items.Remove("Вы ничего не выбрали");
+
+            
+            foreach (var item in DirectoriesList.Items)
+            {
+                if (item.ToString() == dirDialog.SelectedPath) return;
+            }
+
+            if (DirectoriesList.Items.Count == 1 && DirectoriesList.Items.Contains("Выберите директории, где лежат ваши книги"))
+                DirectoriesList.Items.Remove("Выберите директории, где лежат ваши книги");
             DirectoriesList.Items.Add(dirDialog.SelectedPath);
         }
 
-        private void MouseDouble_Click(object sender, MouseEventArgs e)
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            if (DirectoriesList.SelectedItems.Count == 0) return;
             DirectoriesList.Items.Remove(DirectoriesList.SelectedItem);
-            if (DirectoriesList.Items.Count == 0) DirectoriesList.Items.Add("Вы ничего не выбрали");
-            
+            if (DirectoriesList.Items.Count == 0) DirectoriesList.Items.Add("Выберите директории, где лежат ваши книги");
         }
 
     }
