@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sumo.API;
 
 namespace DataBase
 {
@@ -53,7 +54,7 @@ namespace DataBase
             Database.Drop();
         }
 
-        public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
+        public int SaveBookMeta(Sumo.API.Book book, List<Sumo.API.Book> alternativeBook = null)
         {
             try
             {
@@ -112,7 +113,7 @@ namespace DataBase
             }
         }
 
-        private static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, List<int> idOfAltMeta = null)
+        private static BsonDocument CreateBook(Sumo.API.Book book, MongoCollection<BsonDocument> collections, List<int> idOfAltMeta = null)
         {
             var attributes = new List<int>();
 
@@ -132,13 +133,13 @@ namespace DataBase
             return document;
         }
 
-        private static List<int> GetListOfAttributes(Book book)
+        private static List<int> GetListOfAttributes(Sumo.API.Book book)
         {
             var attributes = new List<int>();
-            foreach (
-                var attribute in
-                    book.SecondaryFields.Select(field => new QueryDocument(new BsonDocument {{"Name", field.Value}}))
-                        .Select(query => Collections.Attributes.FindOneAs<BsonDocument>(query)))
+            foreach (var attribute in from field 
+                                          in book.SecondaryFields from nameOfAttribute 
+                                          in field.Value select new QueryDocument(new BsonDocument { { "Name", nameOfAttribute } }) 
+                                          into query select Collections.Attributes.FindOneAs<BsonDocument>(query))
             {
                 if (attribute == null)
                     throw new NoAttrException();
@@ -170,7 +171,7 @@ namespace DataBase
             return (int) Collections.Books.FindAs<BsonDocument>(queries).Count();
         }
 
-        public IList<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
+        public IList<Sumo.API.Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
         {
             var query = new QueryDocument(true);
             
@@ -203,11 +204,12 @@ namespace DataBase
             }
         }
 
-        private static Dictionary<string, string> GetSecondaryFields(BsonDocument bsonBook)
+        private static Dictionary<string, List<string>> GetSecondaryFields(BsonDocument bsonBook)
         {
             var listOfAttributes = bsonBook.GetValue("Attributes");
-            var listOfSecondaryFields = new Dictionary<string, string>();
-         
+            var listOfSecondaryFields = new Dictionary<string, List<string>>();
+            
+
             foreach(var attribute in listOfAttributes.AsBsonArray)
             {
                 var query = new QueryDocument("_id", attribute);
@@ -221,21 +223,33 @@ namespace DataBase
 
                 var value = document["Name"].ToString();
 
-                listOfSecondaryFields.Add(name, value);
+                InsertKeyValuedPairIntoListOfSecondaryFields(listOfSecondaryFields, name, value);
             }
 
             return listOfSecondaryFields;
         }
 
-        private static IList<Book> ConvertToBook(IEnumerable<BsonDocument> list)
+        private static void InsertKeyValuedPairIntoListOfSecondaryFields(Dictionary<string, List<string>> listOfSecondaryFields, string name, string value)
         {
-            IList<Book> listBook = new List<Book>();
+            if (listOfSecondaryFields.ContainsKey(name))
+            {
+                listOfSecondaryFields[name].Add(value);
+            }
+            else
+            {
+                listOfSecondaryFields.Add(name, new List<string>{value});
+            }
+        }
+
+        private static IList<Sumo.API.Book> ConvertToBook(IEnumerable<BsonDocument> list)
+        {
+            IList<Sumo.API.Book> listBook = new List<Sumo.API.Book>();
             
             foreach (var bsonBook in list)
             {
                 var secondaryFields = GetSecondaryFields(bsonBook);
 
-                listBook.Add(new Book
+                listBook.Add(new Sumo.API.Book
                                    {
                                        Name = bsonBook["Name"].ToString(),
                                        Md5Hash = bsonBook["_id"].ToString(),

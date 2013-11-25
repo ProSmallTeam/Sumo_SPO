@@ -5,6 +5,7 @@ using System.Management;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.IO;
+using Sumo.API;
 
 namespace DataBase.Test
 {
@@ -16,15 +17,12 @@ namespace DataBase.Test
     {
         private DataBase _database;
 
-        private const int NumberOfRecords = 1000000;
+        private const int NumberOfRecords = 1000;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
             _database = new DataBase("mongodb://localhost/?safe=false"); // получение объекта, с которым будем работать
-
-
-            
 
             if (_database.Database.GetCollection("Books").Count() != 0)
             {
@@ -101,8 +99,8 @@ namespace DataBase.Test
         public void AssertOfGettingBook()
         {
             var time = DateTime.Now;
-            var book = _database.GetBooksByAttrId(new List<int> {5, 49});
-            var name = book[1].Name;
+            var book = _database.GetBooksByAttrId(new List<int> {47, 3});
+            var name = book[0].Name;
             Trace.Write(name + '\n');
             Trace.Write(DateTime.Now - time);
 
@@ -113,7 +111,7 @@ namespace DataBase.Test
         public void TimeOfInsertOneBook()
         {
             var time = DateTime.Now;
-            _database.SaveBookMeta(new Book{Md5Hash = "qwert", Name = "testBook", Path = null});
+            _database.SaveBookMeta(new Sumo.API.Book{Md5Hash = "qwert", Name = "testBook", Path = null});
             Trace.Write(DateTime.Now - time);
 
             WriteIntoFile("Время вставки одной книги: " + (DateTime.Now - time));
@@ -204,34 +202,34 @@ namespace DataBase.Test
 
             for (var index = 0; index < numberOfRecords; ++index)
             {
-                var listOfAltBook = new List<Book>();
+                var listOfAltBook = new List<Sumo.API.Book>();
                 for (var indexes = 0; indexes < 5; ++indexes)
                 {
                     listOfAltBook.Add(
-                        new Book
+                        new Sumo.API.Book
                         {
                             Name = nameBook[random.Next(0, nameBook.Count() - 1)],
                             Md5Hash = indexes.ToString(),
                             Path = null,
-                            SecondaryFields = new Dictionary<string, string>
+                            SecondaryFields = new Dictionary<string, List<string>>
                                         {
-                                            {"Year", random.Next(1950, 2010).ToString()},
-                                            {"Author", authors[random.Next(0, authors.Count() - 1)]}
+                                            {"Year", new List<string>{random.Next(1950, 2010).ToString()}},
+                                            {"Author", new List<string>{authors[random.Next(0, authors.Count() - 1)]}}
                                         }
                         }
                             );
                 }
 
                 dataBase.SaveBookMeta(
-                    new Book
+                    new Sumo.API.Book()
                         {
                             Name = nameBook[random.Next(0, nameBook.Count() - 1)],
                             Md5Hash = index.ToString(),
                             Path = null,
-                            SecondaryFields = new Dictionary<string, string>
+                            SecondaryFields = new Dictionary<string, List<string>>
                                 {
-                                    {"Year", random.Next(1950, 2010).ToString()},
-                                    {"Author", authors[random.Next(0, authors.Count() - 1)]}
+                                    {"Year", new List<string>{random.Next(1950, 2010).ToString()}},
+                                    {"Author", new List<string>{authors[random.Next(0, authors.Count() - 1)], authors[random.Next(0, authors.Count() - 1)]}}
                                 }
                         },
                         listOfAltBook

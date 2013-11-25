@@ -160,6 +160,12 @@
   <ItemGroup>
     <Resource Include="Icon1.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
+      <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
+      <Name>Sumo.API</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

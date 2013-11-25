@@ -9,6 +9,7 @@ namespace VisualSumoWPF
     using System.Collections.Generic;
     using System.Linq;
     using DataBase;
+    using Sumo.API;
 
     using DevExpress.Utils;
 
@@ -73,7 +74,7 @@ namespace VisualSumoWPF
                 int i = 0;
                 var node1 = new TreeListNode();
                 TreeVeiw.Nodes.Add(node1);
-                foreach (Book book in collection)
+                foreach (Sumo.API.Book book in collection)
                 {
                     //TreeListNode stage21 = new TreeListNode(new StageObject() { NameValue = "Information Gathering", Executor = GetRandomEmployee() });
                     //stage21.Nodes.Add(new TreeListNode(new TaskObject() 
@@ -92,9 +93,9 @@ namespace VisualSumoWPF
         }
 
         //MongoDB.Driver. Выборки произвожу так:
-        public IQueryable<Book> Find()//(Func<Book, bool> predicate)
+        public IQueryable<global::DataBase.Book> Find()//(Func<Book, bool> predicate)
         {
-            var items = (IQueryable<Book>)_database.Database.GetCollection<BsonDocument>("Books"); //Collections.Users.FindAllAs<Book>();//.Where();
+            var items = (IQueryable<global::DataBase.Book>)_database.Database.GetCollection<BsonDocument>("Books"); //Collections.Users.FindAllAs<Book>();//.Where();
             return items;
         }
 
