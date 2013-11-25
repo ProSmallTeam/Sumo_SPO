@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Sumo.API;
 using System.Xml;
+using System.Xml.Linq;
 
 
 namespace DBLoader
@@ -35,7 +36,9 @@ namespace DBLoader
             foreach (var pathToFile in files)
             {
                 var file = new StreamReader(pathToFile);
-                var xml = file.ReadToEnd();
+                string str = file.ReadToEnd();
+                
+                var xml = XDocument.Parse(str);
                 var book = XmlToBook(xml);
 
                 listOfBook.Add(book);
@@ -44,12 +47,12 @@ namespace DBLoader
             return listOfBook;
         }
 
-        private static Book XmlToBook(string xml)
+        private static Book XmlToBook(XDocument xml)
         {
             return new Book();
         }
 
-        private static IDBBookManager GetDBBookManager()
+        private static IDbBookManager GetDBBookManager()
         {
             throw new NotImplementedException();
         }
