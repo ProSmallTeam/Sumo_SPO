@@ -57,14 +57,15 @@
     <Compile Include="IDbMetaManager.cs" />
     <Compile Include="IDbTaskManager.cs" />
     <Compile Include="IDBBookManager.cs" />
-    <Compile Include="ISumoIndexer.cs" />
-    <Compile Include="ISumoService.cs" />
     <Compile Include="ISumoStatistic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SumoSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MetaLoader.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

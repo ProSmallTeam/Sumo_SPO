@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E73EC5A-ED28-4B95-8B45-7300C02B3CAE}</ProjectGuid>
+    <ProjectGuid>{0F1AE509-CA57-40A4-8DB9-38DA151F580C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sumo_MetaInformationLoading.Tests</RootNamespace>
