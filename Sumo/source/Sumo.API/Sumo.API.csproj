@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookMeta.cs" />
+    <Compile Include="Book.cs" />
     <Compile Include="IBookDBManagerWCFService.cs" />
     <Compile Include="IBookMetaObtainer.cs" />
     <Compile Include="ISumoIndexer.cs" />

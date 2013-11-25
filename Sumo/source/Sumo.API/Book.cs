@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using MongoDB.Bson;
 
-namespace DataBase
+namespace Sumo.API
 {
     public class Book
     {
@@ -12,6 +11,6 @@ namespace DataBase
         // путь к файлу, зависящий от пользователя
         public string Path;
 
-        public Dictionary<string, string> SecondaryFields;
+        public Dictionary<string, List<string>> SecondaryFields;
     }
 }
