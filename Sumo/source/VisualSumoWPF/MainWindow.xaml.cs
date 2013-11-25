@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.IO;
 using System.Windows;
 using DevExpress.Xpf.Grid;
 using System.Collections.ObjectModel;
@@ -12,9 +11,6 @@ namespace VisualSumoWPF
     using DataBase;
 
     using DevExpress.Utils;
-    using DevExpress.XtraRichEdit.Import.Html;
-
-    using MongoDB.Bson;
 
     public partial class MainWindow : Window
     {
