@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System;
 using System.IO;
 using Sumo.API;
-using System.Xml;
 using System.Xml.Linq;
 
 
@@ -35,21 +32,13 @@ namespace DBLoader
 
             foreach (var pathToFile in files)
             {
-                var file = new StreamReader(pathToFile);
-                string str = file.ReadToEnd();
-                
-                var xml = XDocument.Parse(str);
-                var book = XmlToBook(xml);
+                var xml = XDocument.Load(pathToFile);
+                var book = XmlBookConverter.XmlBookConverter.XmlToBook(xml);
 
                 listOfBook.Add(book);
             }
 
             return listOfBook;
-        }
-
-        private static Book XmlToBook(XDocument xml)
-        {
-            return new Book();
         }
 
         private static IDbBookManager GetDBBookManager()

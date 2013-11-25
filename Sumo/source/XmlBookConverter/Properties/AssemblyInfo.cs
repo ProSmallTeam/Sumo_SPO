@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("XmlParsing.Tests")]
+[assembly: AssemblyTitle("XmlBookConverter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("XmlParsing.Tests")]
+[assembly: AssemblyProduct("XmlBookConverter")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("881d2be6-633c-49c9-9137-d19fa64af327")]
+[assembly: Guid("6a0263a7-bd6a-4327-b98f-6d506e273e36")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Sumo.API;
 
-namespace XmlBookConvert
+namespace XmlBookConverter
 {
     public static class XmlBookConverter
     {
@@ -55,7 +55,7 @@ namespace XmlBookConvert
 
                         for (var i = 0; i < field.Value.Count; i++)
                         {
-                            fieldElement.Add(new XElement("Item" + i, field.Value[i]));
+                            fieldElement.Add(new XElement("Item" + (i + 1), field.Value[i]));
                         }
 
                         secondaryFieldsElement.Add(fieldElement);
