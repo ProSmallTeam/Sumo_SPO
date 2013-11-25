@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Sumo.API;
 using System.Xml.Linq;
+using XmlBookConverter;
 
 
 namespace DBLoader
@@ -15,30 +17,19 @@ namespace DBLoader
         [STAThread]
         static void Main(string[] args)
         {
-            const int pathToFolder = 1;
-
-            var listOfBook = ReadFromFolder(args[pathToFolder]);
+            var books = ReadFromFolder(args[1]);
             var manager = GetDBBookManager();
 
             var loader = new DBLoader(manager);
-            
-            loader.Save(listOfBook);
+
+            loader.Save(books);
         }
 
         private static List<Book> ReadFromFolder(string pathToFolder)
         {
-            var listOfBook = new List<Book>();
             var files = Directory.GetFiles(pathToFolder, "*.xml");
 
-            foreach (var pathToFile in files)
-            {
-                var xml = XDocument.Load(pathToFile);
-                var book = XmlBookConverter.XmlBookConverter.XmlToBook(xml);
-
-                listOfBook.Add(book);
-            }
-
-            return listOfBook;
+            return files.Select(XDocument.Load).Select(XmlBookConverter.XmlBookConverter.ToBook).ToList();
         }
 
         private static IDbBookManager GetDBBookManager()

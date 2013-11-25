@@ -7,35 +7,64 @@ namespace XmlBookConverter
 {
     public static class XmlBookConverter
     {
-        public static Book XmlToBook(XDocument xDocument)
+        public static Book ToBook(XDocument xDocument)
         {
             var root = xDocument.Element("Book");
-            var secondaryFieldsElements = root.Element("SecondaryFields");
+         //   var root = root.Element("SecondaryFields");
 
             var secondaryFields = new Dictionary<string, List<string>>();
 
-            if (secondaryFieldsElements != null)
-                foreach (var element in secondaryFieldsElements.Elements())
+            if (root == null)
+            {
+                return new Book();
+            }
+
+            var md5Hash = string.Empty;
+            var name = string.Empty;
+            var path = string.Empty;
+
+            foreach (var element in root.Elements())
+            {
+                var nameOfElement = element.Name.ToString();
+
+                if (nameOfElement == "Md5Hash")
                 {
-                    secondaryFields.Add(element.Name.ToString(),
-                        element.Elements().Any()
-                            ? element.Elements().Select(xElement => xElement.Value).ToList()
-                            : new List<string> { element.Value });
+                    md5Hash = element.Value;
+                    continue;
                 }
+
+                if (nameOfElement == "Name")
+                {
+                    name = element.Value;
+                    continue;
+                }
+
+                if (nameOfElement == "Path")
+                {
+                    path = element.Value;
+                    continue;
+                }
+
+                var value = element.Elements().Any()
+                    ? element.Elements().Select(xElement => xElement.Value).ToList()
+                    : new List<string> { element.Value };
+
+                secondaryFields.Add(nameOfElement, value);
+            }
 
 
             var book = new Book
             {
-                Md5Hash = root.Element("Md5Hash") != null ? root.Element("Md5Hash").Value : null,
-                Name = root.Element("Name") != null ? root.Element("Name").Value : null,
-                Path = root.Element("Path") != null ? root.Element("Path").Value : null,
+                Md5Hash = md5Hash,
+                Name = name,
+                Path = path,
                 SecondaryFields = secondaryFields
             };
 
             return book;
         }
 
-        public static XDocument BookToXml(Book book)
+        public static XDocument ToXml(Book book)
         {
             var md5HashElement = book.Md5Hash != null ? new XElement("Md5Hash", book.Md5Hash) : null;
 
@@ -43,31 +72,29 @@ namespace XmlBookConverter
 
             var pathElement = book.Path != null ? new XElement("Path", book.Path) : null;
 
-            var secondaryFieldsElement = book.SecondaryFields != null ? new XElement("SecondaryFields") : null;
+            var bookElement = new XElement("Book", md5HashElement, nameElement, pathElement);
 
-            if (book.SecondaryFields != null)
+            if (book.SecondaryFields == null || book.SecondaryFields.Count == 0) return new XDocument(bookElement);
+
+            foreach (var field in book.SecondaryFields)
             {
-                foreach (var field in book.SecondaryFields)
+                if (field.Value.Count == 1)
                 {
-                    if (field.Value.Count != 1)
-                    {
-                        var fieldElement = new XElement(field.Key);
+                    bookElement.Add(new XElement(field.Key, field.Value[0]));
+                }
+                else
+                {
+                    var fieldElement = new XElement(field.Key);
 
-                        for (var i = 0; i < field.Value.Count; i++)
-                        {
-                            fieldElement.Add(new XElement("Item" + (i + 1), field.Value[i]));
-                        }
-
-                        secondaryFieldsElement.Add(fieldElement);
-                    }
-                    else
+                    for (var i = 0; i < field.Value.Count; i++)
                     {
-                        secondaryFieldsElement.Add(new XElement(field.Key, field.Value[0]));
+                        fieldElement.Add(new XElement("Item" + (i + 1), field.Value[i]));
                     }
+
+                    bookElement.Add(fieldElement);
                 }
             }
 
-            var bookElement = new XElement("Book", md5HashElement, nameElement, pathElement, secondaryFieldsElement);
 
             return new XDocument(bookElement);
         }

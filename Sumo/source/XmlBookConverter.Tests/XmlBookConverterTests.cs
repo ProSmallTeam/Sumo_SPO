@@ -32,25 +32,23 @@ namespace XmlBookConverter.Tests
     <Md5Hash>1</Md5Hash>
     <Name>2</Name>
 	<Path>3</Path>
-	<SecondaryFields>
-		<Authors>
-            <Author>4</Author>
-            <Author>44</Author>			
-        </Authors>
-		<PicturePath>5</PicturePath>	
-		<FileFormat>6</FileFormat>	
-		<InternalId>7</InternalId>
-		<ISBN>8</ISBN>
-		<Language>9</Language>
-		<PublicHouse>10</PublicHouse>
-		<PublicYear>11</PublicYear>
-		<PageCount>12</PageCount>
-		<Categories>13</Categories>
-	</SecondaryFields>
+	<Authors>
+        <Author>4</Author>
+        <Author>44</Author>			
+    </Authors>
+	<PicturePath>5</PicturePath>	
+	<FileFormat>6</FileFormat>	
+	<InternalId>7</InternalId>
+	<ISBN>8</ISBN>
+	<Language>9</Language>
+	<PublicHouse>10</PublicHouse>
+	<PublicYear>11</PublicYear>
+	<PageCount>12</PageCount>
+	<Categories>13</Categories>
 </Book>";
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.XmlToBook(xDocument);
+            var book = XmlBookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -73,32 +71,30 @@ namespace XmlBookConverter.Tests
         [Test]
         public void ParseXmlWithoutNameTest()
         {
-            var xmlContent = @"<Book>	
+            const string xmlContent = @"<Book>	
     <Md5Hash>1</Md5Hash>
 	<Path>3</Path>
-	<SecondaryFields>
-		<Authors>
-            <Author>4</Author>
-            <Author>44</Author>			
-        </Authors>
-		<PicturePath>5</PicturePath>	
-		<FileFormat>6</FileFormat>	
-		<InternalId>7</InternalId>
-		<ISBN>8</ISBN>
-		<Language>9</Language>
-		<PublicHouse>10</PublicHouse>
-		<PublicYear>11</PublicYear>
-		<PageCount>12</PageCount>
-		<Categories>13</Categories>
-	</SecondaryFields>
+	<Authors>
+        <Author>4</Author>
+        <Author>44</Author>			
+    </Authors>
+	<PicturePath>5</PicturePath>	
+	<FileFormat>6</FileFormat>	
+	<InternalId>7</InternalId>
+	<ISBN>8</ISBN>
+	<Language>9</Language>
+	<PublicHouse>10</PublicHouse>
+	<PublicYear>11</PublicYear>
+	<PageCount>12</PageCount>
+	<Categories>13</Categories>
 </Book>";
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.XmlToBook(xDocument);
+            var book = XmlBookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
-            Assert.IsNull(book.Name);
+            Assert.AreEqual(string.Empty, book.Name);
             Assert.AreEqual("3", book.Path);
             Assert.AreEqual("4", book.SecondaryFields["Authors"][0]);
             Assert.AreEqual("44", book.SecondaryFields["Authors"][1]);
@@ -116,31 +112,29 @@ namespace XmlBookConverter.Tests
         [Test]
         public void ParseXmlWithoutMd5HashTest()
         {
-            var xmlContent = @"<Book>
+            const string xmlContent = @"<Book>
     <Name>2</Name>
-	<Path>3</Path>
-	<SecondaryFields>
-		<Authors>
-            <Author>4</Author>
-            <Author>44</Author>			
-        </Authors>
-		<PicturePath>5</PicturePath>	
-		<FileFormat>6</FileFormat>	
-		<InternalId>7</InternalId>
-		<ISBN>8</ISBN>
-		<Language>9</Language>
-		<PublicHouse>10</PublicHouse>
-		<PublicYear>11</PublicYear>
-		<PageCount>12</PageCount>
-		<Categories>13</Categories>
-	</SecondaryFields>
+    <Path>3</Path>
+	<Authors>
+        <Author>4</Author>
+        <Author>44</Author>			
+    </Authors>
+	<PicturePath>5</PicturePath>	
+	<FileFormat>6</FileFormat>	
+	<InternalId>7</InternalId>
+	<ISBN>8</ISBN>
+	<Language>9</Language>
+	<PublicHouse>10</PublicHouse>
+	<PublicYear>11</PublicYear>
+	<PageCount>12</PageCount>
+	<Categories>13</Categories>
 </Book>";
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.XmlToBook(xDocument);
+            var book = XmlBookConverter.ToBook(xDocument);
 
-            Assert.IsNull(book.Md5Hash);
+            Assert.AreEqual(string.Empty, book.Md5Hash);
             Assert.AreEqual("2", book.Name);
             Assert.AreEqual("3", book.Path);
             Assert.AreEqual("4", book.SecondaryFields["Authors"][0]);
@@ -167,7 +161,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.XmlToBook(xDocument);
+            var book = XmlBookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -190,23 +184,25 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.BookToXml(book);
+            var xDocument = XmlBookConverter.ToXml(book);
+
+
+            Trace.WriteLine(xDocument.ToString());
 
             Assert.AreEqual(@"<Book>
   <Md5Hash>1</Md5Hash>
   <Name>2</Name>
   <Path>3</Path>
-  <SecondaryFields>
-    <Authors>
-      <Item1>4</Item1>
-      <Item2>44</Item2>
-      <Item3>444</Item3>
-    </Authors>
-    <Language>5</Language>
-    <ISBN>6</ISBN>
-    <PublicYear>7</PublicYear>
-  </SecondaryFields>
-</Book>", xDocument.ToString().Replace("\r", ""));
+  <Authors>
+    <Item1>4</Item1>
+    <Item2>44</Item2>
+    <Item3>444</Item3>
+  </Authors>
+  <Language>5</Language>
+  <ISBN>6</ISBN>
+  <PublicYear>7</PublicYear>
+</Book>", xDocument.ToString());
+
         }
 
         [Test]
@@ -220,24 +216,22 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.BookToXml(book);
+            var xDocument = XmlBookConverter.ToXml(book);
 
             Trace.WriteLine(xDocument);
 
             Assert.AreEqual(@"<Book>
   <Md5Hash>1</Md5Hash>
   <Path>3</Path>
-  <SecondaryFields>
-    <Authors>
-      <Item1>4</Item1>
-      <Item2>44</Item2>
-      <Item3>444</Item3>
-    </Authors>
-    <Language>5</Language>
-    <ISBN>6</ISBN>
-    <PublicYear>7</PublicYear>
-  </SecondaryFields>
-</Book>", xDocument.ToString().Replace("\r", ""));
+  <Authors>
+    <Item1>4</Item1>
+    <Item2>44</Item2>
+    <Item3>444</Item3>
+  </Authors>
+  <Language>5</Language>
+  <ISBN>6</ISBN>
+  <PublicYear>7</PublicYear>
+</Book>", xDocument.ToString());
         }
 
         [Test]
@@ -251,22 +245,20 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.BookToXml(book);
+            var xDocument = XmlBookConverter.ToXml(book);
 
             Assert.AreEqual(@"<Book>
   <Name>2</Name>
   <Path>3</Path>
-  <SecondaryFields>
-    <Authors>
-      <Item1>4</Item1>
-      <Item2>44</Item2>
-      <Item3>444</Item3>
-    </Authors>
-    <Language>5</Language>
-    <ISBN>6</ISBN>
-    <PublicYear>7</PublicYear>
-  </SecondaryFields>
-</Book>", xDocument.ToString().Replace("\r", ""));
+  <Authors>
+    <Item1>4</Item1>
+    <Item2>44</Item2>
+    <Item3>444</Item3>
+  </Authors>
+  <Language>5</Language>
+  <ISBN>6</ISBN>
+  <PublicYear>7</PublicYear>
+</Book>", xDocument.ToString());
         }
 
         [Test]
@@ -280,7 +272,7 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = null
             };
 
-            var xDocument = XmlBookConverter.BookToXml(book);
+            var xDocument = XmlBookConverter.ToXml(book);
 
             Trace.WriteLine(xDocument);
 
@@ -288,7 +280,7 @@ namespace XmlBookConverter.Tests
   <Md5Hash>1</Md5Hash>
   <Name>2</Name>
   <Path>3</Path>
-</Book>", xDocument.ToString().Replace("\r", ""));
+</Book>", xDocument.ToString());
         }
 
         #endregion
@@ -304,9 +296,9 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.BookToXml(book);
+            var xDocument = XmlBookConverter.ToXml(book);
 
-            var book2 = XmlBookConverter.XmlToBook(xDocument);
+            var book2 = XmlBookConverter.ToBook(xDocument);
 
             Assert.AreEqual(book.Md5Hash, book2.Md5Hash);
             Assert.AreEqual(book.Name, book2.Name);

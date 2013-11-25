@@ -21,7 +21,7 @@ namespace DataBase
             var server = client.GetServer();
 
             _nameOfDataBase = nameOfDataBase;
-           
+
             Database = server.GetDatabase(_nameOfDataBase);
 
             SetCollections();
@@ -44,7 +44,7 @@ namespace DataBase
 
         public void Indexing()
         {
-            Collections.Books.EnsureIndex(new IndexKeysBuilder().Ascending( "Attributes" ));
+            Collections.Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
             Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
             Collections.AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
         }
@@ -76,30 +76,30 @@ namespace DataBase
             }
             catch (Exception)
             {
-                
+
                 return -1;
             }
-            
+
         }
 
         public int DeleteBookMeta(string md5Hash)
         {
             try
             {
-                var query = new QueryDocument(new BsonDocument {{"Md5Hash", md5Hash}});
+                var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
 
                 var book = Collections.Books.FindOneAs<BsonDocument>(query);
 
                 Collections.Books.Remove(query);
 
                 var stringOfid = book["AlternativeMeta"].ToString();
-                var idOfAltMeta =stringOfid
+                var idOfAltMeta = stringOfid
                                            .Substring(1, stringOfid.Length - 2)
-                                           .Split(new[] {','}).ToList();
+                                           .Split(new[] { ',' }).ToList();
 
                 foreach (var id in idOfAltMeta)
                 {
-                    query = new QueryDocument(new BsonDocument{{"_id", int.Parse(id)}});
+                    query = new QueryDocument(new BsonDocument { { "_id", int.Parse(id) } });
 
                     Collections.AlternativeMeta.Remove(query);
 
@@ -136,10 +136,13 @@ namespace DataBase
         private static List<int> GetListOfAttributes(Sumo.API.Book book)
         {
             var attributes = new List<int>();
-            foreach (var attribute in from field 
-                                          in book.SecondaryFields from nameOfAttribute 
-                                          in field.Value select new QueryDocument(new BsonDocument { { "Name", nameOfAttribute } }) 
-                                          into query select Collections.Attributes.FindOneAs<BsonDocument>(query))
+            foreach (var attribute in from field
+                                          in book.SecondaryFields
+                                      from nameOfAttribute
+                                          in field.Value
+                                      select new QueryDocument(new BsonDocument { { "Name", nameOfAttribute } })
+                                          into query
+                                          select Collections.Attributes.FindOneAs<BsonDocument>(query))
             {
                 if (attribute == null)
                     throw new NoAttrException();
@@ -159,7 +162,7 @@ namespace DataBase
         {
             var stringQuery = query.Split(new[] { ", ", "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
 
-            var attrId = (from nameAttr in stringQuery select new QueryDocument(new BsonDocument {{"Name", nameAttr}}) into queryDocument select Collections.Attributes.FindOneAs<BsonDocument>(queryDocument) into attr select int.Parse(attr["_id"].ToString())).ToList();
+            var attrId = (from nameAttr in stringQuery select new QueryDocument(new BsonDocument { { "Name", nameAttr } }) into queryDocument select Collections.Attributes.FindOneAs<BsonDocument>(queryDocument) into attr select int.Parse(attr["_id"].ToString())).ToList();
 
             var queries = new QueryDocument(true);
 
@@ -168,13 +171,13 @@ namespace DataBase
                 queries.Add("Attributes", id).AsParallel();
             }
 
-            return (int) Collections.Books.FindAs<BsonDocument>(queries).Count();
+            return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
         }
 
         public IList<Sumo.API.Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
         {
             var query = new QueryDocument(true);
-            
+
             foreach (var id in attrId)
             {
                 query.Add("Attributes", id).AsParallel();
@@ -208,14 +211,14 @@ namespace DataBase
         {
             var listOfAttributes = bsonBook.GetValue("Attributes");
             var listOfSecondaryFields = new Dictionary<string, List<string>>();
-            
 
-            foreach(var attribute in listOfAttributes.AsBsonArray)
+
+            foreach (var attribute in listOfAttributes.AsBsonArray)
             {
                 var query = new QueryDocument("_id", attribute);
 
                 var document = Collections.Attributes.FindOneAs<BsonDocument>(query);
-                
+
                 var id = document["RootRef"];
                 query = new QueryDocument("_id", id);
 
@@ -237,14 +240,14 @@ namespace DataBase
             }
             else
             {
-                listOfSecondaryFields.Add(name, new List<string>{value});
+                listOfSecondaryFields.Add(name, new List<string> { value });
             }
         }
 
         private static IList<Sumo.API.Book> ConvertToBook(IEnumerable<BsonDocument> list)
         {
             IList<Sumo.API.Book> listBook = new List<Sumo.API.Book>();
-            
+
             foreach (var bsonBook in list)
             {
                 var secondaryFields = GetSecondaryFields(bsonBook);
