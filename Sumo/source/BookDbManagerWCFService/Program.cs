@@ -12,8 +12,8 @@ namespace BookDbManagerWCFService
         static void Main(string[] args)
         {
             Console.WriteLine("Hell0");
-            ServiceHost host = new ServiceHost(typeof(BookDbManager.BookDbManagerService), new Uri("http://localhost:1050/TestService"));
-            host.AddServiceEndpoint(typeof(Sumo.API.IBookDBManagerWCFService), new BasicHttpBinding(), "");
+            ServiceHost host = new ServiceHost(typeof(BookDbManager.DbTaskManagerService), new Uri("http://localhost:1050/TestService"));
+            host.AddServiceEndpoint(typeof(Sumo.API.IDbTaskManager), new BasicHttpBinding(), "");
             host.Open();
             Console.WriteLine("Сервер запущен");
             Console.ReadLine();

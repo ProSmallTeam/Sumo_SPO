@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5AD36948-1B9C-4810-B932-6823A87C014C}</ProjectGuid>
+    <ProjectGuid>{676EC934-0BB1-449D-94FD-896C43C0AAC7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Monitor</RootNamespace>
-    <AssemblyName>Monitor</AssemblyName>
+    <RootNamespace>Coordinator</RootNamespace>
+    <AssemblyName>Coordinator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,23 +32,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Coordinator.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Monitor.cs" />
-    <Compile Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ServiceModel" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FileSystemObserver\FileSystemObserver.csproj">
-      <Project>{50EB3005-4E62-4F1F-BFD3-942CD065C232}</Project>
-      <Name>FileSystemObserver</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
-      <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
+      <Project>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</Project>
       <Name>Sumo.API</Name>
     </ProjectReference>
   </ItemGroup>
