@@ -6,9 +6,9 @@ namespace DBLoader
 {
     internal class DBLoader
     {
-        private readonly IDBBookManager _manager;
+        private readonly IDbBookManager _manager;
 
-        public DBLoader(IDBBookManager manager)
+        public DBLoader(IDbBookManager manager)
         {
             _manager = manager;
         }

@@ -2,7 +2,7 @@
 
 namespace Sumo.API
 {
-    public interface IDBBookManager
+    public interface IDbBookManager
     {
         void Save(Book mainBook, List<Book> listOfAltMeta);
     }

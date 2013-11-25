@@ -49,7 +49,7 @@ namespace DBLoader
             return new Book();
         }
 
-        private static IDBBookManager GetDBBookManager()
+        private static IDbBookManager GetDBBookManager()
         {
             throw new NotImplementedException();
         }
