@@ -1,35 +1,35 @@
-﻿using HtmlAgilityPack;
-
-namespace MetaInformationLoader.Ozon
+﻿namespace MetaLoaderLib.Labirint
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using HtmlAgilityPack;
+
     /// <summary>
     /// Класс, реализующий хранение цепочки коментариев.
     /// </summary>
-    public class OzonChainCategories
+    public class LabirintChainCategories
     {
         /// <summary>
         /// Список категорий по порядку их следования.
         /// </summary>
-        public readonly List<string> Chain  = new List<string>();
+        private readonly List<string> chain = new List<string>();
 
-        public static OzonChainCategories Parse(string textOfCategoriesBlock)
+        public static LabirintChainCategories Parse(string textOfCategoriesBlock)
         {
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(textOfCategoriesBlock);
 
             var categoryList = document.DocumentNode.SelectNodes("//li");
 
-            OzonChainCategories ozonChainCategories = new OzonChainCategories();
+            LabirintChainCategories LabirintChainCategories = new LabirintChainCategories();
             foreach (var category in categoryList)
             {
-                ozonChainCategories.Add(category.InnerText);
+                LabirintChainCategories.Add(category.InnerText);
             }
 
-            return ozonChainCategories;
+            return LabirintChainCategories;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace MetaInformationLoader.Ozon
         {
             get
             {
-                return (this.Chain.Count > 0) ? this.Chain[this.Chain.Count - 1] : null;
+                return (this.chain.Count > 0) ? this.chain[this.chain.Count - 1] : null;
             }
         }
 
@@ -50,7 +50,7 @@ namespace MetaInformationLoader.Ozon
         {
             get
             {
-                return (this.Chain.Count > 0) ? this.Chain[0] : null;
+                return (this.chain.Count > 0) ? this.chain[0] : null;
             }
         }
 
@@ -68,12 +68,12 @@ namespace MetaInformationLoader.Ozon
         /// </exception>
         public string Get(int index)
         {
-            if ((index < 0) || (this.Chain.Count - 1 < index))
+            if ((index < 0) || (this.chain.Count - 1 < index))
             {
                 throw new IndexOutOfRangeException();
             }
 
-            return this.Chain[index];
+            return this.chain[index];
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace MetaInformationLoader.Ozon
         /// </param>
         public void Add(string category)
         {
-            this.Chain.Add(category);
+            this.chain.Add(category);
         }
 
         /// <summary>
@@ -95,7 +95,8 @@ namespace MetaInformationLoader.Ozon
         /// </returns>
         public override string ToString()
         {
-            return this.Chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
+            return this.chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
         }
     }
 }
+

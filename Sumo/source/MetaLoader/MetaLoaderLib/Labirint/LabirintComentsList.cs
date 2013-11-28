@@ -1,4 +1,4 @@
-﻿namespace Sumo_MetaInformationLoading.Labirint
+﻿namespace MetaLoaderLib.Labirint
 {
     using System.Collections.Generic;
 

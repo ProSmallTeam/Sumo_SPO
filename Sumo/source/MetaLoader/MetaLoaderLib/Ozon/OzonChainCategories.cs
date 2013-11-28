@@ -1,36 +1,20 @@
-﻿using HtmlAgilityPack;
-
-namespace Sumo_MetaInformationLoading.Labirint
+﻿namespace MetaLoaderLib.Ozon
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using HtmlAgilityPack;
+
     /// <summary>
     /// Класс, реализующий хранение цепочки коментариев.
     /// </summary>
-    public class LabirintChainCategories
+    public class OzonChainCategories
     {
         /// <summary>
         /// Список категорий по порядку их следования.
         /// </summary>
-        private readonly List<string> chain = new List<string>();
-
-        public static LabirintChainCategories Parse(string textOfCategoriesBlock)
-        {
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(textOfCategoriesBlock);
-
-            var categoryList = document.DocumentNode.SelectNodes("//li");
-
-            LabirintChainCategories LabirintChainCategories = new LabirintChainCategories();
-            foreach (var category in categoryList)
-            {
-                LabirintChainCategories.Add(category.InnerText);
-            }
-
-            return LabirintChainCategories;
-        }
+        public readonly List<string> Chain  = new List<string>();
 
         /// <summary>
         /// Получает последнюю категорию в списке.
@@ -39,7 +23,7 @@ namespace Sumo_MetaInformationLoading.Labirint
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[this.chain.Count - 1] : null;
+                return (this.Chain.Count > 0) ? this.Chain[this.Chain.Count - 1] : null;
             }
         }
 
@@ -50,8 +34,33 @@ namespace Sumo_MetaInformationLoading.Labirint
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[0] : null;
+                return (this.Chain.Count > 0) ? this.Chain[0] : null;
             }
+        }
+
+        /// <summary>
+        /// Парсинг блока коментариев.
+        /// </summary>
+        /// <param name="textOfCategoriesBlock">
+        /// Содержимое блока строки категорий.
+        /// </param>
+        /// <returns>
+        /// Цепочка категорий.
+        /// </returns>
+        public static OzonChainCategories Parse(string textOfCategoriesBlock)
+        {
+            var document = new HtmlDocument();
+            document.LoadHtml(textOfCategoriesBlock);
+
+            var categoryList = document.DocumentNode.SelectNodes("//li");
+
+            var ozonChainCategories = new OzonChainCategories();
+            foreach (var category in categoryList)
+            {
+                ozonChainCategories.Add(category.InnerText);
+            }
+
+            return ozonChainCategories;
         }
 
         /// <summary>
@@ -68,12 +77,12 @@ namespace Sumo_MetaInformationLoading.Labirint
         /// </exception>
         public string Get(int index)
         {
-            if ((index < 0) || (this.chain.Count - 1 < index))
+            if ((index < 0) || (this.Chain.Count - 1 < index))
             {
                 throw new IndexOutOfRangeException();
             }
 
-            return this.chain[index];
+            return this.Chain[index];
         }
 
         /// <summary>
@@ -84,7 +93,7 @@ namespace Sumo_MetaInformationLoading.Labirint
         /// </param>
         public void Add(string category)
         {
-            this.chain.Add(category);
+            this.Chain.Add(category);
         }
 
         /// <summary>
@@ -95,8 +104,7 @@ namespace Sumo_MetaInformationLoading.Labirint
         /// </returns>
         public override string ToString()
         {
-            return this.chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
+            return this.Chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
         }
     }
 }
-

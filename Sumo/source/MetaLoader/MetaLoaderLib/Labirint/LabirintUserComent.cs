@@ -1,19 +1,15 @@
-﻿namespace MetaInformationLoader.Ozon
+﻿namespace MetaLoaderLib.Labirint
 {
     using System;
 
     using HtmlAgilityPack;
 
     /// <summary>
-    /// Коментарий пользователя с сайта Ozon.ru.
+    /// Коментарий пользователя с сайта Labirint.ru.
     /// </summary>
-    public class OzonUserComent
+    public class LabirintUserComent
     {
-        /// <summary>
-        /// Получает заголовок коментария.
-        /// </summary>
-        public string ComentTitle { get; internal set; }
-
+        
         /// <summary>
         /// Получает текст коментария пользователя.
         /// </summary>
@@ -44,12 +40,17 @@
         {
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(comentHtmlText);
+            // Изменил парсинг комментов
+            this.UserName = document.DocumentNode.SelectNodes("//div[@class=\"uzer-name\"]/a")[0].InnerText;
 
-            this.ComentTitle = document.DocumentNode.SelectNodes("//strong[@itemprop=\"name\"]")[0].InnerText;
-            this.ComentDate = DateTime.Parse(document.DocumentNode.SelectNodes("//span[@itemprop=\"datePublished\"]")[0].InnerText);
-            this.UserName = document.DocumentNode.SelectNodes("//div[@class=\"content\"]/p[@class=\"misc\"]")[0].NextSibling.InnerText;
-            this.ComentText = document.DocumentNode.SelectNodes("//p[@itemprop=\"description\"]")[0].InnerText;
-            this.UserMark = Convert.ToByte(document.DocumentNode.SelectNodes("//meta[@itemprop=\"ratingValue\"]")[0].Attributes["content"].Value);
+            string date = document.DocumentNode.SelectNodes("//div[@class=\"date\"]")[0].InnerText;
+            string[] Date = date.Split(new char[] { ' ' });
+            this.ComentDate = DateTime.Parse(Date[0]);
+
+            this.ComentText = document.DocumentNode.SelectNodes("//div[@class=\"comment-text\"]/div/p")[0].InnerText;
+            this.UserMark = Convert.ToByte(document.DocumentNode.SelectNodes("//div[@class=\"form-inp\"]")[1].InnerText);
+
         }
     }
 }
+
