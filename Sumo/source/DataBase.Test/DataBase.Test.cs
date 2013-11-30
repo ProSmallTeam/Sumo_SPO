@@ -24,10 +24,10 @@ namespace DataBase.Test
         {
             _database = new DataBase("mongodb://localhost/?safe=false"); // получение объекта, с которым будем работать
 
-            if (_database.Database.GetCollection("Books").Count() != 0)
+            /*if (_database.Database.GetCollection("Books").Count() != 0)
             {
                 return;
-            }
+            }*/
 
             var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
@@ -141,6 +141,29 @@ namespace DataBase.Test
             WriteIntoFile("Время подсчета статистики по одному аттрибуту: " + (DateTime.Now - time));
         }
 
+        [Test]
+        public void AssertOfCorrectInsertTask()
+        {
+            _database.InsertTask(new Task { PathToFile = "path0" });
+
+            Assert.IsNotEmpty(_database.Database.GetCollection<BsonDocument>("Tasks").FindAs<BsonDocument>(new QueryDocument(new BsonDocument{{"Path", "path0"}})).ToArray());
+        }
+
+        [Test]
+        public void AssetOfGettingTaskList()
+        {
+            Assert.IsNotEmpty(_database.GetTask(20));
+        }
+
+        [Test]
+        public void AssertOfCorrectGettingTaskList()
+        {
+            const int QuantityOfTask = 100;
+
+            _database.GetTask(QuantityOfTask);
+            Assert.IsEmpty(_database.GetTask(1));
+        }
+
         private void InitializeAttr(DataBase dataBase)
         {
             var authors = new[]
@@ -184,16 +207,15 @@ namespace DataBase.Test
                                    "Яндекс Воложа. История создания компании мечты", "Изучаем HTML, XHTML", " Самоучитель работы на ПК для всех",
                                    "Журнал CHIP, сентябрь №9/2013", "Интернет-программирование на Java", "Компьютер для женщин"
                                };
-
             var authors = new[]
                               {
                                   "Дмитрий Макарский", "М. Ховард", " М. Леви", "Р. Вэймир", "Г. Шмерлинг", "Трев Уилкинс", "В. А. Жарков", "Йен Маклин", "Орин Томас",
                                   "Джон Гудсон", "Бен Харвелл", "Бен Харвелл", "Том Уайт", "Евгения Пастернак", "Марина Виннер", "Майкл Фриман", "Кристиан Уэнц",
                                   "Мэтью Мак-Дональд", "Д. Н. Колисниченко", "Андрей Грачев"
                               };
-
             var language = new[] { "Russian", "English" };
-    
+            var arrayOfPriority = new[] { true, false };
+
             var random = new Random();
 
 
@@ -235,6 +257,15 @@ namespace DataBase.Test
                         listOfAltBook
                     );
             }
+
+            for (var index = 0; index < 100; index++)
+            {
+                var task = new Task { PathToFile = "path" + index };
+                var priority = arrayOfPriority[index % 2];
+
+                dataBase.InsertTask(task, priority);
+            }
+            
 
             Trace.WriteLine(DateTime.Now - time);
         }
