@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="IDataBase.cs" />
