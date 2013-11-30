@@ -22,7 +22,7 @@ namespace DataBase
 
         int RemoveTask(Task task);
 
-        List<Task> GetTask(int quantity)
+        List<Task> GetTask(int quantity);
 
     }
 }
