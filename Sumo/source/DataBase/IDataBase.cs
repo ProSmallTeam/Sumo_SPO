@@ -17,5 +17,12 @@ namespace DataBase
         IList<Sumo.API.Book> GetBooksByAttrId(List<int> attrId, int limit, int offset);
 
         int SaveAttribute(string name, int parrentId, int rootId);
+
+        int InsertTask(Task task, bool flagOfHighPriority);
+
+        int RemoveTask(Task task);
+
+        List<Task> GetTask(int quantity)
+
     }
 }

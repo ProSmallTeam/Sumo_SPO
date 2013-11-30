@@ -17,5 +17,8 @@ namespace DataBase
 
         // Коллекция, в которой хранятся прочие данные о книгах.
         public static MongoCollection<BsonDocument> AlternativeMeta;
+
+        // Колекция, в которой хранятся задания на обработку книг.
+        public static MongoCollection<BsonDocument> Tasks;
     }
 }
