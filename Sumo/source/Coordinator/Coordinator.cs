@@ -17,8 +17,10 @@ namespace Coordinator
 
         public void Run()
         {
-            var tasks = _dbTaskManager.GetTasks(10);
-            _tasks = (List<string>) _tasks.Concat(tasks);
+            var tasks = (IEnumerable<string>)_dbTaskManager.GetTasks(10);
+            var t  = _tasks.Concat(tasks);
+            _tasks = t.ToList();
+            //_tasks = tasks.ToList();
         }
 
         public void ExecuteTasks()

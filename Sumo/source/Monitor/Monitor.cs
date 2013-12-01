@@ -26,7 +26,7 @@ namespace Monitor
 
         void FoldersChanged(object sender, FileObserverEventArgs e)
         {
-            _dbTaskManager.AddTasks(e.ChangedFilesFullPath);
+            _dbTaskManager.AddTasks(e.ChangedFilesFullPath.ToArray());
         }
         
 

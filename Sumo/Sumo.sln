@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "source\DataBase\DataBase.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase.Test", "source\DataBase.Test\DataBase.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
@@ -25,8 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WCF", "WCF", "{BA299CDD-413
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor", "source\Monitor\Monitor.csproj", "{5AD36948-1B9C-4810-B932-6823A87C014C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookDbManager", "source\BookDbManager\BookDbManager.csproj", "{57EE79F9-F718-42F6-8273-F261F18D4472}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookDbManagerWCFService", "source\BookDbManagerWCFService\BookDbManagerWCFService.csproj", "{FF50703C-6205-42A0-9EA0-6D12D84FADB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coordinator", "source\Coordinator\Coordinator.csproj", "{676EC934-0BB1-449D-94FD-896C43C0AAC7}"
@@ -42,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib", "source\MetaLoader\MetaLoaderLib\MetaLoaderLib.csproj", "{7161608D-7526-4A0B-A575-5ADEFBF577E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib.Tests", "source\MetaLoader\MetaLoaderLib.Tests\MetaLoaderLib.Tests.csproj", "{0F1AE509-CA57-40A4-8DB9-38DA151F580C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFClient", "source\SimpleWCFClient\SimpleWCFClient.csproj", "{05A75CA8-033E-488F-9ADC-631C716B86E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,16 +155,6 @@ Global
 		{5AD36948-1B9C-4810-B932-6823A87C014C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5AD36948-1B9C-4810-B932-6823A87C014C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5AD36948-1B9C-4810-B932-6823A87C014C}.Release|x86.ActiveCfg = Release|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{57EE79F9-F718-42F6-8273-F261F18D4472}.Release|x86.ActiveCfg = Release|Any CPU
 		{FF50703C-6205-42A0-9EA0-6D12D84FADB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF50703C-6205-42A0-9EA0-6D12D84FADB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF50703C-6205-42A0-9EA0-6D12D84FADB2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -233,6 +225,16 @@ Global
 		{0F1AE509-CA57-40A4-8DB9-38DA151F580C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0F1AE509-CA57-40A4-8DB9-38DA151F580C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F1AE509-CA57-40A4-8DB9-38DA151F580C}.Release|x86.ActiveCfg = Release|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{05A75CA8-033E-488F-9ADC-631C716B86E6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +245,7 @@ Global
 		{43575EA4-81F1-4B17-ADAA-7CC27E460517} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
 		{CED67D90-9B6B-4810-A070-B295E50EBE7A} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
 		{FF50703C-6205-42A0-9EA0-6D12D84FADB2} = {BA299CDD-413E-4361-B50F-04A526C7B080}
+		{05A75CA8-033E-488F-9ADC-631C716B86E6} = {BA299CDD-413E-4361-B50F-04A526C7B080}
 		{7161608D-7526-4A0B-A575-5ADEFBF577E5} = {B2AC66F5-683A-43AD-9C7F-7AA100101D45}
 		{0F1AE509-CA57-40A4-8DB9-38DA151F580C} = {B2AC66F5-683A-43AD-9C7F-7AA100101D45}
 	EndGlobalSection

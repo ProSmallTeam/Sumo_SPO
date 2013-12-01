@@ -35,12 +35,14 @@ namespace Monitor
         {
             var fileSystemObserver = new FileSystemObserverStub();
 
-            var monitor = new Monitor(fileSystemObserver, GetDbTaskManager());
+            var dbTaskManager = GetDbTaskManager();
+            var monitor = new Monitor(fileSystemObserver, dbTaskManager);
             monitor.Run();
 
             var strings = new List<string>();
 
             Console.WriteLine("Введите пути(пустая строка - завершить)");
+
             while (true)
             {
                 var str = Console.ReadLine();
@@ -53,6 +55,18 @@ namespace Monitor
             }
 
             fileSystemObserver.ExecuteEvent(strings);
+
+            //dbTaskManager.AddTasks(strings.ToArray());
+            Console.WriteLine(dbTaskManager.TestOperation("asdf"));
+            var a = dbTaskManager.GetTasks(10);
+            foreach (var s in a)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("Done");
+
+            Console.ReadKey();
         }
 
         private static IDbTaskManager GetDbTaskManager()

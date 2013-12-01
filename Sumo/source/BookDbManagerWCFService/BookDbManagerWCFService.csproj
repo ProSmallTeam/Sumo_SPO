@@ -49,10 +49,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BookDbManager\BookDbManager.csproj">
-      <Project>{57ee79f9-f718-42f6-8273-f261f18d4472}</Project>
-      <Name>BookDbManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.API</Name>

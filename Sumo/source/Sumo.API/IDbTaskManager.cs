@@ -7,13 +7,13 @@ namespace Sumo.API
     public interface IDbTaskManager
     {
         [OperationContract]
-        List<string> GetTasks(int maxCount);
+        string[] GetTasks(int maxCount);
 
         [OperationContract]
-        void AddTasks(List<string> pathsList);
+        void AddTasks(string[] pathsList);
 
         [OperationContract]
-        void AddTasksWithHightPriority(List<string> pathsList);
+        void AddTasksWithHightPriority(string[] pathsList);
 
         //todo delete
         [OperationContract]
