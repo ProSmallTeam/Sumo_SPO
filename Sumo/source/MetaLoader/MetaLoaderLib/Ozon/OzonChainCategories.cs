@@ -6,15 +6,25 @@
 
     using HtmlAgilityPack;
 
+    using MetaLoaderLib.Interfaces;
+
     /// <summary>
-    /// Класс, реализующий хранение цепочки коментариев.
+    /// Класс, реализующий хранение цепочки комментариев.
     /// </summary>
-    public class OzonChainCategories
+    public class OzonChainCategories : IChainCategories
     {
+        /// <summary>
+        /// Конструктор класса цепочки категорий.
+        /// </summary>
+        public OzonChainCategories()
+        {
+            this.Chain = new List<string>();
+        }
+
         /// <summary>
         /// Список категорий по порядку их следования.
         /// </summary>
-        public readonly List<string> Chain  = new List<string>();
+        public List<string> Chain { get; private set; }
 
         /// <summary>
         /// Получает последнюю категорию в списке.
@@ -39,28 +49,22 @@
         }
 
         /// <summary>
-        /// Парсинг блока коментариев.
+        /// Парсинг блока комментариев.
         /// </summary>
         /// <param name="textOfCategoriesBlock">
         /// Содержимое блока строки категорий.
         /// </param>
-        /// <returns>
-        /// Цепочка категорий.
-        /// </returns>
-        public static OzonChainCategories Parse(string textOfCategoriesBlock)
+        public void Parse(string textOfCategoriesBlock)
         {
             var document = new HtmlDocument();
             document.LoadHtml(textOfCategoriesBlock);
 
             var categoryList = document.DocumentNode.SelectNodes("//li");
 
-            var ozonChainCategories = new OzonChainCategories();
             foreach (var category in categoryList)
             {
-                ozonChainCategories.Add(category.InnerText);
+                this.Chain.Add(category.InnerText);
             }
-
-            return ozonChainCategories;
         }
 
         /// <summary>
@@ -83,17 +87,6 @@
             }
 
             return this.Chain[index];
-        }
-
-        /// <summary>
-        /// Добавляет категорию в конец списка.
-        /// </summary>
-        /// <param name="category">
-        /// Новая категория.
-        /// </param>
-        public void Add(string category)
-        {
-            this.Chain.Add(category);
         }
 
         /// <summary>

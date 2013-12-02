@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using MetaLoaderLib.Ozon;
+    using MetaLoaderLib.Interfaces;
 
     /// <summary>
     /// Контейнер хранения метаинформации.
@@ -52,7 +52,7 @@
         /// <summary>
         /// Получает язык, на котором написана книга.
         /// </summary>
-        public string Languages { get; set; }
+        public string Language { get; set; }
 
         /// <summary>
         /// Получает издателя.
@@ -72,7 +72,7 @@
         /// <summary>
         /// Получает категорию.
         /// </summary>
-        public OzonChainCategories Сategories { get; set; }
+        public IChainCategories Сategories { get; set; }
 
         /// <summary>
         /// Получает аннотацию к книге.
@@ -80,8 +80,8 @@
         public string Annotation { get; set; }
 
         /// <summary>
-        /// Получает коментарии пользователей на книгу.
+        /// Получает комментарии пользователей на книгу.
         /// </summary>
-        public OzonComentsList UsersComents { get; set; }
+        public ICommentsList UsersComments { get; set; }
     }
 }

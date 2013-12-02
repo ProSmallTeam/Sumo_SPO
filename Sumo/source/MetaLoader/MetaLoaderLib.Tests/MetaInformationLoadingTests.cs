@@ -23,7 +23,7 @@
             Assert.AreEqual(goodContainer.PageCount, 272);
             Assert.AreEqual(goodContainer.PublishYear, "2012");
             Assert.AreEqual(goodContainer.InternalId, "8465610");
-            Assert.AreEqual(goodContainer.Languages, "Русский");
+            Assert.AreEqual(goodContainer.Language, "Русский");
             Assert.AreEqual(goodContainer.PublishHouse, "БХВ-Петербург");
             Assert.AreEqual(goodContainer.RuTitle, "CSS3. Руководство разработчика");
             Assert.AreEqual(goodContainer.Link, "http://www.ozon.ru/context/detail/id/8465610/");
@@ -56,7 +56,7 @@
             Assert.AreEqual(goodContainer.PageCount, 304);
             Assert.AreEqual(goodContainer.PublishYear, "2014");
             Assert.AreEqual(goodContainer.InternalId, "407352");
-            //Assert.AreEqual(goodContainer.Languages, "Русский"); не всегда есть язык
+            //Assert.AreEqual(goodContainer.Language, "Русский"); не всегда есть язык
             Assert.AreEqual(goodContainer.PublishHouse, "Питер");
             Assert.AreEqual(goodContainer.RuTitle, "HTML5 и CSS3.Разработка сайтов для любых браузеров и устройств");
             Assert.AreEqual(goodContainer.Link, "http://www.labirint.ru/books/407352/");

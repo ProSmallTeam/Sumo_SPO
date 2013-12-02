@@ -56,7 +56,7 @@
             this.Document = document;
 
             var metaContainer = this.Parse();
-            this.UploadComents(metaContainer);
+            this.UploadComments(metaContainer);
 
             return metaContainer;
         }
@@ -80,7 +80,7 @@
             container.Author = this.Get("//p[@itemprop='author']/a");
             container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
             container.PublishHouse = this.Get("//p[@itemprop='publisher']/a");
-            container.Languages = this.Get("//p[@itemprop='inLanguage']").Remove(0, "Языки: ".Length);
+            container.Language = this.Get("//p[@itemprop='inLanguage']").Remove(0, "Языки: ".Length);
 
             // Вытаскиваем ISBN и год издания
             var publishYearAndIsbn = this.Get("//p[@itemprop='isbn']").Substring("ISBN ".Length);
@@ -93,7 +93,9 @@
             container.PageCount = Convert.ToInt32(pageCountInText.Substring(0, pageCountInText.Length - 5));
 
             // Вытаскиваем цепочку категорий
-            container.Сategories = OzonChainCategories.Parse(this.Document.DocumentNode.SelectNodes("//ul[@class=\"navLine\"]")[0].InnerHtml);
+            var ozonChainCategories = new OzonChainCategories();
+            ozonChainCategories.Parse(this.Document.DocumentNode.SelectNodes("//ul[@class=\"navLine\"]")[0].InnerHtml);
+            container.Сategories = ozonChainCategories;
 
             // container.PictureLink = _document.DocumentNode.SelectNodes("//div[@class=\"eMicroGallery_full\"]")[0].InnerText;
 
@@ -117,19 +119,19 @@
         }
 
         /// <summary>
-        /// Подгружаем коментарии пользователей.
+        /// Подгружаем комментарии пользователей.
         /// </summary>
         /// <param name="metaContainer">
-        /// Контейнер для сохранения коментариев пользователей.
+        /// Контейнер для сохранения комментариев пользователей.
         /// </param>
-        private void UploadComents(MetaInformationContainer metaContainer)
+        private void UploadComments(MetaInformationContainer metaContainer)
         {
-            var comentsBlock =
+            var commentsBlock =
                 PageLoader.LoadFromUrl(
                     "http://www.ozon.ru/DetailLoader.aspx?module=comments&id=" + metaContainer.InternalId
                     + "&perPage=1&page=1000");
-            metaContainer.UsersComents = new OzonComentsList();
-            metaContainer.UsersComents.Parse(comentsBlock.PageText);
+            metaContainer.UsersComments = new OzonCommentsList();
+            metaContainer.UsersComments.Parse(commentsBlock.PageText);
         }
     }
 }

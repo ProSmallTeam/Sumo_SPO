@@ -6,31 +6,25 @@
 
     using HtmlAgilityPack;
 
+    using MetaLoaderLib.Interfaces;
+
     /// <summary>
-    /// Класс, реализующий хранение цепочки коментариев.
+    /// Класс, реализующий хранение цепочки комментариев.
     /// </summary>
-    public class LabirintChainCategories
+    public class LabirintChainCategories : IChainCategories
     {
+        /// <summary>
+        /// Конструктор класса цепочки категорий.
+        /// </summary>
+        public LabirintChainCategories()
+        {
+            this.Chain = new List<string>();
+        }
+
         /// <summary>
         /// Список категорий по порядку их следования.
         /// </summary>
-        private readonly List<string> chain = new List<string>();
-
-        public static LabirintChainCategories Parse(string textOfCategoriesBlock)
-        {
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(textOfCategoriesBlock);
-
-            var categoryList = document.DocumentNode.SelectNodes("//li");
-
-            LabirintChainCategories LabirintChainCategories = new LabirintChainCategories();
-            foreach (var category in categoryList)
-            {
-                LabirintChainCategories.Add(category.InnerText);
-            }
-
-            return LabirintChainCategories;
-        }
+        public List<string> Chain { get; private set; }
 
         /// <summary>
         /// Получает последнюю категорию в списке.
@@ -39,7 +33,7 @@
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[this.chain.Count - 1] : null;
+                return (this.Chain.Count > 0) ? this.Chain[this.Chain.Count - 1] : null;
             }
         }
 
@@ -50,7 +44,26 @@
         {
             get
             {
-                return (this.chain.Count > 0) ? this.chain[0] : null;
+                return (this.Chain.Count > 0) ? this.Chain[0] : null;
+            }
+        }
+
+        /// <summary>
+        /// Парсинг блока комментариев.
+        /// </summary>
+        /// <param name="textOfCategoriesBlock">
+        /// Содержимое блока строки категорий.
+        /// </param>
+        public void Parse(string textOfCategoriesBlock)
+        {
+            var document = new HtmlDocument();
+            document.LoadHtml(textOfCategoriesBlock);
+
+            var categoryList = document.DocumentNode.SelectNodes("//li");
+
+            foreach (var category in categoryList)
+            {
+                this.Chain.Add(category.InnerText);
             }
         }
 
@@ -68,23 +81,12 @@
         /// </exception>
         public string Get(int index)
         {
-            if ((index < 0) || (this.chain.Count - 1 < index))
+            if ((index < 0) || (this.Chain.Count - 1 < index))
             {
                 throw new IndexOutOfRangeException();
             }
 
-            return this.chain[index];
-        }
-
-        /// <summary>
-        /// Добавляет категорию в конец списка.
-        /// </summary>
-        /// <param name="category">
-        /// Новая категория.
-        /// </param>
-        public void Add(string category)
-        {
-            this.chain.Add(category);
+            return this.Chain[index];
         }
 
         /// <summary>
@@ -95,7 +97,7 @@
         /// </returns>
         public override string ToString()
         {
-            return this.chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
+            return this.Chain.Aggregate<string, string>(null, (current, category) => current + (category + " > "));
         }
     }
 }

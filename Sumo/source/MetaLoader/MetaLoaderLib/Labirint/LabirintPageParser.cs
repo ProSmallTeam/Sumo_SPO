@@ -8,11 +8,19 @@
     using MetaLoaderLib.Interfaces;
 
     /// <summary>
-    /// Класс для парсинга страници с книгой, загруженной с сайта Ozon.ru
+    /// Класс для парсинга страници с книгой, загруженной с сайта Labirint.ru
     /// </summary>
     public class LabirintPageParser : IPageParser
     {
-
+        /// <summary>
+        /// Инициализирует класс для парсинга страницы с сайта Labirint.ru
+        /// </summary>
+        /// <param name="document">
+        /// Страница в HTML документе для парсинга.
+        /// </param>
+        /// <param name="url">
+        /// Url страницы для парсинга.
+        /// </param>
         public LabirintPageParser(HtmlDocument document, string url)
         {
             this.Document = document;
@@ -30,15 +38,6 @@
         private HtmlDocument Document { get; set; }
 
         /// <summary>
-        /// Метод для парсинга страницы.
-        /// </summary>
-        /// <param name="isbn">
-        /// ISBN книги.
-        /// </param>
-        /// <returns>
-        /// Контейнер с информацией о книге.
-        /// </returns>
-        /// <summary>
         /// Метод для парсинга страници.
         /// </summary>
         /// <param name="isbn">
@@ -49,7 +48,6 @@
         /// </returns>
         public MetaInformationContainer Parse(string isbn)
         {
-            // Загрузка страници
             var page = PageLoader.LoadFromUrl("http://www.labirint.ru/search/" + isbn + "/");
 
             var document = new HtmlDocument();
@@ -57,7 +55,7 @@
             this.Document = document;
 
             var metaContainer = this.Parse();
-            //this.UploadComents(metaContainer);
+            this.Uploadcomments(metaContainer);
 
             return metaContainer;
         }
@@ -120,21 +118,22 @@
             var nodes = this.Document.DocumentNode.SelectNodes(query);
             return nodes.Count == 0 ? string.Empty : nodes[0].InnerText;
         }
-/*
+
         /// <summary>
-        /// Подгружаем коментарии пользователей.
+        /// Подгружаем комментарии пользователей.
         /// </summary>
         /// <param name="metaContainer">
-        /// Контейнер для сохранения коментариев пользователей.
+        /// Контейнер для сохранения комментариев пользователей.
         /// </param>
-        private void UploadComents(MetaInformationContainer metaContainer)
+        private void Uploadcomments(MetaInformationContainer metaContainer)
         {
-            var comentsBlock =
+/*            var commentsBlock =
                 PageLoader.LoadFromUrl(
                     "http://www.ozon.ru/DetailLoader.aspx?module=comments&id=" + metaContainer.InternalId // нужна ссылка для коментов
                     + "&perPage=1&page=1000");
-            metaContainer.UsersComentsForLabirint = new LabirintComentsList();
-            metaContainer.UsersComentsForLabirint.Parse(comentsBlock.PageText);
-        }*/
+            metaContainer.UserscommentsForLabirint = new LabirintcommentsList();
+            metaContainer.UserscommentsForLabirint.Parse(commentsBlock.PageText);
+ */
+        }
     }
 }

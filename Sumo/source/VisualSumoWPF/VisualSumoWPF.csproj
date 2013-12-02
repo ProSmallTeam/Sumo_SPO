@@ -49,9 +49,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataBase">
-      <HintPath>..\DataBase\bin\Debug\DataBase.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Charts.v13.1.Core, Version=13.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Images.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
@@ -191,6 +188,10 @@
     <Resource Include="Images\adddir.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataBase\DataBase.csproj">
+      <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
+      <Name>DataBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.API</Name>
