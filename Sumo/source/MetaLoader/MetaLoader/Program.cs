@@ -7,7 +7,7 @@
         [STAThread]
         static void Main()
         {
-
+            // Здесь грузим содержимое исходной xml
         }
     }
 }

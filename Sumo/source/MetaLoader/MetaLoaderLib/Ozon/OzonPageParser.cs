@@ -78,7 +78,7 @@
             container.RuTitle = this.Get("//h1[@itemprop='name']");
             container.InternalId = this.Get("//div[@class='product-detail']/p[1]").Remove(0, "ID ".Length);
             container.Author = this.Get("//p[@itemprop='author']/a");
-            container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
+            //container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
             container.PublishHouse = this.Get("//p[@itemprop='publisher']/a");
             container.Language = this.Get("//p[@itemprop='inLanguage']").Remove(0, "Языки: ".Length);
 
@@ -97,7 +97,7 @@
             ozonChainCategories.Parse(this.Document.DocumentNode.SelectNodes("//ul[@class=\"navLine\"]")[0].InnerHtml);
             container.Сategories = ozonChainCategories;
 
-            // container.PictureLink = _document.DocumentNode.SelectNodes("//div[@class=\"eMicroGallery_full\"]")[0].InnerText;
+            container.PictureLink = Document.DocumentNode.SelectNodes("//img[@class=\"eMicroGallery_fullImage\"]")[0].Attributes["src"].Value;
 
             // Возвращаем контейнер
             return container;
