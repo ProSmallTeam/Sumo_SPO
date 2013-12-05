@@ -2,6 +2,7 @@
 using System.Windows;
 using DevExpress.Xpf.Grid;
 using System.Collections.ObjectModel;
+using Sumo.API;
 
 namespace VisualSumoWPF
 {
@@ -105,9 +106,9 @@ namespace VisualSumoWPF
                 var node = new TreeListNode { Content = statistic, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
                 nodeParent.Nodes.Add(node);
                 
-                if (statistic.list != null)
+                if (statistic.Childs != null)
                 {
-                    this.SetNode(node, statistic.list);    
+                    this.SetNode(node, statistic.Childs);    
                 }
             }
         }
@@ -123,9 +124,9 @@ namespace VisualSumoWPF
                 {
                     var node = new TreeListNode { Content = list, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
 
-                    if (list.list != null)
+                    if (list.Childs != null)
                     {
-                        this.SetNode(node, list.list);
+                        this.SetNode(node, list.Childs);
                     }
                     TreeVeiw.Nodes.Add(node);
                 }

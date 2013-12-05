@@ -2,17 +2,15 @@
 
 namespace Sumo.API
 {
+    //todo дима, реализуй
     public interface IDbMetaManager
     {
         SumoSession CreateQuery(string query);
 
-        List<Book> GetDocuments(SumoSession session, int offset, int count);
+        List<Book> GetDocuments(int sessionId, int count, int offset = 0);
 
-        ISumoStatistic GetStatistic(SumoSession session);
+        CategoryTree GetStatistic(int sessionId);
 
-        void CloseSession(SumoSession session);
-
-
-        
+        void CloseSession(SumoSession session);        
     }
 }

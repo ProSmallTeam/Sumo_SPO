@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace VisualSumoWPF
 {
-
     //class SumoStattistic
     //{
     //    private List<Book> books;
@@ -20,38 +15,30 @@ namespace VisualSumoWPF
 
     public class TreeStatistic
     {
-        public TreeStatistic(List<TreeStatistic> list, string name, int quantity)
+        public TreeStatistic(List<TreeStatistic> childs, string name, int count)
         {
-            this.list = list;
-            this.Name = name + "(" + quantity.ToString() + ")";
-            this.quantity = quantity;
+            Childs = childs;
+            Name = name;
+            Count = count;
         }
-        public TreeStatistic(string name, int quantity)
+
+        public TreeStatistic(string name, int count)
         {
-            this.list = null;
-            this.Name = name + "(" + quantity.ToString() + ")";
-            this.quantity = quantity;
+            Childs = null;
+            Name = name + "(" + count + ")";
+            Count = count;
         }
+
         public TreeStatistic(string name)
         {
-            this.list = null;
-            this.Name = name + "(" + quantity.ToString() + ")";
+            Childs = null;
+            Name = name + "(" + Count + ")";
         }
 
-        public void SetNumber(int quantity)
-        {
-            this.quantity = quantity;
-        }
-        public void AddList(List<TreeStatistic> tree)
-        {
-            this.list = tree;
-        }
-
-        public List<TreeStatistic> list { get; set; }
+        public List<TreeStatistic> Childs { get; set; }
 
         public string Name { get; set; }
 
-        public int quantity { get; set; }
+        public int Count { get; set; }
     }
-
 }
