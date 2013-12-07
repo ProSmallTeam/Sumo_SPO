@@ -104,6 +104,11 @@
     <Compile Include="DirectoryAdding.xaml.cs">
       <DependentUpon>DirectoryAdding.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Service1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="TreeStatistic.cs" />
     <Page Include="DirectoryAdding.xaml">
       <SubType>Designer</SubType>
@@ -140,11 +145,28 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Sumo.API.Book.datasource" />
+    <None Include="Properties\DataSources\Sumo.API.CategoriesMultiList.datasource" />
+    <None Include="Properties\DataSources\Sumo.API.SumoSession.datasource" />
+    <None Include="Properties\DataSources\Sumo.API.SumoSession1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\Service1\MetaManagerStub.wsdl" />
+    <None Include="Service References\Service1\TestService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service1\TestService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service1\TestService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service1\TestService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -196,6 +218,27 @@
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Service1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Service1\TestService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Service1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Service1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Service1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

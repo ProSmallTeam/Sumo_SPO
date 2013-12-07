@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="49c3e82b-c96a-4138-a800-e927d8b89ba4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1060/TestService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MetaManagerStub.wsdl" MetadataType="Wsdl" ID="7fa10e24-2c1d-4aec-94e9-fb8ee5fd0a0f" SourceId="1" SourceUrl="http://localhost:1060/TestService?wsdl" />
+    <MetadataFile FileName="TestService.xsd" MetadataType="Schema" ID="77b74f28-3cd0-4dbd-b2c8-54cce7936417" SourceId="1" SourceUrl="http://localhost:1060/TestService?xsd=xsd2" />
+    <MetadataFile FileName="TestService1.xsd" MetadataType="Schema" ID="ca1b9c8d-e216-4623-926c-3d93a6c190b0" SourceId="1" SourceUrl="http://localhost:1060/TestService?xsd=xsd1" />
+    <MetadataFile FileName="TestService2.xsd" MetadataType="Schema" ID="a8a7d359-d123-425f-b469-cd684128c889" SourceId="1" SourceUrl="http://localhost:1060/TestService?xsd=xsd0" />
+    <MetadataFile FileName="TestService3.xsd" MetadataType="Schema" ID="b2a65abc-13d3-4e5b-97b5-1fdbe6a6bc53" SourceId="1" SourceUrl="http://localhost:1060/TestService?xsd=xsd3" />
+    <MetadataFile FileName="TestService.disco" MetadataType="Disco" ID="267e6ef4-2627-44e4-b690-dd7cd48a7810" SourceId="1" SourceUrl="http://localhost:1060/TestService?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

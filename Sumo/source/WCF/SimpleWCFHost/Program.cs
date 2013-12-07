@@ -1,24 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using Sumo.API;
 
 namespace SimpleWCFHost
 {
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                Console.WriteLine("Hell0");
-                ServiceHost host = new ServiceHost(typeof(Sumo.API.DbTaskManager), new Uri("http://localhost:1050/TestService"));
-                host.AddServiceEndpoint(typeof(Sumo.API.IDbTaskManager), new BasicHttpBinding(), "");
-                host.Open();
-                Console.WriteLine("Сервер запущен");
-                Console.ReadLine();
 
-                host.Close();
-            }
+    [ServiceContract]
+    public interface ITestingService
+    {
+        [OperationContract]
+        CategoriesMultiList Get(CategoriesMultiList categoriesMultiList);
+
+        [OperationContract]
+        List<Book> GetBookMeta(List<Book> books);
+    }
+
+    public  class TestingService : ITestingService
+    {
+        public CategoriesMultiList Get(CategoriesMultiList categoriesMultiList)
+        {
+            return categoriesMultiList;
         }
+
+        public List<Book> GetBookMeta(List<Book> books)
+        {
+            return books;
+        }
+    }
+
+    internal class Program
+    {
+
+        private static void Main(string[] args)
+        {
+            Console.WriteLine("Hell0");
+            var host = new ServiceHost(typeof(TestingService), new Uri("http://localhost:1050/TestService"));
+            host.AddServiceEndpoint(typeof(ITestingService), new BasicHttpBinding(), "");
+            host.Open();
+            Console.WriteLine("Сервер запущен");
+            Console.ReadLine();
+
+            host.Close();
+        }
+    }
 }

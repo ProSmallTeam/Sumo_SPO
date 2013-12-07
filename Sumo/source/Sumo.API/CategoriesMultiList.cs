@@ -10,6 +10,9 @@ namespace Sumo.API
         [DataMember]
         public CategoryNode Node;
 
+        [DataMember]
+        public List<CategoriesMultiList> Childs { get; set; }
+
         public CategoriesMultiList(CategoryNode node, List<CategoriesMultiList> childs)
         {
             Node = node;
@@ -19,7 +22,6 @@ namespace Sumo.API
         public CategoriesMultiList(CategoryNode node) : this(node, new List<CategoriesMultiList>())
         { }
 
-        public List<CategoriesMultiList> Childs { get; set; }
 
         public void AddChild(CategoriesMultiList child)
         {
