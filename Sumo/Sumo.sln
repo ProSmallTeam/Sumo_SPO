@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib", "source\Met
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib.Tests", "source\MetaLoader\MetaLoaderLib.Tests\MetaLoaderLib.Tests.csproj", "{0F1AE509-CA57-40A4-8DB9-38DA151F580C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFClient", "source\SimpleWCFClient\SimpleWCFClient.csproj", "{05A75CA8-033E-488F-9ADC-631C716B86E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFClient", "source\WCF\SimpleWCFClient\SimpleWCFClient.csproj", "{05A75CA8-033E-488F-9ADC-631C716B86E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoader", "source\MetaLoader\MetaLoader\MetaLoader.csproj", "{13AA7F83-9636-461D-AFE1-14B0665D421E}"
 EndProject
