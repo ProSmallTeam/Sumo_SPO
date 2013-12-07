@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FolderPickerLib;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace VisualSumoWPF
 {
@@ -40,9 +39,9 @@ namespace VisualSumoWPF
             if (dirDialog.ShowDialog() != true) return;
 
             
-            foreach (var item in DirectoriesList.Items)
+            if (DirectoriesList.Items.Cast<object>().Any(item => item.ToString() == dirDialog.SelectedPath))
             {
-                if (item.ToString() == dirDialog.SelectedPath) return;
+                return;
             }
 
             if (DirectoriesList.Items.Count == 1 && DirectoriesList.Items.Contains("Выберите директории, где лежат ваши книги"))

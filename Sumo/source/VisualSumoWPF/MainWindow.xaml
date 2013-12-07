@@ -50,7 +50,7 @@
                 <Image Source="Images/search.jpg" />
             </Button.Content>
         </Button>
-        <dxg:GridControl x:Name="GridBook" Margin="301,84,10,0" VerticalAlignment="Top" Height="249" SnapsToDevicePixels="True" OpacityMask="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" ItemsSource="{Binding RowData.Row.Name, Mode=TwoWay}"  SelectedItemChanged="GridBook_SelectedItemChanged">
+        <dxg:GridControl x:Name="GridBook" Margin="301,84,10,0" VerticalAlignment="Top" Height="249" SnapsToDevicePixels="True" OpacityMask="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" ItemsSource="{Binding RowData.Row.Name, Mode=TwoWay}"  SelectedItemChanged="GridBook_SelectedItemChanged" SelectionChanged="GridBook_OnSelectionChanged">
             <dxg:GridControl.Columns>
                 <dxg:GridColumn Header="Name" Binding="{Binding RowData.Row.Name, Mode=TwoWay}" FieldName="Название"/>
                 <dxg:GridColumn Header="Author" Binding="{Binding RowData.Row.Author, Mode=TwoWay}" FieldName="Автор"/>
@@ -69,6 +69,6 @@
                 <Image Source="Images/adddir.png" />
             </Button.Content>
         </Button>
-        <WebBrowser x:Name="webBrouser" Margin="301,341,10,13"/>
+        <WebBrowser x:Name="WebBrowser" Margin="301,341,10,13"/>
     </Grid>
 </Window>

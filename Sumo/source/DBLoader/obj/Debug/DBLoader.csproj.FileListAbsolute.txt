@@ -1,0 +1,12 @@
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\DBLoader.exe.config
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\DBLoader.exe
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\DBLoader.pdb
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\Sumo.API.dll
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\XmlBookConverter.dll
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\Sumo.API.pdb
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\bin\Debug\XmlBookConverter.pdb
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\obj\Debug\DBLoader.csprojResolveAssemblyReference.cache
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\obj\Debug\DBLoader.Properties.Resources.resources
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\obj\Debug\DBLoader.csproj.GenerateResource.Cache
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\obj\Debug\DBLoader.exe
+C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\DBLoader\obj\Debug\DBLoader.pdb
