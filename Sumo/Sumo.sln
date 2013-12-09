@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "source\DataBase\DataBase.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase.Test", "source\DataBase.Test\DataBase.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
@@ -41,9 +43,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib", "source\Met
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoaderLib.Tests", "source\MetaLoader\MetaLoaderLib.Tests\MetaLoaderLib.Tests.csproj", "{0F1AE509-CA57-40A4-8DB9-38DA151F580C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFClient", "source\SimpleWCFClient\SimpleWCFClient.csproj", "{05A75CA8-033E-488F-9ADC-631C716B86E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFClient", "source\WCF\SimpleWCFClient\SimpleWCFClient.csproj", "{05A75CA8-033E-488F-9ADC-631C716B86E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaLoader", "source\MetaLoader\MetaLoader\MetaLoader.csproj", "{13AA7F83-9636-461D-AFE1-14B0665D421E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWCFHost", "source\WCF\SimpleWCFHost\SimpleWCFHost.csproj", "{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMetaManager", "source\DBMetaManager\DBMetaManager.csproj", "{3C278094-3C15-44B5-9897-C080679B4AF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -245,6 +251,26 @@ Global
 		{13AA7F83-9636-461D-AFE1-14B0665D421E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{13AA7F83-9636-461D-AFE1-14B0665D421E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{13AA7F83-9636-461D-AFE1-14B0665D421E}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3C278094-3C15-44B5-9897-C080679B4AF8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -256,6 +282,7 @@ Global
 		{CED67D90-9B6B-4810-A070-B295E50EBE7A} = {4886653A-D73D-49A3-938D-1494D8D72EDC}
 		{FF50703C-6205-42A0-9EA0-6D12D84FADB2} = {BA299CDD-413E-4361-B50F-04A526C7B080}
 		{05A75CA8-033E-488F-9ADC-631C716B86E6} = {BA299CDD-413E-4361-B50F-04A526C7B080}
+		{5A58FA89-4546-4BB8-B95F-BDAC3B656C88} = {BA299CDD-413E-4361-B50F-04A526C7B080}
 		{7161608D-7526-4A0B-A575-5ADEFBF577E5} = {B2AC66F5-683A-43AD-9C7F-7AA100101D45}
 		{0F1AE509-CA57-40A4-8DB9-38DA151F580C} = {B2AC66F5-683A-43AD-9C7F-7AA100101D45}
 		{13AA7F83-9636-461D-AFE1-14B0665D421E} = {B2AC66F5-683A-43AD-9C7F-7AA100101D45}

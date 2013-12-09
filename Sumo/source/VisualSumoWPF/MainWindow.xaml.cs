@@ -3,10 +3,14 @@ using System.Windows;
 using System.Windows.Forms;
 using DevExpress.Xpf.Grid;
 using System.Collections.ObjectModel;
+<<<<<<< HEAD
 using MessageBox = System.Windows.MessageBox;
 using HtmlAgilityPack;
 using Application = System.Windows.Forms.Application;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+=======
+using Sumo.API;
+>>>>>>> 0b18b87f5f31a3e322b1f2c55f871bd2fa246997
 
 namespace VisualSumoWPF
 {
@@ -209,9 +213,9 @@ namespace VisualSumoWPF
                 var node = new TreeListNode { Content = statistic, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
                 nodeParent.Nodes.Add(node);
                 
-                if (statistic.list != null)
+                if (statistic.Childs != null)
                 {
-                    this.SetNode(node, statistic.list);    
+                    this.SetNode(node, statistic.Childs);    
                 }
             }
         }
@@ -227,9 +231,9 @@ namespace VisualSumoWPF
                 {
                     var node = new TreeListNode { Content = list, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
 
-                    if (list.list != null)
+                    if (list.Childs != null)
                     {
-                        this.SetNode(node, list.list);
+                        this.SetNode(node, list.Childs);
                     }
                     TreeVeiw.Nodes.Add(node);
                 }

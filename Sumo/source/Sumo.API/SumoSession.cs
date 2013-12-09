@@ -1,4 +1,6 @@
-﻿namespace Sumo.API
+﻿using System.Runtime.Serialization;
+
+namespace Sumo.API
 {
     public struct SumoSession
     {

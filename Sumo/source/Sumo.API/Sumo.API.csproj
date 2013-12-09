@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="CategoryNode.cs" />
     <Compile Include="DbTaskManager.cs" />
     <Compile Include="IBookMetaObtainer.cs" />
     <Compile Include="IDbMetaManager.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SumoSession.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="CategoriesMultiList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

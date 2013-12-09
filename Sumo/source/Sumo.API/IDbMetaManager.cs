@@ -1,18 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Sumo.API
 {
+    //todo дима, реализуй
+
+    [ServiceContract]
     public interface IDbMetaManager
     {
+        [OperationContract]
         SumoSession CreateQuery(string query);
 
-        List<Book> GetDocuments(SumoSession session, int offset, int count);
 
-        ISumoStatistic GetStatistic(SumoSession session);
+        [OperationContract]
+        List<Book> GetDocuments(int sessionId, int count, int offset = 0);
 
+
+        [OperationContract]
+        CategoriesMultiList GetStatistic(int sessionId);
+
+
+        [OperationContract]
         void CloseSession(SumoSession session);
 
 
-        
     }
 }

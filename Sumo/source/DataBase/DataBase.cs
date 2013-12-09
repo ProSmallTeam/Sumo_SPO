@@ -56,7 +56,7 @@ namespace DataBase
             Database.Drop();
         }
 
-        public int SaveBookMeta(Sumo.API.Book book, List<Sumo.API.Book> alternativeBook = null)
+        public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace DataBase
             }
         }
 
-        private static BsonDocument CreateBook(Sumo.API.Book book, MongoCollection<BsonDocument> collections, List<int> idOfAltMeta = null)
+        private static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, IEnumerable<int> idOfAltMeta = null)
         {
             var attributes = new List<int>();
 
@@ -135,7 +135,7 @@ namespace DataBase
             return document;
         }
 
-        private static List<int> GetListOfAttributes(Sumo.API.Book book)
+        private static List<int> GetListOfAttributes(Book book)
         {
             var attributes = new List<int>();
             foreach (var attribute in from field
@@ -162,10 +162,13 @@ namespace DataBase
 
         public int GetStatistic(string query)
         {
-            var stringQuery = query.Split(new[] { ", ", "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
+            var attrId = new QueryConvector().Convert(query);
 
-            var attrId = (from nameAttr in stringQuery select new QueryDocument(new BsonDocument { { "Name", nameAttr } }) into queryDocument select Collections.Attributes.FindOneAs<BsonDocument>(queryDocument) into attr select int.Parse(attr["_id"].ToString())).ToList();
+            return GetStatistic(attrId);
+        }
 
+        public int GetStatistic(List<int> attrId)
+        {
             var queries = new QueryDocument(true);
 
             foreach (var id in attrId)
@@ -176,7 +179,7 @@ namespace DataBase
             return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
         }
 
-        public IList<Sumo.API.Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
+        public List<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
         {
             var query = new QueryDocument(true);
 
@@ -272,6 +275,11 @@ namespace DataBase
             return result;
         }
 
+        public CategoriesMultiList GetStatisticTree()
+        {
+            throw new NotImplementedException();
+        }
+
         private static void UpdateTask(IEnumerable<Task> tasks)
         {
             var update = Update.Set("Receipt", true);
@@ -318,15 +326,15 @@ namespace DataBase
             }
         }
 
-        private static IList<Sumo.API.Book> ConvertToBook(IEnumerable<BsonDocument> list)
+        private static List<Book> ConvertToBook(IEnumerable<BsonDocument> list)
         {
-            IList<Sumo.API.Book> listBook = new List<Sumo.API.Book>();
+            var listBook = new List<Book>();
 
             foreach (var bsonBook in list)
             {
                 var secondaryFields = GetSecondaryFields(bsonBook);
 
-                listBook.Add(new Sumo.API.Book
+                listBook.Add(new Book
                                    {
                                        Name = bsonBook["Name"].ToString(),
                                        Md5Hash = bsonBook["_id"].ToString(),
