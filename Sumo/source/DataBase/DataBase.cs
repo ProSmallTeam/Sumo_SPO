@@ -162,9 +162,14 @@ namespace DataBase
 
         public int GetStatistic(string query)
         {
-            var attrId = new QueryConvector().Convert(query);
+            var attrId = new QueryCreator().Convert(query);
 
             return GetStatistic(attrId);
+        }
+
+        public List<Book> GetBooks(string query, int limit, int offset)
+        {
+            throw new NotImplementedException();
         }
 
         public int GetStatistic(List<int> attrId)

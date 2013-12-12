@@ -9,22 +9,19 @@ namespace DBMetaManager
     {
         private readonly IDataBase _dataBase;
         private Dictionary<SumoSession, string> SessionDictionary;
-        private readonly IQueryConvector _convertor;
-
-        public Manager(IDataBase dataBase, IQueryConvector convector)
+        
+        public Manager(IDataBase dataBase)
         {
             SessionDictionary = new Dictionary<SumoSession, string>();
             _dataBase = dataBase;
-            _convertor = convector;
         }
 
         public SumoSession CreateQuery(string query)
         {
-            var _query = _convertor.Convert(query);
-            var session = new SumoSession
+        var session = new SumoSession
             {
                 SessionId = SessionDictionary.Count(),
-                Count = _dataBase.GetStatistic(_query)
+                Count = _dataBase.GetStatistic(query)
             };
 
             SessionDictionary.Add(session, query);
@@ -36,8 +33,7 @@ namespace DBMetaManager
         {
             var query = SessionDictionary.Single(t => t.Key.SessionId == sessionId).Value;
 
-            var attrId = _convertor.Convert(query);
-            var bookList = _dataBase.GetBooksByAttrId(attrId, count, offset);
+            var bookList = _dataBase.GetBooks(query, count, offset);
 
             return bookList;
         }

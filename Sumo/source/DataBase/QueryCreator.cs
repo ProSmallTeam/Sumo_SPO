@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace DataBase
 {
-    class QueryConvector : IQueryConvector
+    class QueryCreator
     {
         public List<int> Convert(string query)
         {

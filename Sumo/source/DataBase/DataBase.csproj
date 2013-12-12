@@ -60,7 +60,6 @@
     <Compile Include="IDataBase.cs" />
     <Compile Include="NoAttrException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IQueryConvector.cs" />
     <Compile Include="QueryConvector.cs" />
   </ItemGroup>
   <ItemGroup>

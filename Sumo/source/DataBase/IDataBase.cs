@@ -14,9 +14,7 @@ namespace DataBase
 
         int GetStatistic(string query); // формат строки запроса {name1, name2, ..., nameN}
 
-        int GetStatistic(List<int> attrId);
-
-        List<Book> GetBooksByAttrId(List<int> attrId, int limit, int offset);
+        List<Book> GetBooks(string query, int limit, int offset);
 
         int SaveAttribute(string name, int parrentId, int rootId);
 
