@@ -16,6 +16,6 @@
         /// <returns>
         /// Контейнер с информацией о книге.
         /// </returns>
-        MetaInformationContainer Parse(string isbn);
+        Book Parse(string isbn);
     }
 }

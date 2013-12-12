@@ -1,32 +1,34 @@
-﻿namespace MetaLoaderLib
+﻿namespace Network
 {
+    using HtmlAgilityPack;
+
     /// <summary>
     /// Класс html страницы.
     /// </summary>
-    internal class Page
+    public class Page
     {
         /// <summary>
         /// Инициализарует класс html страницы.
         /// </summary>
         public Page()
         {
-            Url = null;
-            PageText = null;
+            this.Url = null;
+            this.Document = null;
         }
 
         /// <summary>
         /// Инициализарует класс html страницы.
         /// </summary>
-        /// <param name="url">
-        /// Полный url страницы.
+        /// <param name="documentUrl">
+        /// Полный documentUrl страницы.
         /// </param>
-        /// <param name="pageText">
-        /// Текст страницы.
+        /// <param name="htmlDocument">
+        /// The html Document.
         /// </param>
-        internal Page(string url, string pageText)
+        internal Page(string documentUrl, HtmlDocument htmlDocument)
         {
-            Url = url;
-            PageText = pageText;
+            this.Url = documentUrl;
+            this.Document = htmlDocument;
         }
 
         /// <summary>
@@ -37,6 +39,6 @@
         /// <summary>
         /// Получает текст страницы.
         /// </summary>
-        public string PageText { get; private set; }
+        public HtmlDocument Document { get; private set; }
     }
 }

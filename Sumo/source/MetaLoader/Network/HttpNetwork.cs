@@ -1,32 +1,40 @@
-﻿namespace MetaLoaderLib
+﻿namespace Network
 {
     using System.IO;
     using System.Net;
     using System.Text;
 
+    using HtmlAgilityPack;
+
+    using Network.Interfaces;
+
     /// <summary>
-    /// Класс, отвечающий за загрузку метаинформации о книге.
+    /// The http network.
     /// </summary>
-    internal static class PageLoader
+    public class HttpNetwork : INetwork
     {
         /// <summary>
-        /// Метод загрузки текста страницы по конкретному url.
+        /// The load document.
         /// </summary>
         /// <param name="url">
-        /// Url страницы.
+        /// The url.
         /// </param>
         /// <returns>
-        /// Текст загруженной страницы.
+        /// The <see cref="HtmlDocument"/>.
         /// </returns>
-        public static Page LoadFromUrl(string url)
+        public Page LoadDocument(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             using (var response = (HttpWebResponse)request.GetResponse())
             {
                 var encoding = response.CharacterSet != null ? Encoding.GetEncoding(response.CharacterSet) : Encoding.UTF8;
 
+                var document = new HtmlDocument();
+
                 using (var stream = response.GetResponseStream())
-                    return new Page(response.ResponseUri.AbsoluteUri, ReadTextFromStream(stream, encoding));
+                    document.LoadHtml(ReadTextFromStream(stream, encoding));
+
+                return new Page(response.ResponseUri.AbsoluteUri, document);
             }
         }
 

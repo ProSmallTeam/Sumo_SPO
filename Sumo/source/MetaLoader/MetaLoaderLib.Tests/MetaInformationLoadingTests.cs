@@ -1,21 +1,18 @@
 ﻿namespace MetaLoaderLib.Tests
 {
-    using System.Collections.Generic;
-
-    using HtmlAgilityPack;
-
-    using MetaLoaderLib.Labirint;
-    using MetaLoaderLib.Ozon;
-
     using NUnit.Framework;
 
     [TestFixture]
+    
     public class MetaInformationLoadingTests
     {
+        /// <summary>
+        /// The ozon test.
+        /// </summary>
         [Test]
         public void OzonTest()
         {
-            var htmlDocument = new HtmlDocument();
+/*            var htmlDocument = new HtmlDocument();
             htmlDocument.Load("Sample.htm");
             var parser = new OzonPageParser(htmlDocument, "http://www.ozon.ru/context/detail/id/8465610/");
             var goodContainer = parser.Parse();
@@ -43,12 +40,12 @@
                                                                 "CSS3. Руководство разработчика"
                                                             });
 
-        }
+  */      }
 
         [Test]
         public void LabirintTest()
         {
-            var htmlDocument = new HtmlDocument();
+            /*var htmlDocument = new HtmlDocument();
             htmlDocument.Load("Labirint.htm");
             var parser = new LabirintPageParser(htmlDocument, "http://www.labirint.ru/books/407352/");
             var goodContainer = parser.Parse();
