@@ -57,9 +57,9 @@ namespace VisualSumoWPF
         {
             _database = new DataBase("mongodb://localhost/?safe=true");
             string str = "s";
-            if (_database.GetBooksByAttrId(new List<int> { 69 }) != null)
+            if (_database.GetBooks("") != null)
             {
-                foreach (var book in _database.GetBooksByAttrId(new List<int> { 69 }))
+                foreach (var book in _database.GetBooks(""))
                 {
                     var dictionary = new DynamicDictionary();
                     dictionary.SetValue("Name", book.Name);
