@@ -1,0 +1,2 @@
+obj\Debug\PrimitiveMetaObtainingSequenceActivity.g.xaml
+obj\Debug\PrimitiveMetaObtainingSequenceActivity_PrimitiveMetaObtainingSequenceActivity_BeforeInitializeComponentHelper.txt

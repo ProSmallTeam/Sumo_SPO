@@ -42,21 +42,15 @@
     <Compile Include="Interfaces\ICommentsList.cs" />
     <Compile Include="Interfaces\IPageParser.cs" />
     <Compile Include="Interfaces\IPageParserFactory.cs" />
-    <Compile Include="Labirint\LabirintChainCategories.cs" />
-    <Compile Include="Labirint\LabirintCommentsList.cs" />
-    <Compile Include="Labirint\LabirintPageParser.cs" />
-    <Compile Include="Labirint\LabirintUserComment.cs" />
-    <Compile Include="Ozon\OzonChainCategories.cs" />
-    <Compile Include="Ozon\OzonCommentsList.cs" />
-    <Compile Include="MetaInformationContainer.cs" />
-    <Compile Include="Ozon\OzonPageParser.cs" />
-    <Compile Include="Page.cs" />
-    <Compile Include="PageLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ozon\OzonUserComment.cs" />
     <Compile Include="Interfaces\IUserComment.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

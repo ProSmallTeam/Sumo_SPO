@@ -56,6 +56,7 @@
     <Compile Include="Book.cs" />
     <Compile Include="CategoryNode.cs" />
     <Compile Include="DbTaskManager.cs" />
+    <Compile Include="IBookShop.cs" />
     <Compile Include="IBookMetaObtainer.cs" />
     <Compile Include="IDbMetaManager.cs" />
     <Compile Include="IDbTaskManager.cs" />

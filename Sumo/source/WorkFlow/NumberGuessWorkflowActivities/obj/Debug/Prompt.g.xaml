@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<local:Prompt local:ProText="Some string" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:local="clr-namespace:NumberGuessWorkflowActivities;assembly=NumberGuessWorkflowActivities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>NumberGuessWorkflowActivities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <local:Prompt.Implementation>
+    <Sequence>
+      <WriteLine>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">Text</mca:CSharpValue>
+        </InArgument>
+      </WriteLine>
+      <local:ReadInt>
+        <local:ReadInt.BookmarkName>
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">BookmarkName</mca:CSharpValue>
+          </InArgument>
+        </local:ReadInt.BookmarkName>
+        <local:ReadInt.Result>
+          <OutArgument x:TypeArguments="x:Int32">
+            <mca:CSharpReference x:TypeArguments="x:Int32">Result</mca:CSharpReference>
+          </OutArgument>
+        </local:ReadInt.Result>
+      </local:ReadInt>
+      <WriteLine>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">ProText</mca:CSharpValue>
+        </InArgument>
+      </WriteLine>
+      <local:HelloWorldActivity Text="{x:Null}" />
+      <sads:DebugSymbol.Symbol>9xDfeeNu3nq7dpYxZ5OWLStTZ0M6XFVzZXJzXFRDLTE0XERvY3VtZW50c1xHaXRIdWJcU3Vtb19TUE9cU3Vtb1xzb3VyY2VcV29ya0Zsb3dcTnVtYmVyR3Vlc3NXb3JrZmxvd0FjdGl2aXRpZXNcUHJvbXB0LnhhbWwKAW8BewECLgNHDgIBAS8FMxECARQ0BT8VAgEJQAVEEQIBA0UFRWgCAQIxCTFLAgEVNws3VQIBDzwLPFYCAQpCCUJOAgEE</sads:DebugSymbol.Symbol>
+    </Sequence>
+  </local:Prompt.Implementation>
+</local:Prompt>
