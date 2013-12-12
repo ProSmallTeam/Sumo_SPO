@@ -1,4 +1,0 @@
-obj\Debug\Prompt.g.xaml
-obj\Debug\SequentialNumberGuessWorkflow .g.xaml
-obj\Debug\NumberGuessWorkflowActivities_Prompt_BeforeInitializeComponentHelper.txt
-obj\Debug\NumberGuessWorkflowActivities_SequentialNumberGuessWorkflow_BeforeInitializeComponentHelper.txt

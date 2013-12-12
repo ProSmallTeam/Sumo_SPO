@@ -1,7 +1,0 @@
-obj\Debug\_NumberGuessWorkflowActivities.g.cs
-obj\Debug\Prompt.g.cs
-obj\Debug\SequentialNumberGuessWorkflow .g.cs
-obj\Debug\NumberGuessWorkflowActivities_Prompt_BeforeInitializeComponentHelper.cs
-obj\Debug\NumberGuessWorkflowActivities_SequentialNumberGuessWorkflow_BeforeInitializeComponentHelper.cs
-C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\WorkFlow\NumberGuessWorkflowActivities\obj\Debug\NumberGuessWorkflowActivities_Prompt_CompiledExpressionRoot.cs
-C:\Users\TC-14\Documents\GitHub\Sumo_SPO\Sumo\source\WorkFlow\NumberGuessWorkflowActivities\obj\Debug\NumberGuessWorkflowActivities_SequentialNumberGuessWorkflow_CompiledExpressionRoot.cs

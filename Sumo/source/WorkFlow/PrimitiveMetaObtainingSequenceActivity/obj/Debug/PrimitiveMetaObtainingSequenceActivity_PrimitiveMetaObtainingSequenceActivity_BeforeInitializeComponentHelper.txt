@@ -1,2 +1,0 @@
-PrimitiveMetaObtainingSequenceActivity.g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper

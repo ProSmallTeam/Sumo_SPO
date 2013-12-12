@@ -1,2 +1,0 @@
-SequentialNumberGuessWorkflow .g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper
