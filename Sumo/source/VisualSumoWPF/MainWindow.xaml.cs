@@ -3,14 +3,13 @@ using System.Windows;
 using System.Windows.Forms;
 using DevExpress.Xpf.Grid;
 using System.Collections.ObjectModel;
-<<<<<<< HEAD
+
 using MessageBox = System.Windows.MessageBox;
 using HtmlAgilityPack;
 using Application = System.Windows.Forms.Application;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-=======
+
 using Sumo.API;
->>>>>>> 0b18b87f5f31a3e322b1f2c55f871bd2fa246997
 
 namespace VisualSumoWPF
 {
