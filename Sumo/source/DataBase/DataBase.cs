@@ -167,9 +167,11 @@ namespace DataBase
             return GetStatistic(attrId);
         }
 
-        public List<Book> GetBooks(string query, int limit, int offset)
+        public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
-            throw new NotImplementedException();
+            var attrId = new QueryCreator().Convert(query);
+
+            return GetBooksByAttrId(attrId, limit, offset);
         }
 
         public int GetStatistic(List<int> attrId)
@@ -184,7 +186,7 @@ namespace DataBase
             return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
         }
 
-        public List<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
+        private List<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
         {
             var query = new QueryDocument(true);
 
@@ -290,7 +292,7 @@ namespace DataBase
             var update = Update.Set("Receipt", true);
             foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { {"Path", task.PathToFile} })))
             {
-                Collections.Tasks.Update(query, update);
+                Collections.Tasks.Update(query, update, UpdateFlags.Multi);
             }
         }
 

@@ -99,7 +99,7 @@ namespace DataBase.Test
         public void AssertOfGettingBook()
         {
             var time = DateTime.Now;
-            var book = _database.GetBooksByAttrId(new List<int> {47, 3});
+            var book = _database.GetBooks("1999, Г. Шмерлинг");
             var name = book[0].Name;
             Trace.Write(name + '\n');
             Trace.Write(DateTime.Now - time);
