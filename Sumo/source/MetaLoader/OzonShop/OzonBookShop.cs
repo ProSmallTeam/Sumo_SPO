@@ -42,27 +42,65 @@
         /// </returns>
         public IList<Book> Search(Book pattern)
         {
-            var page = Network.LoadDocument("http://www.ozon.ru/?context=search&text=" + pattern.SecondaryFields["Title"] + "&group=div_book");
+            var metaContainer = new List<Book>();
 
-            var metaContainer = this.Parse(page);
-            //this.UploadComments(metaContainer);
+            metaContainer.AddRange(SearchByField(pattern.Name));
+            metaContainer.AddRange(SearchByField(pattern.SecondaryFields["ISBN"][0]));
 
             return metaContainer;
         }
 
         /// <summary>
-        /// Подгружаем комментарии пользователей.
+        /// The search by field.
         /// </summary>
-        /// <param name="metaContainer">
-        /// Контейнер для сохранения комментариев пользователей.
+        /// <param name="field">
+        /// The field.
         /// </param>
-        private void UploadComments(Book metaContainer)
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        private IEnumerable<Book> SearchByField(string field)
         {
-            var commentsBlock = Network.LoadDocument("http://www.ozon.ru/DetailLoader.aspx?module=comments&id=" 
-                    + metaContainer.SecondaryFields["InternalId"]
-                    + "&perPage=1&page=1000");
-            // metaContainer.UsersComments = new OzonCommentsList();
-            // metaContainer.UsersComments.Parse(commentsBlock.PageText);
+            var metaContainers = new List<Book>();
+
+            var page =
+                this.Network.LoadDocument(
+                    "http://www.ozon.ru/?context=search&text=" + field + "&group=div_book");
+
+            if (page.Url.Contains("context=search"))
+                metaContainers.AddRange(ParseMultiPage(page.Document));
+            else if (page.Url.Contains("context/detail/id"))
+                metaContainers.AddRange(this.Parse(page));
+
+            return metaContainers;
+        }
+
+        /// <summary>
+        /// The parse multi page.
+        /// </summary>
+        /// <param name="document">
+        /// The document.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        private IEnumerable<Book> ParseMultiPage(HtmlDocument document)
+        {
+            var bookHrefBlocks = document.DocumentNode.SelectNodes("//div[@class='bOneTile inline']");
+            
+            var metaContainers = new List<Book>();
+            
+            foreach (var bookHrefBlock in bookHrefBlocks)
+            {
+                var bookHref = bookHrefBlock.SelectNodes("//a[class='jsUpdateLink jsPic']@href");
+                var page =
+                    this.Network.LoadDocument(
+                        "http://www.ozon.ru" + bookHref);
+
+                metaContainers.AddRange(this.Parse(page));
+            }
+            
+            return metaContainers;
         }
 
         /// <summary>
@@ -74,15 +112,14 @@
         /// <returns>
         /// The <see cref="BookInfo[]"/>.
         /// </returns>
-        private IList<Book> Parse(Page document)
+        private IEnumerable<Book> Parse(Page document)
         {
             // Заводим контейнер для сохранения информации
             var book = new Book();
 
             // Вытаскиваем метаинформацию
+            book.Name = this.Get("//h1[@itemprop='name']", document.Document);
             book.SecondaryFields["UrlLink"].Add(document.Url);
-            book.SecondaryFields["EnTitle"].Add(this.Get("//div[@class='product-detail']/p[2]", document.Document));
-            book.SecondaryFields["RuTitle"].Add(this.Get("//h1[@itemprop='name']", document.Document));
             book.SecondaryFields["InternalId"].Add(this.Get("//div[@class='product-detail']/p[1]", document.Document).Remove(0, "ID ".Length));
             book.SecondaryFields["Author"].Add(this.Get("//p[@itemprop='author']/a", document.Document));
             book.SecondaryFields["PublishHouse"].Add(Get("//p[@itemprop='publisher']/a", document.Document));
@@ -108,7 +145,9 @@
 
             // втаскиваем аннотацию на книгу
             // container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
-            
+
+            // втаскиваем комментарии на книгу
+
             // Возвращаем контейнер
             return new List<Book> { book };
         }
@@ -120,7 +159,7 @@
         /// XPath выражение тега.
         /// </param>
         /// <param name="document">
-        /// 
+        /// документ для поиска изла с xPath выражением
         /// </param>
         /// <returns>
         /// Содержимое тега.
@@ -129,6 +168,21 @@
         {
             var nodes = document.DocumentNode.SelectNodes(query);
             return nodes.Count == 0 ? string.Empty : nodes[0].InnerText;
+        }
+
+        /// <summary>
+        /// Подгружаем комментарии пользователей.
+        /// </summary>
+        /// <param name="metaContainer">
+        /// Контейнер для сохранения комментариев пользователей.
+        /// </param>
+        private void UploadComments(Book metaContainer)
+        {
+            var commentsBlock = Network.LoadDocument("http://www.ozon.ru/DetailLoader.aspx?module=comments&id="
+                    + metaContainer.SecondaryFields["InternalId"]
+                    + "&perPage=1&page=1000");
+            // metaContainer.UsersComments = new OzonCommentsList();
+            // metaContainer.UsersComments.Parse(commentsBlock.PageText);
         }
     }
 }
