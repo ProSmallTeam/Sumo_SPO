@@ -49,17 +49,30 @@ namespace SimpleWCFClient
         
         static void Main(string[] args)
         {
-            var tcpUri = new Uri("http://localhost:1050/TestService");
+            var a = new IDbMetaManagerService.DbMetaManagerClient();
+            var b = (Sumo.API.IDbMetaManager) a;
+            var q2 = b.CreateQuery("query");
 
-            var address = new EndpointAddress(tcpUri);
-            var binding = new BasicHttpBinding();
+            Console.WriteLine(q2.Count);
+            Console.WriteLine(q2.SessionId);
 
-            EndpointAddress endpointAddress = new EndpointAddress(tcpUri);
+            var documents = b.GetDocuments(1, 5, 2);
 
-            var proxy = new ServiceReference1.DbTaskManagerClient();
-            
-            Console.WriteLine("done");
+            foreach (var document in documents)
+            {
+                Console.WriteLine(document.Name);
+            }
 
+            var book = b.GetDocuments(0, 1, 1);
+
+            var statistic = b.GetStatistic(123);
+
+            statistic.Childs.ToList().ForEach(c => Console.WriteLine(c.Node.Id));
+
+            List<string> w = new List<string>{"x", "p"};
+            w.ForEach(t => Console.WriteLine(t));
+
+            Console.WriteLine("Done");
             Console.ReadKey();
         }
 

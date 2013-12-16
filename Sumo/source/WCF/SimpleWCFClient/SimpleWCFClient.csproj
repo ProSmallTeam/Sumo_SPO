@@ -44,7 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="Service References\ServiceReference1\Reference.cs">
+    <Compile Include="Service References\BookManagerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\IDbMetaManagerService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -54,39 +59,54 @@
     <None Include="App.config" />
     <None Include="Properties\DataSources\Sumo.API.Book.datasource" />
     <None Include="Properties\DataSources\Sumo.API.CategoriesMultiList.datasource" />
-    <None Include="Service References\ServiceReference1\DbTaskManager.wsdl" />
-    <None Include="Service References\ServiceReference1\TestService.xsd">
+    <None Include="Service References\BookManagerService\MetaManagerStub.wsdl" />
+    <None Include="Service References\BookManagerService\SimpleWCFClient.BookManagerService.Book.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BookManagerService\SimpleWCFClient.BookManagerService.CategoriesMultiList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BookManagerService\SimpleWCFClient.BookManagerService.SumoSession.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BookManagerService\TestService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\TestService1.xsd">
+    <None Include="Service References\BookManagerService\TestService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\TestService2.xsd">
+    <None Include="Service References\BookManagerService\TestService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BookManagerService\TestService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\MetaManagerStub.wsdl" />
+    <None Include="Service References\IDbMetaManagerService\SimpleWCFClient.IDbMetaManagerService.Book.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\SimpleWCFClient.IDbMetaManagerService.CategoriesMultiList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\SimpleWCFClient.IDbMetaManagerService.SumoSession.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\TestService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\TestService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\TestService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IDbMetaManagerService\TestService3.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference1\TestService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference1\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Sumo.API\Sumo.API.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
@@ -96,6 +116,40 @@
       <Project>{5a58fa89-4546-4bb8-b95f-bdac3b656c88}</Project>
       <Name>SimpleWCFHost</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BookManagerService\" />
+    <WCFMetadataStorage Include="Service References\IDbMetaManagerService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BookManagerService\TestService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BookManagerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BookManagerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BookManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IDbMetaManagerService\TestService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IDbMetaManagerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IDbMetaManagerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IDbMetaManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

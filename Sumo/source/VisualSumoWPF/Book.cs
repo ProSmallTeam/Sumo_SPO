@@ -19,6 +19,7 @@ namespace VisualSumoWPF
             Md5Hash = md5Hash;
             Path = path;
             SecondaryFields = secondaryFields;
+
         }
     }
 }
