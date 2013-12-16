@@ -200,12 +200,15 @@ namespace DataBase
 
         public int SaveAttribute(string name, int parrentId, int rootId)
         {
+            var IsRoot = rootId == null;
+
             try
             {
                 Collections.Attributes.Insert(new BsonDocument
                     {
                         {"_id", Collections.Attributes.Count()},
                         {"Name", name},
+                        {"IsRoot", IsRoot},
                         {"RootRef", rootId},
                         {"FatherRef", parrentId}
                     }
@@ -282,9 +285,39 @@ namespace DataBase
             return result;
         }
 
-        public CategoriesMultiList GetStatisticTree()
+        public CategoriesMultiList GetStatisticTree(string query)
         {
-            throw new NotImplementedException();
+            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = (int)Collections.Books.FindAll().Count(), Id = 0, Name = "/" });
+
+            AddChilds(statisticTree, query);
+
+            return statisticTree;
+        }
+
+        private static void AddChilds(CategoriesMultiList tree, string query)
+        {
+            var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
+
+            var childs = Collections.Attributes.FindAs<BsonDocument>(queryDocument).ToList();
+
+            if (!childs.Any())
+                return;
+
+            foreach (var child in childs)
+            {
+                var node = new CategoryNode
+                {
+                    Count = 1,
+                    Id = int.Parse(child["_id"].ToString()),
+                    Name = child["Name"].ToString()
+                };
+
+                var subTree = new CategoriesMultiList(node);
+
+                AddChilds(subTree, query);
+
+                tree.AddChild(subTree);
+            }
         }
 
         private static void UpdateTask(IEnumerable<Task> tasks)

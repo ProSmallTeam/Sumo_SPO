@@ -41,7 +41,9 @@ namespace DBMetaManager
 
         public CategoriesMultiList GetStatistic(int sessionId)
         {
-            return _dataBase.GetStatisticTree();
+            var query = SessionList.Single(t => t.SessionId == sessionId).Query;
+
+            return _dataBase.GetStatisticTree(query);
         }
 
         public void CloseSession(SumoSession session)
