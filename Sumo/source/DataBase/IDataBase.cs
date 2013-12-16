@@ -24,7 +24,7 @@ namespace DataBase
 
         List<Task> GetTask(int quantity);
 
-        CategoriesMultiList GetStatisticTree();
+        CategoriesMultiList GetStatisticTree(string query);
 
     }
 }

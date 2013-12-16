@@ -164,6 +164,17 @@ namespace DataBase.Test
             Assert.IsEmpty(_database.GetTask(1));
         }
 
+        [Test]
+        public void AssertOfCorrectGetStaticticTree()
+        {
+            var time = DateTime.Now;
+
+            _database.GetStatisticTree("");
+
+            Trace.Write(DateTime.Now - time);
+           
+        }
+
         private void InitializeAttr(DataBase dataBase)
         {
             var authors = new[]
@@ -175,26 +186,26 @@ namespace DataBase.Test
                     "Мэтью Мак-Дональд", "Д. Н. Колисниченко", "Андрей Грачев"
                 };
 
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 0 }, { "Name", "Authors" } });
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 1 }, { "Name", "Year" } });
+            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 1 }, { "Name", "Authors" }, { "FatherRef", 0 } });
+            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 2 }, { "Name", "Year" }, { "FatherRef", 0 } });
 
             foreach (var temp in authors)
                 _database.Database.GetCollection("Attributes").Insert(new BsonDocument
                     {
-                        {"_id", _database.Database.GetCollection("Attributes").Count()},
+                        {"_id", _database.Database.GetCollection("Attributes").Count() + 1},
                         {"Name", temp},
-                        {"RootRef", 0},
-                        {"FatherRef", 0}
+                        {"RootRef", 1},
+                        {"FatherRef", 1}
                     }
                     );
 
             for (var index = 1950; index < 2011; ++index)
                 dataBase.Database.GetCollection("Attributes").Insert(new BsonDocument
                     {
-                        {"_id", _database.Database.GetCollection("Attributes").Count()},
+                        {"_id", _database.Database.GetCollection("Attributes").Count() + 1},
                         {"Name", index.ToString()},
-                        {"RootRef", 1},
-                        {"FatherRef", 1}
+                        {"RootRef", 2},
+                        {"FatherRef", 2}
                     }
                     );
         }
