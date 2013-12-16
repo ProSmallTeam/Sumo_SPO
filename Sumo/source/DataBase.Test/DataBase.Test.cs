@@ -79,7 +79,7 @@ namespace DataBase.Test
         [Test]
         public void AssertOfCorrectGetStatistic()
         {
-            var query = new QueryDocument(true) {{"Attributes", 19}, {"Attributes", 63}};
+            var query = new QueryDocument(true) { { "Attributes", 20 }, { "Attributes", 64 } };
             var result = _database.Database.GetCollection("Books").FindAs<BsonDocument>(query).Count(); ;
             Assert.AreEqual(
                 result, 
@@ -100,7 +100,9 @@ namespace DataBase.Test
         {
             var time = DateTime.Now;
             var book = _database.GetBooks("1999, Г. Шмерлинг");
-            var name = book[0].Name;
+            string name = null;
+            if (book != null)
+                name = book[0].Name;
             Trace.Write(name + '\n');
             Trace.Write(DateTime.Now - time);
 
@@ -169,7 +171,7 @@ namespace DataBase.Test
         {
             var time = DateTime.Now;
 
-            _database.GetStatisticTree("2005");
+            var result = _database.GetStatisticTree("2005");
 
             Trace.Write(DateTime.Now - time);
            
@@ -186,8 +188,8 @@ namespace DataBase.Test
                     "Мэтью Мак-Дональд", "Д. Н. Колисниченко", "Андрей Грачев"
                 };
 
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 1 }, { "Name", "Authors" }, { "FatherRef", 0 } });
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 2 }, { "Name", "Year" }, { "FatherRef", 0 } });
+            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 1 }, { "Name", "Authors" }, { "RootRef", 0 }, { "FatherRef", 0 } });
+            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 2 }, { "Name", "Year" }, { "RootRef", 0 }, { "FatherRef", 0 } });
 
             foreach (var temp in authors)
                 _database.Database.GetCollection("Attributes").Insert(new BsonDocument

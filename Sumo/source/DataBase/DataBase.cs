@@ -140,21 +140,35 @@ namespace DataBase
         private static List<int> GetListOfAttributes(Book book)
         {
             var attributes = new List<int>();
-            foreach (var attribute in from field
-                                          in book.SecondaryFields
-                                      from nameOfAttribute
-                                          in field.Value
-                                      select new QueryDocument(new BsonDocument { { "Name", nameOfAttribute } })
-                                          into query
-                                          select Collections.Attributes.FindOneAs<BsonDocument>(query))
-            {
-                if (attribute == null)
-                    throw new NoAttrException();
+            foreach (var field in book.SecondaryFields)
+                foreach (var nameOfAttribute in field.Value)
+                {
+                    var document = new QueryDocument(new BsonDocument {{"Name", nameOfAttribute}});
+                    var attribute = Collections.Attributes.FindOneAs<BsonDocument>(document);
+                    if (attribute == null)
+                        throw new NoAttrException();
 
-                attributes.Add(int.Parse(attribute["_id"].ToString()));
-            }
+                    var idAttr = int.Parse(attribute["_id"].ToString());
+
+                    AddFatherAttr(attribute, attributes);
+
+                    attributes.Add(idAttr);
+                }
 
             return attributes;
+        }
+
+        private static void AddFatherAttr(BsonDocument attribute, List<int> attributes)
+        {
+            var document = new QueryDocument(new BsonDocument { { "_id", int.Parse(attribute["FatherRef"].ToString()) } });
+            var fatherAttr = Collections.Attributes.FindOneAs<BsonDocument>(document);
+
+            if (fatherAttr == null) return;
+
+            AddFatherAttr(fatherAttr, attributes);
+
+            var idAttr = int.Parse(fatherAttr["_id"].ToString());
+            attributes.Add(idAttr);
         }
 
         public bool IsHaveBookMeta(string md5Hash)
@@ -355,8 +369,11 @@ namespace DataBase
                 var id = document["RootRef"];
                 query = new QueryDocument("_id", id);
 
-                var name = Collections.Attributes.FindOneAs<BsonDocument>(query)["Name"].ToString();
+                var secondaryField = Collections.Attributes.FindOneAs<BsonDocument>(query);
 
+                if(secondaryField == null) continue;
+
+                var name = secondaryField["Name"].ToString();
                 var value = document["Name"].ToString();
 
                 InsertKeyValuedPairIntoListOfSecondaryFields(listOfSecondaryFields, name, value);
