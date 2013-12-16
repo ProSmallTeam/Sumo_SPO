@@ -169,7 +169,7 @@ namespace DataBase.Test
         {
             var time = DateTime.Now;
 
-            _database.GetStatisticTree("");
+            _database.GetStatisticTree("2005");
 
             Trace.Write(DateTime.Now - time);
            

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sumo.API;
@@ -48,6 +49,7 @@ namespace DataBase
         {
             Collections.Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
             Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+            Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("FatherRef"));
             Collections.AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
         }
 
@@ -174,7 +176,7 @@ namespace DataBase
             return GetBooksByAttrId(attrId, limit, offset);
         }
 
-        public int GetStatistic(List<int> attrId)
+        public static int GetStatistic(List<int> attrId)
         {
             var queries = new QueryDocument(true);
 
@@ -186,7 +188,7 @@ namespace DataBase
             return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
         }
 
-        private List<Book> GetBooksByAttrId(List<int> attrId, int limit = 0, int offset = 0)
+        private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
         {
             var query = new QueryDocument(true);
 
@@ -289,13 +291,18 @@ namespace DataBase
         {
             var statisticTree = new CategoriesMultiList(new CategoryNode { Count = (int)Collections.Books.FindAll().Count(), Id = 0, Name = "/" });
 
-            AddChilds(statisticTree, query);
+            var listId = new List<int>();
+            listId.AddRange(new QueryCreator().Convert(query));
+
+            AddChilds(statisticTree, listId);
 
             return statisticTree;
         }
 
-        private static void AddChilds(CategoriesMultiList tree, string query)
+        private static void AddChilds(CategoriesMultiList tree, List<int> listId)
         {
+            var list = new List<int>(listId);
+
             var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
 
             var childs = Collections.Attributes.FindAs<BsonDocument>(queryDocument).ToList();
@@ -305,16 +312,20 @@ namespace DataBase
 
             foreach (var child in childs)
             {
+                
+                var childId = int.Parse(child["_id"].ToString());
+                list.Add(childId);
+                         
                 var node = new CategoryNode
                 {
-                    Count = 1,
+                    Count = GetStatistic(listId),
                     Id = int.Parse(child["_id"].ToString()),
                     Name = child["Name"].ToString()
                 };
 
                 var subTree = new CategoriesMultiList(node);
 
-                AddChilds(subTree, query);
+                AddChilds(subTree, list);
 
                 tree.AddChild(subTree);
             }
