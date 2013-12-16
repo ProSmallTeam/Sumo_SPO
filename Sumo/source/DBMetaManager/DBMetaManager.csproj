@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Manager.cs" />
+    <Compile Include="DbMetaManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionData.cs" />
   </ItemGroup>
