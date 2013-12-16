@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3C278094-3C15-44B5-9897-C080679B4AF8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{5FF96FA6-D008-4096-9720-D3DEE3482ACF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBMetaManager</RootNamespace>
-    <AssemblyName>DBMetaManager</AssemblyName>
+    <RootNamespace>BookService</RootNamespace>
+    <AssemblyName>BookService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,16 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbMetaManager.cs" />
+    <Compile Include="MetaManagerStub.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\DataBase.csproj">
-      <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
-      <Name>DataBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sumo.API\Sumo.API.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.API</Name>
     </ProjectReference>

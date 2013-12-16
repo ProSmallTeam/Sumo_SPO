@@ -5,12 +5,12 @@ using DataBase;
 
 namespace DBMetaManager
 {
-    public class Manager : IDbMetaManager
+    public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;
         private List<SessionData> SessionList;
         
-        public Manager(IDataBase dataBase)
+        public DbMetaManager(IDataBase dataBase)
         {
             SessionList = new List<SessionData>();
             _dataBase = dataBase;
