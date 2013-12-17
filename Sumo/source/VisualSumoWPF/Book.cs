@@ -21,5 +21,11 @@ namespace VisualSumoWPF
             SecondaryFields = secondaryFields;
 
         }
+
+        public Book() : this("Пустой", "", "", new Dictionary<string, List<string>>())
+        {
+            
+        }
+
     }
 }

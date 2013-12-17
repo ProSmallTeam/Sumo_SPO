@@ -50,7 +50,7 @@ namespace SimpleWCFClient
         static void Main(string[] args)
         {
             var a = new IDbMetaManagerService.DbMetaManagerClient();
-            var b = (Sumo.API.IDbMetaManager) a;
+            var b =  a;
             var q2 = b.CreateQuery("query");
 
             Console.WriteLine(q2.Count);

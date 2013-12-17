@@ -18,5 +18,20 @@ namespace Sumo.API
 
         [DataMember]
         public Dictionary<string, List<string>> SecondaryFields;
+
+        public Book(string name, string md5Hash, string path, Dictionary<string, List<string>> secondaryFields)
+        {
+            Name = name;
+            Md5Hash = md5Hash;
+            Path = path;
+            SecondaryFields = secondaryFields;
+
+        }
+
+        public Book()
+            : this("Пустой", "", "", new Dictionary<string, List<string>>())
+        {
+
+        }
     }
 }
