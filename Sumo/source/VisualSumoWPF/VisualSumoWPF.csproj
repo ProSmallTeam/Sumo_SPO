@@ -108,6 +108,7 @@
     <Compile Include="DirectoryAdding.xaml.cs">
       <DependentUpon>DirectoryAdding.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MakeMeHappy.cs" />
     <Compile Include="Service References\DbBookService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

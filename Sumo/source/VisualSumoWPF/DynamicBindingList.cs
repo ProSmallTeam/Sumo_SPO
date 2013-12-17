@@ -17,6 +17,7 @@ namespace VisualSumoWPF
     public class DynamicDictionary : DynamicObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         #region inner classes
         class SetMemberValueBinder : SetMemberBinder
         {

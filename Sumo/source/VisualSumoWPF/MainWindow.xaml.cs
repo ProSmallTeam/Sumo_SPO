@@ -22,17 +22,19 @@ namespace VisualSumoWPF
 
     public partial class MainWindow : Window
     {
+        private MakeMeHappy _makeMeHappy = new MakeMeHappy();
+
         /// <summary>
         /// Конструктор окна
         /// </summary>
         public MainWindow()
         {
-            if (IsFirstLaunch())
-            {
-                var addForm = new DirectoryAdding(true);
-                addForm.ShowDialog();
-                if (addForm.DialogResult != true) Close();
-            }
+            //if (IsFirstLaunch())
+            //{
+            //    var addForm = new DirectoryAdding(true);
+            //    addForm.ShowDialog();
+            //    if (addForm.DialogResult != true) Close();
+            //}
             InitializeComponent();
         }
 
@@ -177,15 +179,14 @@ namespace VisualSumoWPF
 
         }
 
-        private static void InitGrid()
+        //todo
+        private void InitGrid()
         {
-            for (var i = 0; i < 3; i++)
-            {
+            var books = _makeMeHappy.GetBooks();
 
-                var dictionary = new DynamicDictionary();
-                dictionary.SetValue("Name", FirstNames[i]);
-                dictionary.SetValue("Year", i.ToString(CultureInfo.InvariantCulture));
-                dictionary.SetValue("Author", LastNames[i]);
+            foreach (var book in books)
+            {
+                DynamicDictionary dictionary = VoodooConverts.ToDynamicDictionary(book);
                 ObservableCollection1.Add(dictionary);
             }
 
@@ -201,41 +202,39 @@ namespace VisualSumoWPF
         }
 
 
-        public void SetNode(TreeListNode nodeParent, List<TreeStatistic> list)
+        public void SetNode(TreeListNode nodeParent, List<CategoriesMultiList> list)
         {
             if (!list.Any(c => true))
             {
                 return;
             }
-            foreach (var statistic in list)
+
+            foreach (var multiList in list)
             {
-                var node = new TreeListNode { Content = statistic, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
+                var node = new TreeListNode { Content = VoodooConverts.ToContent(multiList.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
                 nodeParent.Nodes.Add(node);
                 
-                if (statistic.Childs != null)
+                if (multiList.Childs != null)
                 {
-                    this.SetNode(node, statistic.Childs);    
+                   this.SetNode(node, multiList.Childs);    
                 }
             }
         }
 
+
         public void InitDrives()
         {
             TreeListControl.BeginDataUpdate();
-            
-            var treeList = this.GetTreeStatistic();
+
+            var tree = _makeMeHappy.GetTreeStatistic();
             try
             {
-                foreach (var list in treeList)
-                {
-                    var node = new TreeListNode { Content = list, IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
-
-                    if (list.Childs != null)
+                var node = new TreeListNode { Content = VoodooConverts.ToContent(tree.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
+                    if (tree.Childs != null && tree.Childs.Count > 0)
                     {
-                        this.SetNode(node, list.Childs);
+                        this.SetNode(node, tree.Childs);
                     }
                     TreeVeiw.Nodes.Add(node);
-                }
             }
             catch (Exception aException)
             {
@@ -291,6 +290,8 @@ namespace VisualSumoWPF
 
         private void SelectedItemChange(object sender, SelectedItemChangedEventArgs e)
         {
+            //todo
+            //GridBook.ItemsSource
             GridBook.ItemsSource = GridBook.ItemsSource == ObservableCollection1 ? ObservableCollection2 : ObservableCollection1;
         }
 
