@@ -112,28 +112,41 @@
         /// <returns>
         /// The <see cref="BookInfo[]"/>.
         /// </returns>
-        private IEnumerable<Book> Parse(Page document)
+        public IEnumerable<Book> Parse(Page document)
         {
             // Заводим контейнер для сохранения информации
             var book = new Book();
+            book.SecondaryFields = new Dictionary<string, List<string>>();
 
             // Вытаскиваем метаинформацию
             book.Name = this.Get("//h1[@itemprop='name']", document.Document);
-            book.SecondaryFields["UrlLink"].Add(document.Url);
-            book.SecondaryFields["InternalId"].Add(this.Get("//div[@class='product-detail']/p[1]", document.Document).Remove(0, "ID ".Length));
-            book.SecondaryFields["Author"].Add(this.Get("//p[@itemprop='author']/a", document.Document));
-            book.SecondaryFields["PublishHouse"].Add(Get("//p[@itemprop='publisher']/a", document.Document));
-            book.SecondaryFields["Language"].Add(Get("//p[@itemprop='inLanguage']", document.Document).Remove(0, "Языки: ".Length));
+            book.SecondaryFields.Add("UrlLink", new List<string> { document.Url });
+            book.SecondaryFields.Add(
+                "InternalId",
+                new List<string>
+                    {
+                        this.Get("//div[@class='product-detail']/p[1]", document.Document)
+                            .Remove(0, "ID ".Length)
+                    });
+            book.SecondaryFields.Add(
+                "Author", new List<string> { this.Get("//p[@itemprop='author']/a", document.Document) });
+            book.SecondaryFields.Add(
+                "PublishHouse", new List<string> { this.Get("//p[@itemprop='publisher']/a", document.Document) });
+            book.SecondaryFields.Add("Language", new List<string>{
+                this.Get("//p[@itemprop='inLanguage']", document.Document).Remove(0, "Языки: ".Length)});
 
             // Вытаскиваем ISBN и год издания
-            var publishYearAndIsbn = this.Get("//p[@itemprop='isbn']",document.Document).Substring("ISBN ".Length);
-            book.SecondaryFields["ISBN"].AddRange(publishYearAndIsbn.Substring(0, publishYearAndIsbn.Length - "; 2013 г.".Length).Split(new[] { ',', ' ' }));
+            var publishYearAndIsbn = this.Get("//p[@itemprop='isbn']", document.Document).Substring("ISBN ".Length);
+            book.SecondaryFields.Add("ISBN", new List<string> { null });
+            book.SecondaryFields["ISBN"].AddRange(
+                publishYearAndIsbn.Substring(0, publishYearAndIsbn.Length - "; 2013 г.".Length)
+                                  .Split(new[] { ',', ' ' }));
             book.SecondaryFields["ISBN"].RemoveAll(isbn => isbn == string.Empty);
-            book.SecondaryFields["PublishYear"].Add(publishYearAndIsbn.Substring(publishYearAndIsbn.Length - "2013 г.".Length, 4));
+            book.SecondaryFields.Add("PublishYear", new List<string> { publishYearAndIsbn.Substring(publishYearAndIsbn.Length - "2013 г.".Length, 4) });
 
             // Вытаскиваем количество страниц в книге
-            var pageCountInText = Get("//span[@itemprop='numberOfPages']", document.Document);
-            book.SecondaryFields["PageCount"].Add(Convert.ToInt32(pageCountInText.Substring(0, pageCountInText.Length - 5)).ToString());
+            var pageCountInText = this.Get("//span[@itemprop='numberOfPages']", document.Document);
+            book.SecondaryFields.Add("PageCount", new List<string> { Convert.ToInt32(pageCountInText.Substring(0, pageCountInText.Length - 5)).ToString() });
 
             // Вытаскиваем цепочку категорий
             // var ozonChainCategories = new OzonChainCategories();
@@ -141,7 +154,7 @@
             // book.Сategories = ozonChainCategories;
 
             // вытаскиваем ссылку на картинку с книгой
-            book.SecondaryFields["PictureLink"].Add(document.Document.DocumentNode.SelectNodes("//img[@class=\"eMicroGallery_fullImage\"]")[0].Attributes["src"].Value);
+            book.SecondaryFields.Add("PictureLink", new List<string> { document.Document.DocumentNode.SelectNodes("//img[@class=\"eMicroGallery_fullImage\"]")[0].Attributes["src"].Value });
 
             // втаскиваем аннотацию на книгу
             // container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
