@@ -185,6 +185,8 @@ namespace DataBase
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
+            if (query == null) return ConvertToBook(Collections.Books.FindAllAs<BsonDocument>().ToList());
+
             var attrId = new QueryCreator().Convert(query);
 
             return GetBooksByAttrId(attrId, limit, offset);
@@ -196,7 +198,7 @@ namespace DataBase
 
             foreach (var id in attrId)
             {
-                queries.Add("Attributes", id).AsParallel();
+                queries.Add("Attributes", id);
             }
 
             return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
@@ -208,7 +210,7 @@ namespace DataBase
 
             foreach (var id in attrId)
             {
-                query.Add("Attributes", id).AsParallel();
+                query.Add("Attributes", id);
             }
 
             return ConvertToBook(Collections.Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());

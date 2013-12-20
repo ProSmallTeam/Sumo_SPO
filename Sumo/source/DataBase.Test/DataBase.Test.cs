@@ -110,6 +110,12 @@ namespace DataBase.Test
         }
 
         [Test]
+        public void GetAllBooks()
+        {
+            Assert.AreEqual(NumberOfRecords, _database.GetBooks("").Count);
+        }
+
+        [Test]
         public void TimeOfInsertOneBook()
         {
             var time = DateTime.Now;
