@@ -55,6 +55,20 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sumo.API\Sumo.API.csproj">
+      <Project>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</Project>
+      <Name>Sumo.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OzonShop\OzonShop.csproj">
+      <Project>{0ef701e6-38c8-40d8-b523-54d46286b631}</Project>
+      <Name>OzonShop</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

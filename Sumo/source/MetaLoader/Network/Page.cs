@@ -34,11 +34,11 @@
         /// <summary>
         /// Получает полный Url страницы.
         /// </summary>
-        public string Url { get; private set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// Получает текст страницы.
         /// </summary>
-        public HtmlDocument Document { get; private set; }
+        public HtmlDocument Document { get; set; }
     }
 }
