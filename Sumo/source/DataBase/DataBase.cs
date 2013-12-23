@@ -60,7 +60,7 @@ namespace DataBase
 
         public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
-            try
+            //try
             {
                 var idOfAltMeta = new List<int>();
 
@@ -78,7 +78,7 @@ namespace DataBase
 
                 return 0;
             }
-            catch (Exception)
+            //catch (Exception)
             {
 
                 return -1;
@@ -88,7 +88,7 @@ namespace DataBase
 
         public int DeleteBookMeta(string md5Hash)
         {
-            try
+            //try
             {
                 var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
 
@@ -111,7 +111,7 @@ namespace DataBase
 
                 return 0;
             }
-            catch (Exception)
+            //catch (Exception)
             {
                 return -1;
             }
@@ -220,7 +220,7 @@ namespace DataBase
         {
             var IsRoot = rootId == null;
 
-            try
+            //try
             {
                 Collections.Attributes.Insert(new BsonDocument
                     {
@@ -234,7 +234,7 @@ namespace DataBase
 
                 return 0;
             }
-            catch (Exception)
+            //catch (Exception)
             {
                 return -1;
             }
@@ -305,10 +305,11 @@ namespace DataBase
 
         public CategoriesMultiList GetStatisticTree(string query)
         {
-            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = (int)Collections.Books.FindAll().Count(), Id = 0, Name = "/" });
+            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = GetStatistic(query), Id = 0, Name = "/" });
 
             var listId = new List<int>();
-            listId.AddRange(new QueryCreator().Convert(query));
+            var attrId = new QueryCreator().Convert(query);
+            listId.AddRange(attrId);
 
             AddChilds(statisticTree, listId);
 
@@ -317,7 +318,7 @@ namespace DataBase
 
         private static void AddChilds(CategoriesMultiList tree, List<int> listId)
         {
-            var list = new List<int>(listId);
+            
 
             var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
 
@@ -328,20 +329,22 @@ namespace DataBase
 
             foreach (var child in childs)
             {
-                
+                var list = new List<int>(listId);
                 var childId = int.Parse(child["_id"].ToString());
-                list.Add(childId);
-                         
+                if(!list.Contains(childId))
+                    list.Add(childId);
+                 
+                
                 var node = new CategoryNode
                 {
-                    Count = GetStatistic(listId),
+                    Count = GetStatistic(list),
                     Id = int.Parse(child["_id"].ToString()),
                     Name = child["Name"].ToString()
                 };
 
                 var subTree = new CategoriesMultiList(node);
 
-                AddChilds(subTree, list);
+                AddChilds(subTree, listId);
 
                 tree.AddChild(subTree);
             }
