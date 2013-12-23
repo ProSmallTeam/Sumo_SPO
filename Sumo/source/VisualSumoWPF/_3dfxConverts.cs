@@ -14,7 +14,7 @@ namespace VisualSumoWPF
 
         public static _3dfxContent ToContent(CategoryNode node) 
         {
-            return new _3dfxContent{Name = node.Name + "(" + node.Count + ")"};
+            return new _3dfxContent{Name = node.Name + "(" + node.Count + ")", Node = node};
         }
 
         public static CategoryNode ToNode(_3dfxContent content)
