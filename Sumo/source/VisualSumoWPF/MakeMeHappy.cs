@@ -12,6 +12,7 @@ namespace VisualSumoWPF
     {
         private readonly IDbMetaManager _metaManager;
         private SumoSession _session;
+        private const int BookCapacity = 10;
 
         public MakeMeHappy(DbMetaManagerClient metaManager) : this(new WcfAdapter(metaManager))
         {}
@@ -32,6 +33,11 @@ namespace VisualSumoWPF
         }
 
 
+        public void SetQuery(string query)
+        {
+            _metaManager.CloseSession(_session);
+            _session = _metaManager.CreateQuery(query);
+        }
         public CategoriesMultiList GetTreeStatistic()
         {
             return _metaManager.GetStatistic(_session.SessionId);
@@ -39,9 +45,7 @@ namespace VisualSumoWPF
 
         public List<Sumo.API.Book> GetBooks()
         {
-            const int booksCount = 5;
-
-            var list = _metaManager.GetDocuments(_session.SessionId, booksCount);
+            var list = _metaManager.GetDocuments(_session.SessionId, BookCapacity > _session.Count? _session.Count : BookCapacity);
 
             return list;
         }
