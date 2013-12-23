@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "source\DataBase\DataBase.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase.Test", "source\DataBase.Test\DataBase.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
@@ -56,8 +58,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shops", "Shops", "{EE001469-0BB3-4D5F-B6BB-AA5ED11A49CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService", "source\WCF\BookService\BookService.csproj", "{5FF96FA6-D008-4096-9720-D3DEE3482ACF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemObserver_2", "FileSystemObserver_2\FileSystemObserver_2.csproj", "{01951322-DDF2-45E8-92CD-039B13CF2994}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaRanker", "source\MetaRanker\MetaRanker.csproj", "{2B5E9988-BDED-4772-AA41-9C4113DD0C2E}"
 EndProject
@@ -311,16 +311,6 @@ Global
 		{5FF96FA6-D008-4096-9720-D3DEE3482ACF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5FF96FA6-D008-4096-9720-D3DEE3482ACF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5FF96FA6-D008-4096-9720-D3DEE3482ACF}.Release|x86.ActiveCfg = Release|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{01951322-DDF2-45E8-92CD-039B13CF2994}.Release|x86.ActiveCfg = Release|Any CPU
 		{2B5E9988-BDED-4772-AA41-9C4113DD0C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B5E9988-BDED-4772-AA41-9C4113DD0C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5E9988-BDED-4772-AA41-9C4113DD0C2E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
