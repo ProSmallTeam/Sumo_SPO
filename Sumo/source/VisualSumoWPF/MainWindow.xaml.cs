@@ -179,7 +179,7 @@ namespace VisualSumoWPF
             var tree = _makeMeHappy.GetTreeStatistic();
             try
             {
-                var node = new TreeListNode { Content = VoodooConverts.ToContent(tree.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
+                var node = new TreeListNode { Content = _3dfxConverts.ToContent(tree.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
                 if (tree.Childs != null && tree.Childs.Count > 0)
                 {
                     this.SetNode(node, tree.Childs);
@@ -202,7 +202,7 @@ namespace VisualSumoWPF
 
             foreach (var multiList in list)
             {
-                var node = new TreeListNode { Content = VoodooConverts.ToContent(multiList.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
+                var node = new TreeListNode { Content = _3dfxConverts.ToContent(multiList.Node), IsExpandButtonVisible = DefaultBoolean.True, Tag = false };
                 nodeParent.Nodes.Add(node);
                 
                 if (multiList.Childs != null)
@@ -269,7 +269,7 @@ namespace VisualSumoWPF
 
             foreach (var book in books)
             {
-                DynamicDictionary dictionary = VoodooConverts.ToDynamicDictionary(book);
+                DynamicDictionary dictionary = _3dfxConverts.ToDynamicDictionary(book);
                 ObservableCollection.Add(dictionary);
             }
             GridBook.ItemsSource = ObservableCollection;

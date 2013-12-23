@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DevExpress.Xpf.Grid;
 using Sumo.API;
 using VisualSumoWPF.DbBookService;
 using CategoriesMultiList = Sumo.API.CategoriesMultiList;
@@ -46,15 +47,39 @@ namespace VisualSumoWPF
 
         public CategoriesMultiList GetStatistic(int sessionId)
         {
-            var root = new CategoryNode { Id = 0, Name = "Все книги", Count = 1 };
-            var authors = new CategoryNode { Id = 1, Name = "Авторы", Count = 3 };
-            var genres = new CategoryNode { Id = 2, Name = "Жанры", Count = 3 };
+            var q = _wcfClient.GetStatistic(sessionId);
+            var a = new CategoriesMultiList(CastToNode(q.Node)) {Childs = q.Childs.Select(RecursionCastMultiList).ToList()};
 
-            var authorsList = new CategoriesMultiList(authors, new List<CategoriesMultiList> { });
-            var genresList = new CategoriesMultiList(genres, new List<CategoriesMultiList> { });
+            return a;
+        }
 
-            var rootList = new CategoriesMultiList(root, new List<CategoriesMultiList> { authorsList, genresList });
+        private static CategoriesMultiList RecursionCastMultiList(DbBookService.CategoriesMultiList categoriesMultiList)
+        {
+            var a = new CategoriesMultiList(CastToNode(categoriesMultiList.Node));
 
+            if (categoriesMultiList.Childs.Count != 0)
+            {
+                a.Childs = categoriesMultiList.Childs.Select(RecursionCastMultiList).ToList();
+            }
+
+            return a;
+        }
+
+        private static CategoryNode CastToNode(DbBookService.CategoryNode node)
+        {
+            return new CategoryNode { Count = node.Count, Id = node.Id, Name = node.Name };
+        }
+
+        private static CategoriesMultiList GetDefaultStatistic()
+        {
+            var root = new CategoryNode {Id = 0, Name = "Все книги", Count = 1};
+            var authors = new CategoryNode {Id = 1, Name = "Авторы", Count = 3};
+            var genres = new CategoryNode {Id = 2, Name = "Жанры", Count = 3};
+
+            var authorsList = new CategoriesMultiList(authors, new List<CategoriesMultiList> {});
+            var genresList = new CategoriesMultiList(genres, new List<CategoriesMultiList> {});
+
+            var rootList = new CategoriesMultiList(root, new List<CategoriesMultiList> {authorsList, genresList});
             return rootList;
         }
 

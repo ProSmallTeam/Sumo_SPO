@@ -121,7 +121,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="TreeStatistic.cs" />
-    <Compile Include="VoodooConverts.cs" />
+    <Compile Include="_3dfxConverts.cs" />
     <Compile Include="WcfAdapter.cs" />
     <Page Include="DirectoryAdding.xaml">
       <SubType>Designer</SubType>
