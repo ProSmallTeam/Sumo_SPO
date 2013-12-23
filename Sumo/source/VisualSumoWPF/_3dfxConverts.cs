@@ -5,7 +5,7 @@ namespace VisualSumoWPF
 // ReSharper disable InconsistentNaming
     internal class 	_3dfxConverts
     {
-        internal class _3dfxContent
+        public class _3dfxContent
         {
             public string Name { get; set; }
 
@@ -27,8 +27,8 @@ namespace VisualSumoWPF
             var dictionary = new DynamicDictionary();
 
             dictionary.SetValue("Name", book.Name);
-            dictionary.SetValue("Year", book.Md5Hash);
-            dictionary.SetValue("Author", book.Path);
+            dictionary.SetValue("Year", book.SecondaryFields["Year"]);
+            dictionary.SetValue("Author", book.SecondaryFields["Authors"][0]);
 
             return dictionary;
         }
