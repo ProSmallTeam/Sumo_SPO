@@ -1,4 +1,5 @@
-﻿using Sumo.API;
+﻿using System.Linq;
+using Sumo.API;
 
 namespace VisualSumoWPF
 {
@@ -28,7 +29,13 @@ namespace VisualSumoWPF
 
             dictionary.SetValue("Name", book.Name);
             dictionary.SetValue("Year", book.SecondaryFields["Year"]);
-            dictionary.SetValue("Author", book.SecondaryFields["Authors"][0]);
+
+            //да да, адовое LINQ
+            var str = book.SecondaryFields["Authors"].Aggregate("", (current, author) => current + (author + " "));
+
+            dictionary.SetValue("Author", str);
+            
+
 
             return dictionary;
         }
