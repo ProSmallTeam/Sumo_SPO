@@ -65,6 +65,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
+      <Project>{3c278094-3c15-44b5-9897-c080679b4af8}</Project>
+      <Name>DBMetaManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.API.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.API</Name>

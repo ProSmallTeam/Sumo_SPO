@@ -22,7 +22,7 @@ namespace VisualSumoWPF
 
     public partial class MainWindow : Window
     {
-        private MakeMeHappy _makeMeHappy = new MakeMeHappy();
+        private readonly MakeMeHappy _makeMeHappy = new MakeMeHappy();
 
         /// <summary>
         /// Конструктор окна

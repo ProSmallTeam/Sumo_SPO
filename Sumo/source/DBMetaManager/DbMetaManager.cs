@@ -1,32 +1,37 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using Sumo.API;
 using DataBase;
 
 namespace DBMetaManager
 {
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;
         private List<SessionData> SessionList;
+        private int _nextSessionId = 0;
         
-        public DbMetaManager(IDataBase dataBase)
+        public DbMetaManager()
         {
             SessionList = new List<SessionData>();
-            _dataBase = dataBase;
+            _dataBase = new DataBase.DataBase("mongodb://localhost/?safe=false"); ;
         }
 
         public SumoSession CreateQuery(string query)
         {
             var session = new SumoSession
             {
-                SessionId = SessionList.Count(),
+                SessionId = _nextSessionId,
                 Count = _dataBase.GetStatistic(query)
             };
 
             var sessionData = new SessionData {Query = query, SessionId = session.SessionId};
             SessionList.Add(sessionData);
 
+            _nextSessionId++;
             return session;
         }
 

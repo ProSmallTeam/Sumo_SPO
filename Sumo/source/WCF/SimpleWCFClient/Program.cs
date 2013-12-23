@@ -51,26 +51,26 @@ namespace SimpleWCFClient
         {
             var a = new IDbMetaManagerService.DbMetaManagerClient();
             var b =  a;
-            var q2 = b.CreateQuery("query");
+            var q2 = b.CreateQuery("");
 
             Console.WriteLine(q2.Count);
             Console.WriteLine(q2.SessionId);
 
-            var documents = b.GetDocuments(1, 5, 2);
+            var documents = b.GetDocuments(q2.SessionId, 5, 2);
 
             foreach (var document in documents)
             {
                 Console.WriteLine(document.Name);
             }
 
-            var book = b.GetDocuments(0, 1, 1);
+            var book = b.GetDocuments(q2.SessionId, 1, 1);
 
-            var statistic = b.GetStatistic(123);
+            var statistic = b.GetStatistic(q2.SessionId);
 
             statistic.Childs.ToList().ForEach(c => Console.WriteLine(c.Node.Id));
 
-            List<string> w = new List<string>{"x", "p"};
-            w.ForEach(t => Console.WriteLine(t));
+            var w = new List<string>{"x", "p"};
+            w.ForEach(Console.WriteLine);
 
             Console.WriteLine("Done");
             Console.ReadKey();

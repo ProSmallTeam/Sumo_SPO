@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data.Common;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using DBMetaManager;
 
 namespace BookService
 {
@@ -13,7 +15,8 @@ namespace BookService
         {
 
             Console.WriteLine("Hell0");
-            var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(MetaManagerStub));
+          //  var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(MetaManagerStub));
+            var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(DbMetaManager));
 
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
