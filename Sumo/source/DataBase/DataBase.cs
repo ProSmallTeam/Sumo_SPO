@@ -60,7 +60,7 @@ namespace DataBase
 
         public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
-            //try
+            try
             {
                 var idOfAltMeta = new List<int>();
 
@@ -78,7 +78,7 @@ namespace DataBase
 
                 return 0;
             }
-            //catch (Exception)
+            catch (Exception)
             {
 
                 return -1;
@@ -88,7 +88,7 @@ namespace DataBase
 
         public int DeleteBookMeta(string md5Hash)
         {
-            //try
+            try
             {
                 var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
 
@@ -111,7 +111,7 @@ namespace DataBase
 
                 return 0;
             }
-            //catch (Exception)
+            catch (Exception)
             {
                 return -1;
             }
@@ -216,11 +216,18 @@ namespace DataBase
             return ConvertToBook(Collections.Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
         }
 
+        /// <summary>
+        /// TODO: удалить метод при первой возможности.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="parrentId"></param>
+        /// <param name="rootId"></param>
+        /// <returns></returns>
         public int SaveAttribute(string name, int parrentId, int rootId)
         {
-            var IsRoot = rootId == null;
+            var IsRoot = false;
 
-            //try
+            try
             {
                 Collections.Attributes.Insert(new BsonDocument
                     {
@@ -234,7 +241,7 @@ namespace DataBase
 
                 return 0;
             }
-            //catch (Exception)
+            catch (Exception)
             {
                 return -1;
             }

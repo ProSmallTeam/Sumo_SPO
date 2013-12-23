@@ -22,7 +22,7 @@
             </ListBox.OpacityMask>
         </ListBox>
         
-        <Label Name="Title" Content="Добавьте еще несколько ваших любимых книг!" HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" VerticalAlignment="Top" Width="612" FontSize="16" FontWeight="Medium"/>
+        <Label Name="AddLabelTitle" Content="Добавьте еще несколько ваших любимых книг!" HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" VerticalAlignment="Top" Width="612" FontSize="16" FontWeight="Medium"/>
         <Button Name ="AddButton" HorizontalAlignment="Left" Height="58" Margin="10,422,0,0" VerticalAlignment="Top" Width="58" Click="AddButton_Click" RenderTransformOrigin="-2.239,0.5" ToolTip="Добавить директорию" BorderBrush="White" Background="White" Foreground="White">
             <Button.Content>
                 <Image Source="Images/Plus.png" Stretch="Fill" />

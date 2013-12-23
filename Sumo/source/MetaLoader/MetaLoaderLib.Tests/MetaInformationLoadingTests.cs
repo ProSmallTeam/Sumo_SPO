@@ -1,12 +1,12 @@
-﻿namespace MetaLoaderLib.Tests
+﻿using OzonShop;
+
+namespace MetaLoaderLib.Tests
 {
     using HtmlAgilityPack;
 
     using Network;
 
     using NUnit.Framework;
-
-    using OzonShop;
 
     /// <summary>
     /// The meta information loading tests.

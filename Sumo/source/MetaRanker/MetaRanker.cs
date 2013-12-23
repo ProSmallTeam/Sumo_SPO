@@ -6,25 +6,25 @@ using Sumo.API;
 
 namespace MetaRanker
 {
-    public static class MetaRanker
+    public class MetaRanker
     {
-        private static List<Book> _rankedAltBooks = new List<Book>();
+        private List<Book> _rankedAltBooks = new List<Book>();
 
-        private static readonly List<string> ImportantFields = new List<string> {"ISBN", "Authors"};
+        private readonly List<string> ImportantFields = new List<string> {"ISBN", "Authors"};
 
-        private static double GetWeight(IList<string> inputList, IList<string> comparedList)
+        private double GetWeight(IList<string> inputList, IList<string> comparedList)
         {
             var weight = inputList.Sum(inputString => LevenshteinDistance.GetLevenshteinDistance(inputString, comparedList));
 
             return 1 - (double)weight / inputList.Sum(inputString => inputString.Length);
         }
 
-        private static double GetWeight(string input, string compared)
+        private double GetWeight(string input, string compared)
         {
             return 1 - (double)LevenshteinDistance.GetLevenshteinDistance(input, compared) / input.Length;
         }
 
-        private static void RankMeta(XDocument primaryMeta, IEnumerable<XDocument> altMetas)
+        private void RankMeta(XDocument primaryMeta, IList<XDocument> altMetas)
         {
             var primaryBook = XmlBookConverter.XmlBookConverter.ToBook(primaryMeta);
             var altBooks = altMetas.Select(XmlBookConverter.XmlBookConverter.ToBook).ToList();
@@ -58,7 +58,7 @@ namespace MetaRanker
             }
         }
 
-        public static XDocument GetTotalXml(XDocument primaryMeta, IList<XDocument> altMetas, int baseMetasCount = 3)
+        public XDocument GetTotalXml(XDocument primaryMeta, IList<XDocument> altMetas, int baseMetasCount = 3)
         {
             var totalBook = new Book();
             var primaryBook = XmlBookConverter.XmlBookConverter.ToBook(primaryMeta);
@@ -91,10 +91,14 @@ namespace MetaRanker
                 {
                     if (_rankedAltBooks[i].SecondaryFields.ContainsKey(key))
                     {
-                        weights[i] += ImportantFields.Contains(key)
+                        weights.Add(ImportantFields.Contains(key)
                                       ? 2 * GetWeight(primaryBook.SecondaryFields[key], _rankedAltBooks[i].SecondaryFields[key])
                                       : GetWeight(primaryBook.SecondaryFields[key], _rankedAltBooks[i].SecondaryFields[key])
-                                        - (primaryBook.SecondaryFields[key].Count - _rankedAltBooks[i].SecondaryFields[key].Count);
+                                        - (primaryBook.SecondaryFields[key].Count - _rankedAltBooks[i].SecondaryFields[key].Count));
+                    }
+                    else
+                    {
+                        weights.Add(0);
                     }
                 }
 

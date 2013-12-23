@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Xml.Linq;
 using NUnit.Framework;
 using Sumo.API;
@@ -189,19 +192,20 @@ namespace XmlBookConverter.Tests
 
             Trace.WriteLine(xDocument.ToString());
 
-            Assert.AreEqual(@"<Book>
-  <Md5Hash>1</Md5Hash>
-  <Name>2</Name>
-  <Path>3</Path>
-  <Authors>
-    <Item1>4</Item1>
-    <Item2>44</Item2>
-    <Item3>444</Item3>
-  </Authors>
-  <Language>5</Language>
-  <ISBN>6</ISBN>
-  <PublicYear>7</PublicYear>
-</Book>", xDocument.ToString());
+            CompareIgnoreWhiteSpaces(
+                @"<Book>
+                  <Md5Hash>1</Md5Hash>
+                  <Name>2</Name>
+                  <Path>3</Path>
+                  <Authors>
+                    <Item1>4</Item1>
+                    <Item2>44</Item2>
+                    <Item3>444</Item3>
+                  </Authors>
+                  <Language>5</Language>
+                  <ISBN>6</ISBN>
+                  <PublicYear>7</PublicYear>
+                </Book>", xDocument);
 
         }
 
@@ -220,18 +224,19 @@ namespace XmlBookConverter.Tests
 
             Trace.WriteLine(xDocument);
 
-            Assert.AreEqual(@"<Book>
-  <Md5Hash>1</Md5Hash>
-  <Path>3</Path>
-  <Authors>
-    <Item1>4</Item1>
-    <Item2>44</Item2>
-    <Item3>444</Item3>
-  </Authors>
-  <Language>5</Language>
-  <ISBN>6</ISBN>
-  <PublicYear>7</PublicYear>
-</Book>", xDocument.ToString());
+            CompareIgnoreWhiteSpaces(
+                @"<Book>
+                  <Md5Hash>1</Md5Hash>
+                  <Path>3</Path>
+                  <Authors>
+                    <Item1>4</Item1>
+                    <Item2>44</Item2>
+                    <Item3>444</Item3>
+                  </Authors>
+                  <Language>5</Language>
+                  <ISBN>6</ISBN>
+                  <PublicYear>7</PublicYear>
+                </Book>", xDocument);
         }
 
         [Test]
@@ -247,18 +252,19 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XmlBookConverter.ToXml(book);
 
-            Assert.AreEqual(@"<Book>
-  <Name>2</Name>
-  <Path>3</Path>
-  <Authors>
-    <Item1>4</Item1>
-    <Item2>44</Item2>
-    <Item3>444</Item3>
-  </Authors>
-  <Language>5</Language>
-  <ISBN>6</ISBN>
-  <PublicYear>7</PublicYear>
-</Book>", xDocument.ToString());
+            CompareIgnoreWhiteSpaces(
+                @"<Book>
+                  <Name>2</Name>
+                  <Path>3</Path>
+                  <Authors>
+                    <Item1>4</Item1>
+                    <Item2>44</Item2>
+                    <Item3>444</Item3>
+                  </Authors>
+                  <Language>5</Language>
+                  <ISBN>6</ISBN>
+                  <PublicYear>7</PublicYear>
+                </Book>", xDocument);
         }
 
         [Test]
@@ -276,11 +282,12 @@ namespace XmlBookConverter.Tests
 
             Trace.WriteLine(xDocument);
 
-            Assert.AreEqual(@"<Book>
-  <Md5Hash>1</Md5Hash>
-  <Name>2</Name>
-  <Path>3</Path>
-</Book>", xDocument.ToString());
+            CompareIgnoreWhiteSpaces(
+                @"<Book>
+                  <Md5Hash>1</Md5Hash>
+                  <Name>2</Name>
+                  <Path>3</Path>
+                </Book>", xDocument);
         }
 
         #endregion
@@ -306,6 +313,30 @@ namespace XmlBookConverter.Tests
             Assert.AreEqual(book.SecondaryFields.Count, book2.SecondaryFields.Count);
             Assert.AreEqual(book.SecondaryFields.Keys, book2.SecondaryFields.Keys);
             Assert.AreEqual(book.SecondaryFields.Values, book2.SecondaryFields.Values);
+        }
+
+        /// <summary>
+        /// Производит сравнение xml с xDocument без учета символов переноса строк.
+        /// </summary>
+        private void CompareIgnoreWhiteSpaces(string xml, XDocument xDocument)
+        {
+
+            var builder = new StringBuilder();
+            using (var stream = new StringReader(xml))
+            {
+                for (;;)
+                {
+                    var line = stream.ReadLine();
+                    if (line == null) break;
+
+                    builder.Append(line.Trim());
+
+                }
+            }
+
+
+            var xmlWithoutFormatting = builder.ToString();
+            Assert.AreEqual(xmlWithoutFormatting, xDocument.ToString(SaveOptions.DisableFormatting));
         }
     }
 }

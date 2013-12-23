@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using Sumo.API;
 
 namespace Coordinator
 {
-    class Program
+    internal class Program
     {
         public static void Main()
         {
-            var dbTaskManager = GetDbTaskManager();
+            IDbTaskManager dbTaskManager = GetDbTaskManager();
 
 
             var coordinator = new Coordinator(dbTaskManager);
@@ -33,7 +29,7 @@ namespace Coordinator
             var address = new EndpointAddress(tcpUri);
             var binding = new BasicHttpBinding();
             var factory = new ChannelFactory<IDbTaskManager>(binding, address);
-            var dbTaskManager = factory.CreateChannel();
+            IDbTaskManager dbTaskManager = factory.CreateChannel();
             return dbTaskManager;
         }
     }
