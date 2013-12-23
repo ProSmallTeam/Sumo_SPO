@@ -2,21 +2,22 @@
 
 namespace VisualSumoWPF
 {
-    internal class 	VoodooConverts
+// ReSharper disable InconsistentNaming
+    internal class 	_3dfxConverts
     {
-        internal class VoodoContent
+        internal class _3dfxContent
         {
             public string Name { get; set; }
 
             public CategoryNode Node { get; set; }
         }
 
-        public static VoodoContent ToContent(CategoryNode node) 
+        public static _3dfxContent ToContent(CategoryNode node) 
         {
-            return new VoodoContent{Name = node.Name};
+            return new _3dfxContent{Name = node.Name + "(" + node.Count + ")"};
         }
 
-        public static CategoryNode ToNode(VoodoContent content)
+        public static CategoryNode ToNode(_3dfxContent content)
         {
             return content.Node;
         }
