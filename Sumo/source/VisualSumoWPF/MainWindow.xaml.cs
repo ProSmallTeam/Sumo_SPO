@@ -32,17 +32,27 @@ namespace VisualSumoWPF
         /// <param name="e"></param>
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+          //  SelectedItemChange(this, (SelectedItemChangedEventArgs)new object());
+            
             InitDrives();
 
             GridBook.ItemsSource = ObservableCollection;
         }
 
+        private void GetNewBooks()
+        {
+            ObservableCollection.Clear();
+            List<Sumo.API.Book> books = _makeMeHappy.GetBooks();
 
-        /// <summary>
-        ///     Действия при нажатии кнопки добавления аудиторий
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+            foreach (Sumo.API.Book book in books)
+            {
+                DynamicDictionary dictionary = _3dfxConverts.ToDynamicDictionary(book);
+                ObservableCollection.Add(dictionary);
+            }
+            GridBook.ItemsSource = ObservableCollection;
+        }
+
+
         private void AddDirectoriesClick(object sender, RoutedEventArgs e)
         {
             Hide();
@@ -57,6 +67,7 @@ namespace VisualSumoWPF
         {
             TreeListControl.BeginDataUpdate();
 
+            TreeVeiw.Nodes.Clear();
             CategoriesMultiList tree = _makeMeHappy.GetTreeStatistic();
             try
             {
@@ -66,6 +77,7 @@ namespace VisualSumoWPF
                     IsExpandButtonVisible = DefaultBoolean.True,
                     Tag = false
                 };
+
                 if (tree.Childs != null && tree.Childs.Count > 0)
                 {
                     SetNode(node, tree.Childs);
@@ -112,37 +124,44 @@ namespace VisualSumoWPF
                 return;
             }
 
-            string parentName = focusedNode.ParentNode.Content.ToString();
-            string name = focusedNode.Content.ToString();
+            //string parentName = focusedNode.ParentNode.Content.ToString();
+            //string name = focusedNode.Content.ToString();
 
-            string str = parentName + " = \"" + name + "\", ";
-            textEditor.Text += str;
+            var q = (_3dfxConverts._3dfxContent) focusedNode.Content;
+            string s = q.Node.Name;
+
+            //string str = parentName + " = \"" + name + "\", ";
+
+            if (!String.IsNullOrEmpty(textEditor.Text))
+            {
+                textEditor.Text +=", ";
+            }
+
+            textEditor.Text += s;
+
         }
 
 
         private void GridBook_SelectedItemChanged(object sender, SelectedItemChangedEventArgs e)
         {
-            object focusedRow = GridBook.GetFocusedRow();
         }
 
         private void SelectedItemChange(object sender, SelectedItemChangedEventArgs e)
         {
-            //todo
-            //GridBook.ItemsSource
-            ObservableCollection.Clear();
-            List<Sumo.API.Book> books = _makeMeHappy.GetBooks();
-
-            foreach (Sumo.API.Book book in books)
-            {
-                DynamicDictionary dictionary = _3dfxConverts.ToDynamicDictionary(book);
-                ObservableCollection.Add(dictionary);
-            }
-            GridBook.ItemsSource = ObservableCollection;
+            GetNewBooks();
         }
 
         private void GridBook_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _makeMeHappy.SetQuery(textEditor.Text);
+            
+            GetNewBooks();
+            InitDrives();
         }
     }
 }
