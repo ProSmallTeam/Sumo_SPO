@@ -3,8 +3,6 @@ using System.ServiceModel;
 
 namespace Sumo.API
 {
-    //todo дима, реализуй
-
     [ServiceContract]
     public interface IDbMetaManager
     {
