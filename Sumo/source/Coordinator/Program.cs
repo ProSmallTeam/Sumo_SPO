@@ -4,6 +4,9 @@ using Sumo.API;
 
 namespace Coordinator
 {
+    /// <summary>
+    /// Запрашивает задачи на добавление информации о книгах в б/д, запускает цепочки на их выполнение.
+    /// </summary>
     internal class Program
     {
         public static void Main()

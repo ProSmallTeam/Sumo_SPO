@@ -7,6 +7,9 @@ using Sumo.API;
 
 namespace Sumo.API
 {
+    /// <summary>
+    /// Простейшая реализация IDbTaskManager.
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class DbTaskManager : IDbTaskManager
     {
@@ -20,10 +23,6 @@ namespace Sumo.API
         public string[] GetTasks(int maxCount)
         {
             return _tasks;
-//            var tasks = _tasks;
-            //          _tasks = new List<string>();
-            //        return tasks;
-
         }
 
         public void AddTasks(string[] pathsList)

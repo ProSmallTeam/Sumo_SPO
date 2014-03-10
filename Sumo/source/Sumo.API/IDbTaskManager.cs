@@ -3,6 +3,9 @@ using System.ServiceModel;
 
 namespace Sumo.API
 {
+    /// <summary>
+    /// Получает или дает задачи базе данных на добавление книг.
+    /// </summary>
     [ServiceContract]
     public interface IDbTaskManager
     {

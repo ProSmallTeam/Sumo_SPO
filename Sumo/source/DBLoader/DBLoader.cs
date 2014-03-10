@@ -8,6 +8,8 @@ namespace DBLoader
     {
         private readonly IDbBookManager _manager;
 
+        const int IndexOfMainBook = 0;
+            
         public DBLoader(IDbBookManager manager)
         {
             _manager = manager;
@@ -15,8 +17,7 @@ namespace DBLoader
 
         public void Save(List<Book> listOfBook)
         {
-            const int indexOfMainBook = 0;
-            var mainBook = listOfBook[indexOfMainBook];
+            var mainBook = listOfBook[IndexOfMainBook];
 
             var listOfAltMeta = new List<Book>();
 

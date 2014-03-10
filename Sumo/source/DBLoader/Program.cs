@@ -12,7 +12,7 @@ namespace DBLoader
     static class Program
     {
         /// <summary>
-        /// Главная точка входа для приложения.
+        /// Загружает информацию о кнагах из папки в базу данных.
         /// </summary>
         [STAThread]
         static void Main(string[] args)

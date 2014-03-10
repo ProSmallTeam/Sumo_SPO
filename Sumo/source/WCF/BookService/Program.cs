@@ -8,7 +8,9 @@ namespace BookService
 {
     class Program
     {
-
+        /// <summary>
+        /// Запускает WCF сервис.
+        /// </summary>
         static void Main(string[] args)
         {
 
