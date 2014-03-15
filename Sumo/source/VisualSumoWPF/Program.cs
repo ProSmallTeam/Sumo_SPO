@@ -10,8 +10,7 @@ namespace VisualSumoWPF
         [STAThread]
         private static void Main(string[] args)
         {
-
-            IDbMetaManager metaManager= new MetaManagerStub();
+            IDbMetaManager metaManager = new MetaManagerStub();
 
             if (args.Length == 1)
             {
