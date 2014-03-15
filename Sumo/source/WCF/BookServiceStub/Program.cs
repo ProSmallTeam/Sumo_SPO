@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using DBMetaManager;
+using Sumo.API;
 
-namespace BookService
+namespace BookServiceStub
 {
     class Program
     {
@@ -15,12 +18,12 @@ namespace BookService
         {
 
             Console.WriteLine("Hell0");
-            var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(DbMetaManager));
+            var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(MetaManagerStub));
 
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
 
-            
+
             Console.ReadKey();
 
             dbMetaManagerHost.Close();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Sumo.API;
 using VisualSumoWPF.DbBookService;
 using CategoriesMultiList = Sumo.API.CategoriesMultiList;
 using IDbMetaManager = Sumo.API.IDbMetaManager;

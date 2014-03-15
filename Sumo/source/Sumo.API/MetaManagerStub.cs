@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceModel;
-using Sumo.API;
 
-namespace VisualSumoWPF
+namespace Sumo.API
 {
 
-    class MetaManagerStub : IDbMetaManager
+    public class MetaManagerStub : IDbMetaManager
     {
         private int _operationsCounter = 0;
         public SumoSession CreateQuery(string query)

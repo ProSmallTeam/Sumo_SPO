@@ -80,7 +80,6 @@
       <DependentUpon>DirectoryAdding.xaml</DependentUpon>
     </Compile>
     <Compile Include="MakeMeHappy.cs" />
-    <Compile Include="MetaManagerStub.cs" />
     <Compile Include="Service References\DbBookService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
