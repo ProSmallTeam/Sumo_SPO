@@ -9,16 +9,16 @@ using SumoSession = Sumo.API.SumoSession;
 
 namespace VisualSumoWPF
 {
-    internal class MakeMeHappy
+    internal class Presenter
     {
         private readonly IDbMetaManager _metaManager;
         private SumoSession _session;
         private const int BookCapacity = 10;
 
-        public MakeMeHappy(DbMetaManagerClient metaManager) : this(new WcfAdapter(metaManager))
+        public Presenter(DbMetaManagerClient metaManager) : this(new WcfAdapter(metaManager))
         {}
 
-        public MakeMeHappy(IDbMetaManager metaManager)
+        public Presenter(IDbMetaManager metaManager)
         {
 
            var a = new DbBookService.DbMetaManagerClient();
@@ -28,7 +28,7 @@ namespace VisualSumoWPF
             _session = _metaManager.CreateQuery("");
         }
 
-        public MakeMeHappy()
+        public Presenter()
             : this(new MetaManagerStub())
         {
         }

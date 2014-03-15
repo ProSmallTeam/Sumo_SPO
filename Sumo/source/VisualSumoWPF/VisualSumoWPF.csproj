@@ -79,7 +79,7 @@
     <Compile Include="DirectoryAdding.xaml.cs">
       <DependentUpon>DirectoryAdding.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MakeMeHappy.cs" />
+    <Compile Include="Presenter.cs" />
     <Compile Include="Service References\DbBookService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,6 +128,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\DataSources\Sumo.API.Book.datasource" />
     <None Include="Properties\DataSources\Sumo.API.CategoriesMultiList.datasource" />
     <None Include="Properties\DataSources\Sumo.API.SumoSession.datasource" />
@@ -172,9 +173,6 @@
     <None Include="Service References\Service1\TestService3.xsd">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Monica.jpg" />

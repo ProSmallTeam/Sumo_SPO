@@ -15,7 +15,7 @@ namespace VisualSumoWPF
         private static readonly ObservableCollection<DynamicDictionary> ObservableCollection =
             new ObservableCollection<DynamicDictionary>();
 
-        private readonly MakeMeHappy _makeMeHappy = new MakeMeHappy();
+        private readonly Presenter _presenter = new Presenter();
 
         /// <summary>
         ///     Конструктор окна
@@ -42,7 +42,7 @@ namespace VisualSumoWPF
         private void GetNewBooks()
         {
             ObservableCollection.Clear();
-            List<Sumo.API.Book> books = _makeMeHappy.GetBooks();
+            List<Sumo.API.Book> books = _presenter.GetBooks();
 
             foreach (Sumo.API.Book book in books)
             {
@@ -68,7 +68,7 @@ namespace VisualSumoWPF
             TreeListControl.BeginDataUpdate();
 
             TreeVeiw.Nodes.Clear();
-            CategoriesMultiList tree = _makeMeHappy.GetTreeStatistic();
+            CategoriesMultiList tree = _presenter.GetTreeStatistic();
             try
             {
                 var node = new TreeListNode
@@ -158,7 +158,7 @@ namespace VisualSumoWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _makeMeHappy.SetQuery(textEditor.Text);
+            _presenter.SetQuery(textEditor.Text);
             
             GetNewBooks();
             InitDrives();
