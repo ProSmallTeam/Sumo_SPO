@@ -1,6 +1,7 @@
 ﻿using System;
 using Sumo.API;
 using VisualSumoWPF.DbBookService;
+using IDbMetaManager = Sumo.API.IDbMetaManager;
 
 namespace VisualSumoWPF
 {
@@ -9,10 +10,19 @@ namespace VisualSumoWPF
         [STAThread]
         private static void Main(string[] args)
         {
-            var metaManagerStub = new MetaManagerStub();
-            var metaManager = new WcfAdapter(new DbMetaManagerClient());
 
-            var facade = new MetaManagerFacade(metaManagerStub);
+            IDbMetaManager metaManager= new MetaManagerStub();
+
+            if (args.Length == 1)
+            {
+                if (args[0] == "--WCF")
+                {
+                    metaManager = new WcfAdapter(new DbMetaManagerClient());
+                }
+            }
+
+
+            var facade = new MetaManagerFacade(metaManager);
 
             var presenter = new Presenter(facade);
 
