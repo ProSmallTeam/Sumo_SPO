@@ -70,16 +70,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="Book.cs" />
     <Compile Include="DynamicBindingList.cs" />
     <Compile Include="DirectoryAdding.xaml.cs">
       <DependentUpon>DirectoryAdding.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MetaManagerFacade.cs" />
     <Compile Include="Presenter.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Service References\DbBookService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,10 +99,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,54 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Windows;
 using Sumo.API;
-using VisualSumoWPF.DbBookService;
-using CategoriesMultiList = Sumo.API.CategoriesMultiList;
-using IDbMetaManager = Sumo.API.IDbMetaManager;
-using SumoSession = Sumo.API.SumoSession;
 
 namespace VisualSumoWPF
 {
     internal class Presenter
     {
-        private readonly IDbMetaManager _metaManager;
-        private SumoSession _session;
-        private const int BookCapacity = 10;
+        private readonly MetaManagerFacade _metaManagerFacade;
 
-        public Presenter(DbMetaManagerClient metaManager) : this(new WcfAdapter(metaManager))
-        {}
+        private MainWindow _mainWindow;
 
-        public Presenter(IDbMetaManager metaManager)
+        public Presenter(MetaManagerFacade metaManagerFacade)
         {
-
-           var a = new DbBookService.DbMetaManagerClient();
-           // _metaManager = metaManager;
-            _metaManager = new WcfAdapter(a);
-
-            _session = _metaManager.CreateQuery("");
+            _metaManagerFacade = metaManagerFacade;
         }
 
-        public Presenter()
-            : this(new MetaManagerStub())
+        public void Run()
         {
-        }
+            var app = new Application();
 
+            _mainWindow = new MainWindow(_metaManagerFacade);
 
-        public void SetQuery(string query)
-        {
-            _metaManager.CloseSession(_session);
-            _session = _metaManager.CreateQuery(query);
-        }
-        public CategoriesMultiList GetTreeStatistic()
-        {
-            return _metaManager.GetStatistic(_session.SessionId);
-        }
-
-        public List<Sumo.API.Book> GetBooks()
-        {
-            var list = _metaManager.GetDocuments(_session.SessionId, BookCapacity > _session.Count? _session.Count : BookCapacity);
-
-            return list;
+            app.Run(_mainWindow);
         }
     }
 }

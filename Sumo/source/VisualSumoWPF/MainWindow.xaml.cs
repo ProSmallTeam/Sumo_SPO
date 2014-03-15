@@ -15,13 +15,14 @@ namespace VisualSumoWPF
         private static readonly ObservableCollection<DynamicDictionary> ObservableCollection =
             new ObservableCollection<DynamicDictionary>();
 
-        private readonly Presenter _presenter = new Presenter();
+        private readonly MetaManagerFacade _metaManagerFacade;
 
         /// <summary>
         ///     Конструктор окна
         /// </summary>
-        public MainWindow()
+        public MainWindow(MetaManagerFacade metaManagerFacade)
         {
+            _metaManagerFacade = metaManagerFacade;
             InitializeComponent();
         }
 
@@ -42,7 +43,7 @@ namespace VisualSumoWPF
         private void GetNewBooks()
         {
             ObservableCollection.Clear();
-            List<Sumo.API.Book> books = _presenter.GetBooks();
+            List<Sumo.API.Book> books = _metaManagerFacade.GetBooks();
 
             foreach (Sumo.API.Book book in books)
             {
@@ -68,7 +69,7 @@ namespace VisualSumoWPF
             TreeListControl.BeginDataUpdate();
 
             TreeVeiw.Nodes.Clear();
-            CategoriesMultiList tree = _presenter.GetTreeStatistic();
+            CategoriesMultiList tree = _metaManagerFacade.GetTreeStatistic();
             try
             {
                 var node = new TreeListNode
@@ -158,7 +159,7 @@ namespace VisualSumoWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.SetQuery(textEditor.Text);
+            _metaManagerFacade.SetQuery(textEditor.Text);
             
             GetNewBooks();
             InitDrives();
