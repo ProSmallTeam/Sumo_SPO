@@ -36,7 +36,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfUsingIndex()
+        public void UsingIndex()
         {
             var query = new QueryDocument(new BsonDocument{{"Attributes", 1}});
 
@@ -44,7 +44,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfCorrectGetStatistic()
+        public void GetStatistics()
         {
             var query = new QueryDocument(true) { { "Attributes", 19 }, { "Attributes", 63 } };
 
@@ -56,7 +56,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfCorrectDeletingBook()
+        public void RemoveBook()
         {
             _database.DeleteBookMeta("0");
 
@@ -64,7 +64,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfGettingBook()
+        public void GetBook()
         {
             var time = DateTime.Now;
             var book = _database.GetBooks("2010, Макарский");
@@ -118,7 +118,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfCorrectInsertTask()
+        public void InsertTask()
         {
             _database.InsertTask(new Task { PathToFile = "path0" });
 
@@ -126,13 +126,13 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssetOfGettingTaskList()
+        public void GetTaskList()
         {
             Assert.IsNotEmpty(_database.GetTask(20));
         }
 
         [Test]
-        public void AssertOfCorrectGettingTaskList()
+        public void GetEmptyTaskList()
         {
             const int QuantityOfTask = 100;
 
@@ -141,7 +141,7 @@ namespace DB.Test
         }
 
         [Test]
-        public void AssertOfCorrectGetStaticticTree()
+        public void GetStatisticTree()
         {
             var time = DateTime.Now;
 
