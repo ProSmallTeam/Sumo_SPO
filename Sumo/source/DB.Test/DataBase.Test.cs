@@ -17,48 +17,22 @@ namespace DB.Test
     {
         private DataBase _database;
 
-        private const int NumberOfRecords = 1000;
+        private const int NumberOfRecords = 5;
 
         [TestFixtureSetUp]
-        public void SetUp()
+        public void CreateDB()
         {
             _database = new DataBase("mongodb://localhost/?safe=false"); // получение объекта, с которым будем работать
 
-            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+            EnviromentInfo();
+        }
 
-            WriteIntoFile("------------- Процессор: ---------------");
-            foreach (ManagementObject queryObj in searcher.Get())
-            {
-                WriteIntoFile("Наименование: " + queryObj["Name"]);
-                WriteIntoFile("Количество ядер: " + queryObj["NumberOfCores"]);
-            }
+        
 
-            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
-
-            WriteIntoFile("------------- Оперативная память: --------");
-            foreach (ManagementObject queryObj in searcher.Get())
-            {
-                WriteIntoFile("Маркировка: " + queryObj["BankLabel"]);
-                WriteIntoFile("Размер: " + Math.Round(Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2) + " Gb");
-                WriteIntoFile("Скорость: " + queryObj["Speed"]);
-            }
-
-            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
-
-            WriteIntoFile("------------- Операционная система: --------");
-            foreach (ManagementObject queryObj in searcher.Get())
-            {
-                WriteIntoFile("Название: " + queryObj["Name"]);
-                WriteIntoFile("Версия: " + queryObj["Version"]);
-            }
-
-            WriteIntoFile("------------- Количество записей в базе данных: --------");
-            WriteIntoFile(NumberOfRecords.ToString());
-            WriteIntoFile("\n");
-
+        [SetUp]
+        public void SetUp()
+        {
             IntializeDataBase.Initialize(_database, NumberOfRecords);
-
-
         }
 
         [Test]
@@ -93,7 +67,7 @@ namespace DB.Test
         public void AssertOfGettingBook()
         {
             var time = DateTime.Now;
-            var book = _database.GetBooks("1999, Г. Шмерлинг");
+            var book = _database.GetBooks("2010, Макарский");
             string name = null;
             if (book != null)
                 name = book[0].Name;
@@ -179,6 +153,40 @@ namespace DB.Test
            
         }
 
+        private static void EnviromentInfo()
+        {
+            var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+
+            WriteIntoFile("------------- Процессор: ---------------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Наименование: " + queryObj["Name"]);
+                WriteIntoFile("Количество ядер: " + queryObj["NumberOfCores"]);
+            }
+
+            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
+
+            WriteIntoFile("------------- Оперативная память: --------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Маркировка: " + queryObj["BankLabel"]);
+                WriteIntoFile("Размер: " + Math.Round(Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2) + " Gb");
+                WriteIntoFile("Скорость: " + queryObj["Speed"]);
+            }
+
+            searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
+
+            WriteIntoFile("------------- Операционная система: --------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                WriteIntoFile("Название: " + queryObj["Name"]);
+                WriteIntoFile("Версия: " + queryObj["Version"]);
+            }
+
+            WriteIntoFile("------------- Количество записей в базе данных: --------");
+            WriteIntoFile(NumberOfRecords.ToString());
+            WriteIntoFile("\n");
+        }
         
         private static void WriteIntoFile(string result)
         {
