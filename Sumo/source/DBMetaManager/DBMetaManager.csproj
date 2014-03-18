@@ -40,7 +40,7 @@
     <Compile Include="SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\DB.csproj">
+    <ProjectReference Include="..\DB\DB.csproj">
       <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
       <Name>DB</Name>
     </ProjectReference>

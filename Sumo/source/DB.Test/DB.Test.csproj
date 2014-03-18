@@ -7,8 +7,8 @@
     <ProjectGuid>{3F41D1FE-AE75-40A8-B429-47723E363B51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataBase.Test</RootNamespace>
-    <AssemblyName>DataBase.Test</AssemblyName>
+    <RootNamespace>DB.Test</RootNamespace>
+    <AssemblyName>DB.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,7 +55,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\DB.csproj">
+    <ProjectReference Include="..\DB\DB.csproj">
       <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
       <Name>DB</Name>
     </ProjectReference>
