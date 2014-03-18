@@ -17,7 +17,7 @@ namespace DataBase.Test
     {
         private DataBase _database;
 
-        private const int NumberOfRecords = 1000;
+        private const int NumberOfRecords = 999;
 
         [TestFixtureSetUp]
         public void SetUp()
@@ -61,11 +61,11 @@ namespace DataBase.Test
             WriteIntoFile(NumberOfRecords.ToString());
             WriteIntoFile("\n");
 
-            _database.Drop();
+//            _database.Drop();
 
-            InitializeAttr(_database);
-            InitializeDb(_database, NumberOfRecords);
-            _database.Indexing();
+//            InitializeAttr(_database);
+//            InitializeDb(_database, NumberOfRecords);
+//            _database.Indexing();
         }
 
         [Test]
@@ -79,11 +79,12 @@ namespace DataBase.Test
         [Test]
         public void AssertOfCorrectGetStatistic()
         {
-            var query = new QueryDocument(true) { { "Attributes", 20 }, { "Attributes", 64 } };
+            var query = new QueryDocument(true) { { "Attributes", 19 }, { "Attributes", 63 } };
+
             var result = _database.Database.GetCollection("Books").FindAs<BsonDocument>(query).Count(); ;
             Assert.AreEqual(
                 result, 
-                _database.GetStatistic("{Мэтью Мак-Дональд, 1991}")
+                _database.GetStatistic("{Мак-Дональд, 1991}")
                 );
         }
 

@@ -9,15 +9,13 @@ namespace DataBase
 {
     class QueryCreator
     {
-        public List<int> Convert(string query)
+        public List<int> Convert(string attributesQuery)
         {
-            var stringQuery = query.Split(new[] { ", ", "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
+            var attributes = attributesQuery.Split(new[] { ", ", "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
 
-            return (from nameAttr in stringQuery 
-                    select new QueryDocument(new BsonDocument { { "Name", nameAttr } }) 
-                    into queryDocument select Collections.Attributes.FindOneAs<BsonDocument>(queryDocument) 
-                    into attr select int.Parse(attr["_id"].ToString())).ToList();
-
+            var query = attributes.Select(attributeName => new QueryDocument(new BsonDocument {{ "Name", attributeName }}));
+            var queryResults = query.Select(queryDocument => Collections.Attributes.FindOneAs<BsonDocument>(queryDocument)).Where(document => document != null);
+            return queryResults.Select(attr => int.Parse(attr["_id"].ToString())).ToList();
         }
 
         public static List<string> GetTypes(string stringParse)

@@ -13,12 +13,12 @@ namespace MetaRanker.Tests
         [Test]
         public void GetTotalXmlForFirstBookTest()
         {
-            var primaryMeta = XDocument.Load(@"..\..\xmlfiles\Игра престолов. Битва королей\primary.xml");
+            var primaryMeta = XDocument.Load(@"xmlfiles\Игра престолов. Битва королей\primary.xml");
 
-            var pathToFiles = Directory.GetFiles(@"..\..\xmlfiles\Игра престолов. Битва королей").ToList();
+            var pathToFiles = Directory.GetFiles(@"xmlfiles\Игра престолов. Битва королей").ToList();
             pathToFiles = pathToFiles.Select(pathToFile => pathToFile.Substring(pathToFile.LastIndexOf(@"\") + 1)).ToList();
 
-            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"..\..\xmlfiles\Игра престолов. Битва королей\" + pathToFile)).ToList();
+            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"xmlfiles\Игра престолов. Битва королей\" + pathToFile)).ToList();
 
             var totalXml = new MetaRanker().GetTotalXml(primaryMeta, altMetas);
 
@@ -46,12 +46,12 @@ namespace MetaRanker.Tests
         [Test]
         public void GetTotalXmlForSecondBookTest()
         {
-            var primaryMeta = XDocument.Load(@"..\..\xmlfiles\Океан в конце дороги\primary.xml");
+            var primaryMeta = XDocument.Load(@"xmlfiles\Океан в конце дороги\primary.xml");
 
-            var pathToFiles = Directory.GetFiles(@"..\..\xmlfiles\Океан в конце дороги").ToList();
+            var pathToFiles = Directory.GetFiles(@"xmlfiles\Океан в конце дороги").ToList();
             pathToFiles = pathToFiles.Select(pathToFile => pathToFile.Substring(pathToFile.LastIndexOf(@"\") + 1)).ToList();
 
-            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"..\..\xmlfiles\Океан в конце дороги\" + pathToFile)).ToList();
+            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"xmlfiles\Океан в конце дороги\" + pathToFile)).ToList();
 
             var totalXml = new MetaRanker().GetTotalXml(primaryMeta, altMetas);
 
@@ -77,12 +77,12 @@ namespace MetaRanker.Tests
         [Test]
         public void GetTotalXmlForThirdBookTest()
         {
-            var primaryMeta = XDocument.Load(@"..\..\xmlfiles\Рыцарь Семи Королевств\primary.xml");
+            var primaryMeta = XDocument.Load(@"xmlfiles\Рыцарь Семи Королевств\primary.xml");
 
-            var pathToFiles = Directory.GetFiles(@"..\..\xmlfiles\Рыцарь Семи Королевств").ToList();
+            var pathToFiles = Directory.GetFiles(@"xmlfiles\Рыцарь Семи Королевств").ToList();
             pathToFiles = pathToFiles.Select(pathToFile => pathToFile.Substring(pathToFile.LastIndexOf(@"\") + 1)).ToList();
 
-            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"..\..\xmlfiles\Рыцарь Семи Королевств\" + pathToFile)).ToList();
+            var altMetas = (from pathToFile in pathToFiles where pathToFile != "primary.xml" select XDocument.Load(@"xmlfiles\Рыцарь Семи Королевств\" + pathToFile)).ToList();
 
             var totalXml = new MetaRanker().GetTotalXml(primaryMeta, altMetas);
 
