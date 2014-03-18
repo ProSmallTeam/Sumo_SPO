@@ -16,6 +16,22 @@ namespace DB
 
         private readonly string _nameOfDataBase;
 
+        #region Коллекции
+
+        // Коллекция, в которой хранится информация о книгах.
+        public static MongoCollection<BsonDocument> Books;
+
+        // Коллекция, в которой хранится всесь список аттрибутов.
+        public static MongoCollection<BsonDocument> Attributes;
+
+        // Коллекция, в которой хранятся прочие данные о книгах.
+        public static MongoCollection<BsonDocument> AlternativeMeta;
+
+        // Колекция, в которой хранятся задания на обработку книг.
+        public static MongoCollection<BsonDocument> Tasks;
+
+        #endregion
+
         public DataBase(string connectiongString, string nameOfDataBase = "library")
         {
             var client = new MongoClient(connectiongString);
@@ -30,13 +46,13 @@ namespace DB
 
         private void SetCollections()
         {
-            Collections.Books = Database.GetCollection<BsonDocument>("Books");
+            Books = Database.GetCollection<BsonDocument>("Books");
 
-            Collections.Attributes = Database.GetCollection<BsonDocument>("Attributes");
+            Attributes = Database.GetCollection<BsonDocument>("Attributes");
 
-            Collections.AlternativeMeta = Database.GetCollection<BsonDocument>("AlternativeMeta");
+            AlternativeMeta = Database.GetCollection<BsonDocument>("AlternativeMeta");
 
-            Collections.Tasks = Database.GetCollection<BsonDocument>("Tasks");
+            Tasks = Database.GetCollection<BsonDocument>("Tasks");
 
         }
 
@@ -47,10 +63,10 @@ namespace DB
 
         public void Indexing()
         {
-            Collections.Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
-            Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
-            Collections.Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("FatherRef"));
-            Collections.AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+            Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
+            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("FatherRef"));
+            AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
         }
 
         public void Drop()
@@ -65,16 +81,16 @@ namespace DB
                 var idOfAltMeta = new List<int>();
 
                 if (alternativeBook != null)
-                    foreach (var altBookMeta in alternativeBook.Select(altBook => CreateBook(altBook, Collections.AlternativeMeta)))
+                    foreach (var altBookMeta in alternativeBook.Select(altBook => CreateBook(altBook, AlternativeMeta)))
                     {
-                        Collections.AlternativeMeta.Insert(altBookMeta);
+                        AlternativeMeta.Insert(altBookMeta);
 
                         idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
                     }
 
-                var document = CreateBook(book, Collections.Books, idOfAltMeta);
+                var document = CreateBook(book, Books, idOfAltMeta);
 
-                Collections.Books.Insert(document);
+                Books.Insert(document);
 
                 return 0;
             }
@@ -92,9 +108,9 @@ namespace DB
             {
                 var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
 
-                var book = Collections.Books.FindOneAs<BsonDocument>(query);
+                var book = Books.FindOneAs<BsonDocument>(query);
 
-                Collections.Books.Remove(query);
+                Books.Remove(query);
 
                 var stringOfid = book["AlternativeMeta"].ToString();
                 var idOfAltMeta = stringOfid
@@ -105,7 +121,7 @@ namespace DB
                 {
                     query = new QueryDocument(new BsonDocument { { "_id", int.Parse(id) } });
 
-                    Collections.AlternativeMeta.Remove(query);
+                    AlternativeMeta.Remove(query);
 
                 }
 
@@ -144,7 +160,7 @@ namespace DB
                 foreach (var nameOfAttribute in field.Value)
                 {
                     var document = new QueryDocument(new BsonDocument {{"Name", nameOfAttribute}});
-                    var attribute = Collections.Attributes.FindOneAs<BsonDocument>(document);
+                    var attribute = Attributes.FindOneAs<BsonDocument>(document);
                     if (attribute == null)
                         throw new NoAttrException();
 
@@ -161,7 +177,7 @@ namespace DB
         private static void AddFatherAttr(BsonDocument attribute, List<int> attributes)
         {
             var document = new QueryDocument(new BsonDocument { { "_id", int.Parse(attribute["FatherRef"].ToString()) } });
-            var fatherAttr = Collections.Attributes.FindOneAs<BsonDocument>(document);
+            var fatherAttr = Attributes.FindOneAs<BsonDocument>(document);
 
             if (fatherAttr == null) return;
 
@@ -173,7 +189,7 @@ namespace DB
 
         public bool IsHaveBookMeta(string md5Hash)
         {
-            return Collections.Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
+            return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
         }
 
         public int GetStatistic(string query)
@@ -185,7 +201,7 @@ namespace DB
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
-            if (query == null) return ConvertToBook(Collections.Books.FindAllAs<BsonDocument>().ToList());
+            if (query == null) return ConvertToBook(Books.FindAllAs<BsonDocument>().ToList());
 
             var attrId = new QueryCreator().Convert(query);
 
@@ -201,7 +217,7 @@ namespace DB
                 queries.Add("Attributes", id);
             }
 
-            return (int)Collections.Books.FindAs<BsonDocument>(queries).Count();
+            return (int)Books.FindAs<BsonDocument>(queries).Count();
         }
 
         private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
@@ -213,7 +229,7 @@ namespace DB
                 query.Add("Attributes", id);
             }
 
-            return ConvertToBook(Collections.Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+            return ConvertToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
         }
 
         /// <summary>
@@ -229,9 +245,9 @@ namespace DB
 
             try
             {
-                Collections.Attributes.Insert(new BsonDocument
+                Attributes.Insert(new BsonDocument
                     {
-                        {"_id", Collections.Attributes.Count()},
+                        {"_id", Attributes.Count()},
                         {"Name", name},
                         {"IsRoot", IsRoot},
                         {"RootRef", rootId},
@@ -259,7 +275,7 @@ namespace DB
                                      };
             try
             {
-                Collections.Tasks.Insert(_task);
+                Tasks.Insert(_task);
 
                 return 0;
             }
@@ -276,7 +292,7 @@ namespace DB
             
             try
             {
-                Collections.Tasks.Remove(query);
+                Tasks.Remove(query);
                 return 0;
             }
             catch (Exception)
@@ -291,7 +307,7 @@ namespace DB
             const int LowPriority = 0;
 
             var query = new QueryDocument(new BsonDocument { { "Priority", HighPriority }, { "Receipt", false } });
-            var tempList = Collections.Tasks.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
+            var tempList = Tasks.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
 
             var result = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
 
@@ -300,7 +316,7 @@ namespace DB
             if (count < quantity)
             {
                 query = new QueryDocument(new BsonDocument { { "Priority", LowPriority }, { "Receipt", false } });
-                tempList = Collections.Tasks.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
+                tempList = Tasks.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
 
                 result.AddRange(tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }));
             }
@@ -329,7 +345,7 @@ namespace DB
 
             var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
 
-            var childs = Collections.Attributes.FindAs<BsonDocument>(queryDocument).ToList();
+            var childs = Attributes.FindAs<BsonDocument>(queryDocument).ToList();
 
             if (!childs.Any())
                 return;
@@ -362,7 +378,7 @@ namespace DB
             var update = Update.Set("Receipt", true);
             foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { {"Path", task.PathToFile} })))
             {
-                Collections.Tasks.Update(query, update, UpdateFlags.Multi);
+                Tasks.Update(query, update, UpdateFlags.Multi);
             }
         }
 
@@ -376,12 +392,12 @@ namespace DB
             {
                 var query = new QueryDocument("_id", attribute);
 
-                var document = Collections.Attributes.FindOneAs<BsonDocument>(query);
+                var document = Attributes.FindOneAs<BsonDocument>(query);
 
                 var id = document["RootRef"];
                 query = new QueryDocument("_id", id);
 
-                var secondaryField = Collections.Attributes.FindOneAs<BsonDocument>(query);
+                var secondaryField = Attributes.FindOneAs<BsonDocument>(query);
 
                 if(secondaryField == null) continue;
 
