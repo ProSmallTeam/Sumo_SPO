@@ -17,17 +17,12 @@ namespace DB.Test
     {
         private DataBase _database;
 
-        private const int NumberOfRecords = 999;
+        private const int NumberOfRecords = 1000;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
             _database = new DataBase("mongodb://localhost/?safe=false"); // получение объекта, с которым будем работать
-
-            /*if (_database.Database.GetCollection("Books").Count() != 0)
-            {
-                return;
-            }*/
 
             var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
 
@@ -61,11 +56,9 @@ namespace DB.Test
             WriteIntoFile(NumberOfRecords.ToString());
             WriteIntoFile("\n");
 
-//            _database.Drop();
+            IntializeDataBase.Initialize(_database, NumberOfRecords);
 
-//            InitializeAttr(_database);
-//            InitializeDb(_database, NumberOfRecords);
-//            _database.Indexing();
+
         }
 
         [Test]
@@ -186,114 +179,7 @@ namespace DB.Test
            
         }
 
-        private void InitializeAttr(DataBase dataBase)
-        {
-            var authors = new[]
-                {
-                    "Макарский", "М. Ховард", "Леви", "Вэймир", "Шмерлинг", "Уилкинс", "Жарков",
-                    "Маклин", "Томас",
-                    "Гудсон", "Харвелл", "Уайт", "Пастернак", "Виннер",
-                    "Фриман", "Уэнц",
-                    "Мак-Дональд", "Колисниченко", "Грачев"
-                };
-
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 1 }, { "Name", "Authors" }, { "RootRef", 0 }, { "FatherRef", 0 } });
-            _database.Database.GetCollection("Attributes").Insert(new BsonDocument { { "_id", 2 }, { "Name", "Year" }, { "RootRef", 0 }, { "FatherRef", 0 } });
-
-            foreach (var temp in authors)
-                _database.Database.GetCollection("Attributes").Insert(new BsonDocument
-                    {
-                        {"_id", _database.Database.GetCollection("Attributes").Count() + 1},
-                        {"Name", temp},
-                        {"RootRef", 1},
-                        {"FatherRef", 1}
-                    }
-                    );
-
-            for (var index = 1950; index < 2011; ++index)
-                dataBase.Database.GetCollection("Attributes").Insert(new BsonDocument
-                    {
-                        {"_id", _database.Database.GetCollection("Attributes").Count() + 1},
-                        {"Name", index.ToString()},
-                        {"RootRef", 2},
-                        {"FatherRef", 2}
-                    }
-                    );
-        }
-
-        private static void InitializeDb(DataBase dataBase, int numberOfRecords)
-        {
-           var nameBook = new[]
-                               {
-                                   "C", "C++", "C#", "Java", "PHP", "JavaScript", "Assembler", "AutoCAD Civil 3D 2013. Официальный учебный курс", "25 этюдов о шифрах",
-                                   "Яндекс Воложа. История создания компании мечты", "Изучаем HTML, XHTML", " Самоучитель работы на ПК для всех",
-                                   "Журнал CHIP, сентябрь №9/2013", "Интернет-программирование на Java", "Компьютер для женщин"
-                               };
-            var authors = new[]
-                              {
-                                  "Макарский", "М. Ховард", "Леви", "Вэймир", "Шмерлинг", "Уилкинс", "Жарков",
-                                     "Маклин", "Томас",
-                                        "Гудсон", "Харвелл", "Уайт", "Пастернак", "Виннер",
-                                             "Фриман", "Уэнц",
-                                                 "Мак-Дональд", "Колисниченко", "Грачев"
-                              };
-            var language = new[] { "Russian", "English" };
-            var arrayOfPriority = new[] { true, false };
-
-            var random = new Random();
-
-
-
-            var time = DateTime.Now;
-
-            for (var index = 0; index < numberOfRecords; ++index)
-            {
-                var listOfAltBook = new List<Sumo.API.Book>();
-                for (var indexes = 0; indexes < 5; ++indexes)
-                {
-                    listOfAltBook.Add(
-                        new Sumo.API.Book
-                        {
-                            Name = nameBook[random.Next(0, nameBook.Count() - 1)],
-                            Md5Hash = indexes.ToString(),
-                            Path = null,
-                            SecondaryFields = new Dictionary<string, List<string>>
-                                        {
-                                            {"Year", new List<string>{random.Next(1950, 2010).ToString()}},
-                                            {"Author", new List<string>{authors[random.Next(0, authors.Count() - 1)]}}
-                                        }
-                        }
-                            );
-                }
-
-                dataBase.SaveBookMeta(
-                    new Sumo.API.Book()
-                        {
-                            Name = nameBook[random.Next(0, nameBook.Count() - 1)],
-                            Md5Hash = index.ToString(),
-                            Path = null,
-                            SecondaryFields = new Dictionary<string, List<string>>
-                                {
-                                    {"Year", new List<string>{random.Next(1950, 2010).ToString()}},
-                                    {"Author", new List<string>{authors[random.Next(0, authors.Count() - 1)], authors[random.Next(0, authors.Count() - 1)]}}
-                                }
-                        },
-                        listOfAltBook
-                    );
-            }
-
-            for (var index = 0; index < 100; index++)
-            {
-                var task = new Task { PathToFile = "path" + index };
-                var priority = arrayOfPriority[index % 2];
-
-                dataBase.InsertTask(task, priority);
-            }
-            
-
-            Trace.WriteLine(DateTime.Now - time);
-        }
-
+        
         private static void WriteIntoFile(string result)
         {
             var path = "result" + "(" + DateTime.Today.ToShortDateString() + ")" + ".txt";
