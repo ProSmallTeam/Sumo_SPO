@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "source\DataBase\DataBase.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "source\DataBase\DB.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase.Test", "source\DataBase.Test\DataBase.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB.Test", "source\DataBase.Test\DB.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.API", "source\Sumo.API\Sumo.API.csproj", "{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}"
 EndProject

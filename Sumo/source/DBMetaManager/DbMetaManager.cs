@@ -2,7 +2,7 @@
 using System.Linq;
 using System.ServiceModel;
 using Sumo.API;
-using DataBase;
+using DB;
 
 namespace DBMetaManager
 {
@@ -17,7 +17,7 @@ namespace DBMetaManager
         public DbMetaManager()
         {
             SessionList = new List<SessionData>();
-            _dataBase = new DataBase.DataBase("mongodb://localhost/?safe=false"); ;
+            _dataBase = new DB.DataBase("mongodb://localhost/?safe=false"); ;
         }
 
         public SumoSession CreateQuery(string query)

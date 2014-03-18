@@ -7,7 +7,7 @@ using MongoDB.Driver;
 using System.IO;
 using Sumo.API;
 
-namespace DataBase.Test
+namespace DB.Test
 {
     using System.Diagnostics;
     using NUnit.Framework;

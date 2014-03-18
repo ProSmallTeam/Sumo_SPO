@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace DataBase
+namespace DB
 {
     class QueryCreator
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sumo.API;
 
-namespace DataBase
+namespace DB
 {
     using MongoDB.Bson;
     using MongoDB.Driver;

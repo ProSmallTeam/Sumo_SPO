@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace DataBase
+namespace DB
 {
     internal static class Collections
     {

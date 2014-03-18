@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataBase
+namespace DB
 {
     public class NoAttrException : Exception
     {
