@@ -48,6 +48,10 @@
       <Project>{2b5e9988-bded-4772-aa41-9c4113dd0c2e}</Project>
       <Name>MetaRanker</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sumo.Utilities\Sumo.Utilities.csproj">
+      <Project>{603af945-776f-4e72-af6a-9eb73d0d4099}</Project>
+      <Name>Sumo.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="xmlfiles\Игра престолов. Битва королей\Labirint.xml">
@@ -59,6 +63,9 @@
     <Content Include="xmlfiles\Игра престолов. Битва королей\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="xmlfiles\Игра престолов. Битва королей\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="xmlfiles\Игра престолов. Битва королей\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -71,6 +78,9 @@
     <Content Include="xmlfiles\Океан в конце дороги\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="xmlfiles\Океан в конце дороги\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="xmlfiles\Океан в конце дороги\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -89,6 +99,9 @@
     <Content Include="xmlfiles\Рыцарь Семи Королевств\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="xmlfiles\Рыцарь Семи Королевств\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="xmlfiles\Рыцарь Семи Королевств\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

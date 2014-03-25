@@ -29,7 +29,7 @@ namespace DBLoader
         {
             var files = Directory.GetFiles(pathToFolder, "*.xml");
 
-            return files.Select(XDocument.Load).Select(XmlBookConverter.XmlBookConverter.ToBook).ToList();
+            return files.Select(XDocument.Load).Select(XmlBookConverter.BookConverter.ToBook).ToList();
         }
 
         private static IDbBookManager GetDBBookManager()

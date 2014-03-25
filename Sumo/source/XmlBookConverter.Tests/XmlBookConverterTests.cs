@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using NUnit.Framework;
 using Sumo.API;
+using Sumo.Utilities;
 
 namespace XmlBookConverter.Tests
 {
@@ -51,7 +52,7 @@ namespace XmlBookConverter.Tests
 </Book>";
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.ToBook(xDocument);
+            var book = BookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -94,7 +95,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.ToBook(xDocument);
+            var book = BookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual(string.Empty, book.Name);
@@ -135,7 +136,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.ToBook(xDocument);
+            var book = BookConverter.ToBook(xDocument);
 
             Assert.AreEqual(string.Empty, book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -164,7 +165,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = XmlBookConverter.ToBook(xDocument);
+            var book = BookConverter.ToBook(xDocument);
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -187,7 +188,7 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.ToXml(book);
+            var xDocument = BookConverter.ToXml(book);
 
 
             Trace.WriteLine(xDocument.ToString());
@@ -220,7 +221,7 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.ToXml(book);
+            var xDocument = BookConverter.ToXml(book);
 
             Trace.WriteLine(xDocument);
 
@@ -250,7 +251,7 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.ToXml(book);
+            var xDocument = BookConverter.ToXml(book);
 
             CompareIgnoreWhiteSpaces(
                 @"<Book>
@@ -278,7 +279,7 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = null
             };
 
-            var xDocument = XmlBookConverter.ToXml(book);
+            var xDocument = BookConverter.ToXml(book);
 
             Trace.WriteLine(xDocument);
 
@@ -303,9 +304,9 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = XmlBookConverter.ToXml(book);
+            var xDocument = BookConverter.ToXml(book);
 
-            var book2 = XmlBookConverter.ToBook(xDocument);
+            var book2 = BookConverter.ToBook(xDocument);
 
             Assert.AreEqual(book.Md5Hash, book2.Md5Hash);
             Assert.AreEqual(book.Name, book2.Name);
@@ -320,22 +321,7 @@ namespace XmlBookConverter.Tests
         /// </summary>
         private void CompareIgnoreWhiteSpaces(string xml, XDocument xDocument)
         {
-
-            var builder = new StringBuilder();
-            using (var stream = new StringReader(xml))
-            {
-                for (;;)
-                {
-                    var line = stream.ReadLine();
-                    if (line == null) break;
-
-                    builder.Append(line.Trim());
-
-                }
-            }
-
-
-            var xmlWithoutFormatting = builder.ToString();
+            var xmlWithoutFormatting = xml.RemoveWhiteSpaces();
             Assert.AreEqual(xmlWithoutFormatting, xDocument.ToString(SaveOptions.DisableFormatting));
         }
     }

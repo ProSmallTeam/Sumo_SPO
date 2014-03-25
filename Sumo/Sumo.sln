@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "source\DB\DB.csproj", "{029362CC-BB87-45D7-BC45-4DD3CF9CD8D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB.Test", "source\DB.Test\DB.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
@@ -46,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzonShop", "source\MetaLoader\Shops\OzonShop\OzonShop.csproj", "{0EF701E6-38C8-40D8-B523-54D46286B631}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookServiceStub", "source\WCF\BookServiceStub\BookServiceStub.csproj", "{0B99047C-2BB1-4701-BFED-9684D4D14715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Utilities", "source\Sumo.Utilities\Sumo.Utilities.csproj", "{603AF945-776F-4E72-AF6A-9EB73D0D4099}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -257,6 +261,16 @@ Global
 		{0B99047C-2BB1-4701-BFED-9684D4D14715}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0B99047C-2BB1-4701-BFED-9684D4D14715}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0B99047C-2BB1-4701-BFED-9684D4D14715}.Release|x86.ActiveCfg = Release|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{603AF945-776F-4E72-AF6A-9EB73D0D4099}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

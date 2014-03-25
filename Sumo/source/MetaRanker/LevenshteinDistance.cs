@@ -10,7 +10,8 @@ namespace MetaRanker
         /// </summary>
         public static int GetLevenshteinDistance(string input, string comparedTo, bool caseSensitive = false)
         {
-            if (string.IsNullOrWhiteSpace(comparedTo)) return input.Length;
+            if (string.IsNullOrWhiteSpace(comparedTo)) 
+                return input.Length;
 
             if (!caseSensitive)
             {
@@ -41,7 +42,7 @@ namespace MetaRanker
                     var diag = matrix[i - 1, j - 1];
                     var cell = (new[] {above + 1, left + 1, diag + cost}).Min();
 
-                    //транспозиция
+                    // транспозиция
                     if (i > 1 && j > 1)
                     {
                         var trans = matrix[i - 2, j - 2] + 1;

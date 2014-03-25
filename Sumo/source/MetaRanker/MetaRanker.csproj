@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="MetaRanker.cs" />
+    <Compile Include="OriginalMetaInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
