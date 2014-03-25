@@ -3,6 +3,7 @@ using System.ServiceModel;
 
 namespace Sumo.Api
 {
+    // Разбить на 2 интерфейса.
     /// <summary>
     /// Получает или дает задачи базе данных на добавление книг.
     /// </summary>
