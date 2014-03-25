@@ -7,7 +7,7 @@ namespace XmlBookConverter
 {
     public static class BookConverter
     {
-        public static Book ToBook(XDocument xDocument)
+        public static Book ToBook(this XDocument xDocument)
         {
             var root = xDocument.Element("Book");
          //   var root = root.Element("SecondaryFields");
@@ -64,7 +64,7 @@ namespace XmlBookConverter
             return book;
         }
 
-        public static XDocument ToXml(Book book)
+        public static XDocument ToXml(this Book book)
         {
             var md5HashElement = book.Md5Hash != null ? new XElement("Md5Hash", book.Md5Hash) : null;
 
