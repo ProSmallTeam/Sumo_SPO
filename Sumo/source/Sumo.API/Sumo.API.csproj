@@ -7,8 +7,8 @@
     <ProjectGuid>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sumo.API</RootNamespace>
-    <AssemblyName>Sumo.API</AssemblyName>
+    <RootNamespace>Sumo.Api</RootNamespace>
+    <AssemblyName>Sumo.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

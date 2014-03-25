@@ -6,7 +6,7 @@ using System.Management;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.IO;
-using Sumo.API;
+using Sumo.Api;
 using NUnit.Framework;
 
 namespace DB.Test

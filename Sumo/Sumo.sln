@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "source\DB\DB.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB.Test", "source\DB.Test\DB.Test.csproj", "{3F41D1FE-AE75-40A8-B429-47723E363B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.API", "source\Sumo.API\Sumo.API.csproj", "{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Api", "source\Sumo.API\Sumo.Api.csproj", "{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemObserver", "source\FileSystemObserver\FileSystemObserver.csproj", "{50EB3005-4E62-4F1F-BFD3-942CD065C232}"
 EndProject

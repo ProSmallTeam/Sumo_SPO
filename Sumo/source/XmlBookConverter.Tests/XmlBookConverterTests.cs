@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Linq;
 using NUnit.Framework;
-using Sumo.API;
+using Sumo.Api;
 using Sumo.Utilities;
 
 namespace XmlBookConverter.Tests

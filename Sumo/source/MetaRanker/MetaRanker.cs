@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Sumo.API;
+using Sumo.Api;
 using XmlBookConverter;
 
 namespace MetaRanker

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     [DataContract]
     public class Book

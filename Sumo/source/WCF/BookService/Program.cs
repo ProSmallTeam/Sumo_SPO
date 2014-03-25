@@ -32,7 +32,7 @@ namespace BookService
         private static ServiceHost CreateDbMetaManagerHost(Type type)
         {
             var host = new ServiceHost(type, new Uri("http://localhost:1060/TestService"));
-            host.AddServiceEndpoint(typeof(Sumo.API.IDbMetaManager), new BasicHttpBinding(), "");
+            host.AddServiceEndpoint(typeof(Sumo.Api.IDbMetaManager), new BasicHttpBinding(), "");
             return host;
         }
     }

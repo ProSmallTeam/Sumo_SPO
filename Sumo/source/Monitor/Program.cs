@@ -4,7 +4,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using FileSystemObserver;
-using Sumo.API;
+using Sumo.Api;
 
 namespace Monitor
 {

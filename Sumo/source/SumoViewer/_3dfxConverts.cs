@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Sumo.API;
+using Sumo.Api;
 
 namespace SumoViewer
 {
@@ -23,7 +23,7 @@ namespace SumoViewer
             return content.Node;
         }
 
-        public static DynamicDictionary ToDynamicDictionary(Sumo.API.Book book)
+        public static DynamicDictionary ToDynamicDictionary(Sumo.Api.Book book)
         {
             var dictionary = new DynamicDictionary();
 

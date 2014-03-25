@@ -5,7 +5,7 @@ using System.Management;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.IO;
-using Sumo.API;
+using Sumo.Api;
 
 namespace DB.Test
 {
@@ -87,7 +87,7 @@ namespace DB.Test
         public void TimeOfInsertOneBook()
         {
             var time = DateTime.Now;
-            _database.SaveBookMeta(new Sumo.API.Book{Md5Hash = "qwert", Name = "testBook", Path = null});
+            _database.SaveBookMeta(new Sumo.Api.Book{Md5Hash = "qwert", Name = "testBook", Path = null});
             Trace.Write(DateTime.Now - time);
 
             WriteIntoFile("Время вставки одной книги: " + (DateTime.Now - time));

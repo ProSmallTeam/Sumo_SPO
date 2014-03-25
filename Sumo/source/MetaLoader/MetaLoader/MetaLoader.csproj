@@ -62,9 +62,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sumo.API\Sumo.API.csproj">
+    <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
-      <Name>Sumo.API</Name>
+      <Name>Sumo.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{009DCFE2-1F01-48BF-8366-29621BD480D1}</Project>

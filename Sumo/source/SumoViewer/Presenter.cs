@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Sumo.API;
+using Sumo.Api;
 
 namespace SumoViewer
 {

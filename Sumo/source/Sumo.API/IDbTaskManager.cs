@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     /// <summary>
     /// Получает или дает задачи базе данных на добавление книг.

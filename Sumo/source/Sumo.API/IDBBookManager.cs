@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     public interface IDbBookManager
     {

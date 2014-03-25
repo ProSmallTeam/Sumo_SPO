@@ -39,9 +39,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Sumo.API\Sumo.API.csproj">
+    <ProjectReference Include="..\..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
-      <Name>Sumo.API</Name>
+      <Name>Sumo.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Network\Network.csproj">
       <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>

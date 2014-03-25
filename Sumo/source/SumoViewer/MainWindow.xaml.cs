@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using DevExpress.Utils;
 using DevExpress.Xpf.Grid;
-using Sumo.API;
+using Sumo.Api;
 
 namespace SumoViewer
 {
@@ -43,9 +43,9 @@ namespace SumoViewer
         private void GetNewBooks()
         {
             ObservableCollection.Clear();
-            List<Sumo.API.Book> books = _metaManagerFacade.GetBooks();
+            List<Sumo.Api.Book> books = _metaManagerFacade.GetBooks();
 
-            foreach (Sumo.API.Book book in books)
+            foreach (Sumo.Api.Book book in books)
             {
                 DynamicDictionary dictionary = _3dfxConverts.ToDynamicDictionary(book);
                 ObservableCollection.Add(dictionary);

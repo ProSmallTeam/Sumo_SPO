@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sumo.API;
+using Sumo.Api;
 using System.Xml.Linq;
 using XmlBookConverter;
 

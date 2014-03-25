@@ -1,7 +1,7 @@
 ﻿using System;
-using Sumo.API;
+using Sumo.Api;
 using SumoViewer.DbBookService;
-using IDbMetaManager = Sumo.API.IDbMetaManager;
+using IDbMetaManager = Sumo.Api.IDbMetaManager;
 
 namespace SumoViewer
 {

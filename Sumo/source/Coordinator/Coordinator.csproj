@@ -45,9 +45,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
+    <ProjectReference Include="..\Sumo.API\Sumo.Api.csproj">
       <Project>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</Project>
-      <Name>Sumo.API</Name>
+      <Name>Sumo.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

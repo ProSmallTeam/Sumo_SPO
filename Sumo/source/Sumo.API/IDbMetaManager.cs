@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     [ServiceContract]
     public interface IDbMetaManager

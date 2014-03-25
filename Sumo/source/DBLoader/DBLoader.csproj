@@ -64,9 +64,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
+    <ProjectReference Include="..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
-      <Name>Sumo.API</Name>
+      <Name>Sumo.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\XmlBookConverter\XmlBookConverter.csproj">
       <Project>{83263186-7b44-447c-9807-6c72f41c2e95}</Project>

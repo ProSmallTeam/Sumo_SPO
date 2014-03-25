@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Sumo.API;
+using Sumo.Api;
 
 namespace SumoViewer
 {
@@ -29,9 +29,9 @@ namespace SumoViewer
             return _metaManager.GetStatistic(_session.SessionId);
         }
 
-        public List<Sumo.API.Book> GetBooks()
+        public List<Sumo.Api.Book> GetBooks()
         {
-            List<Sumo.API.Book> list = _metaManager.GetDocuments(_session.SessionId,
+            List<Sumo.Api.Book> list = _metaManager.GetDocuments(_session.SessionId,
                 BookCapacity > _session.Count ? _session.Count : BookCapacity);
 
             return list;

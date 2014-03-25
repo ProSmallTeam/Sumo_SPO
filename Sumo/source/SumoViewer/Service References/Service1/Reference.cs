@@ -16,28 +16,28 @@ namespace SumoViewer.Service1 {
     public interface IDbMetaManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/CreateQuery", ReplyAction="http://tempuri.org/IDbMetaManager/CreateQueryResponse")]
-        Sumo.API.SumoSession CreateQuery(string query);
+        Sumo.Api.SumoSession CreateQuery(string query);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/CreateQuery", ReplyAction="http://tempuri.org/IDbMetaManager/CreateQueryResponse")]
-        System.Threading.Tasks.Task<Sumo.API.SumoSession> CreateQueryAsync(string query);
+        System.Threading.Tasks.Task<Sumo.Api.SumoSession> CreateQueryAsync(string query);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/GetDocuments", ReplyAction="http://tempuri.org/IDbMetaManager/GetDocumentsResponse")]
-        Sumo.API.Book[] GetDocuments(int sessionId, int count, int offset);
+        Sumo.Api.Book[] GetDocuments(int sessionId, int count, int offset);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/GetDocuments", ReplyAction="http://tempuri.org/IDbMetaManager/GetDocumentsResponse")]
-        System.Threading.Tasks.Task<Sumo.API.Book[]> GetDocumentsAsync(int sessionId, int count, int offset);
+        System.Threading.Tasks.Task<Sumo.Api.Book[]> GetDocumentsAsync(int sessionId, int count, int offset);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/GetStatistic", ReplyAction="http://tempuri.org/IDbMetaManager/GetStatisticResponse")]
-        Sumo.API.CategoriesMultiList GetStatistic(int sessionId);
+        Sumo.Api.CategoriesMultiList GetStatistic(int sessionId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/GetStatistic", ReplyAction="http://tempuri.org/IDbMetaManager/GetStatisticResponse")]
-        System.Threading.Tasks.Task<Sumo.API.CategoriesMultiList> GetStatisticAsync(int sessionId);
+        System.Threading.Tasks.Task<Sumo.Api.CategoriesMultiList> GetStatisticAsync(int sessionId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/CloseSession", ReplyAction="http://tempuri.org/IDbMetaManager/CloseSessionResponse")]
-        void CloseSession(Sumo.API.SumoSession session);
+        void CloseSession(Sumo.Api.SumoSession session);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDbMetaManager/CloseSession", ReplyAction="http://tempuri.org/IDbMetaManager/CloseSessionResponse")]
-        System.Threading.Tasks.Task CloseSessionAsync(Sumo.API.SumoSession session);
+        System.Threading.Tasks.Task CloseSessionAsync(Sumo.Api.SumoSession session);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,35 +67,35 @@ namespace SumoViewer.Service1 {
                 base(binding, remoteAddress) {
         }
         
-        public Sumo.API.SumoSession CreateQuery(string query) {
+        public Sumo.Api.SumoSession CreateQuery(string query) {
             return base.Channel.CreateQuery(query);
         }
         
-        public System.Threading.Tasks.Task<Sumo.API.SumoSession> CreateQueryAsync(string query) {
+        public System.Threading.Tasks.Task<Sumo.Api.SumoSession> CreateQueryAsync(string query) {
             return base.Channel.CreateQueryAsync(query);
         }
         
-        public Sumo.API.Book[] GetDocuments(int sessionId, int count, int offset) {
+        public Sumo.Api.Book[] GetDocuments(int sessionId, int count, int offset) {
             return base.Channel.GetDocuments(sessionId, count, offset);
         }
         
-        public System.Threading.Tasks.Task<Sumo.API.Book[]> GetDocumentsAsync(int sessionId, int count, int offset) {
+        public System.Threading.Tasks.Task<Sumo.Api.Book[]> GetDocumentsAsync(int sessionId, int count, int offset) {
             return base.Channel.GetDocumentsAsync(sessionId, count, offset);
         }
         
-        public Sumo.API.CategoriesMultiList GetStatistic(int sessionId) {
+        public Sumo.Api.CategoriesMultiList GetStatistic(int sessionId) {
             return base.Channel.GetStatistic(sessionId);
         }
         
-        public System.Threading.Tasks.Task<Sumo.API.CategoriesMultiList> GetStatisticAsync(int sessionId) {
+        public System.Threading.Tasks.Task<Sumo.Api.CategoriesMultiList> GetStatisticAsync(int sessionId) {
             return base.Channel.GetStatisticAsync(sessionId);
         }
         
-        public void CloseSession(Sumo.API.SumoSession session) {
+        public void CloseSession(Sumo.Api.SumoSession session) {
             base.Channel.CloseSession(session);
         }
         
-        public System.Threading.Tasks.Task CloseSessionAsync(Sumo.API.SumoSession session) {
+        public System.Threading.Tasks.Task CloseSessionAsync(Sumo.Api.SumoSession session) {
             return base.Channel.CloseSessionAsync(session);
         }
     }

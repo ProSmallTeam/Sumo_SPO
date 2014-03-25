@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
 using System.ServiceModel;
-using Sumo.API;
+using Sumo.Api;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     /// <summary>
     /// Простейшая реализация IDbTaskManager.

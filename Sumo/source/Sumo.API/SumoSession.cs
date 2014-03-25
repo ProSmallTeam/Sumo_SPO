@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     public struct SumoSession
     {

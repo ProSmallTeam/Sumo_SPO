@@ -8,7 +8,7 @@
     using Network;
     using Network.Interfaces;
 
-    using Sumo.API;
+    using Sumo.Api;
 
     /// <summary>
     /// The ozon book shop.

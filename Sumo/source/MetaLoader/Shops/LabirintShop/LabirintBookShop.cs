@@ -4,7 +4,7 @@
 
     using Network.Interfaces;
 
-    using Sumo.API;
+    using Sumo.Api;
 
     /// <summary>
     /// The labirint book shop.

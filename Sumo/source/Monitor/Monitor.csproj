@@ -47,9 +47,9 @@
       <Project>{50EB3005-4E62-4F1F-BFD3-942CD065C232}</Project>
       <Name>FileSystemObserver</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sumo.API\Sumo.API.csproj">
+    <ProjectReference Include="..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
-      <Name>Sumo.API</Name>
+      <Name>Sumo.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

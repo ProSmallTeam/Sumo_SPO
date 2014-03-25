@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
-using Sumo.API;
+using Sumo.Api;
 
 namespace Coordinator
 {

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.ServiceModel;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class MetaManagerStub : IDbMetaManager

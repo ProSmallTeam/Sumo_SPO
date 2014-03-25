@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SumoViewer.DbBookService;
-using CategoriesMultiList = Sumo.API.CategoriesMultiList;
-using CategoryNode = Sumo.API.CategoryNode;
-using IDbMetaManager = Sumo.API.IDbMetaManager;
-using SumoSession = Sumo.API.SumoSession;
+using CategoriesMultiList = Sumo.Api.CategoriesMultiList;
+using CategoryNode = Sumo.Api.CategoryNode;
+using IDbMetaManager = Sumo.Api.IDbMetaManager;
+using SumoSession = Sumo.Api.SumoSession;
 
 namespace SumoViewer
 {
@@ -23,16 +23,16 @@ namespace SumoViewer
             return new SumoSession {Count = session.Count, SessionId = session.SessionId};
         }
 
-        public List<Sumo.API.Book> GetDocuments(int sessionId, int count, int offset = 0)
+        public List<Sumo.Api.Book> GetDocuments(int sessionId, int count, int offset = 0)
         {
             List<DbBookService.Book> documents = _wcfClient.GetDocuments(sessionId, count, offset);
-            var a = new List<Sumo.API.Book>();
+            var a = new List<Sumo.Api.Book>();
 
             return
                 _wcfClient.GetDocuments(sessionId, count, offset)
                     .Select(
                         d =>
-                            new Sumo.API.Book
+                            new Sumo.Api.Book
                             {
                                 Md5Hash = d.Md5Hash,
                                 Name = d.Name,

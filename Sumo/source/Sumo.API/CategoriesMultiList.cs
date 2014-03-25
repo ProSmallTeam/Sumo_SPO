@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
-namespace Sumo.API
+namespace Sumo.Api
 {
     [DataContract]
     public class CategoriesMultiList

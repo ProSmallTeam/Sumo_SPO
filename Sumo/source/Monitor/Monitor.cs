@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using FileSystemObserver;
-using Sumo.API;
+using Sumo.Api;
 
 namespace Monitor
 {
