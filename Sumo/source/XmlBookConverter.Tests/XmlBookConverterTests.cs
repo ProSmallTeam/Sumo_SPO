@@ -52,7 +52,7 @@ namespace XmlBookConverter.Tests
 </Book>";
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = BookConverter.ToBook(xDocument);
+            var book = xDocument.ToBook();
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -95,7 +95,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = BookConverter.ToBook(xDocument);
+            var book = xDocument.ToBook();
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual(string.Empty, book.Name);
@@ -136,7 +136,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = BookConverter.ToBook(xDocument);
+            var book = xDocument.ToBook();
 
             Assert.AreEqual(string.Empty, book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -165,7 +165,7 @@ namespace XmlBookConverter.Tests
 
             var xDocument = XDocument.Parse(xmlContent);
 
-            var book = BookConverter.ToBook(xDocument);
+            var book = xDocument.ToBook();
 
             Assert.AreEqual("1", book.Md5Hash);
             Assert.AreEqual("2", book.Name);
@@ -304,9 +304,9 @@ namespace XmlBookConverter.Tests
                 SecondaryFields = _secondaryFields
             };
 
-            var xDocument = BookConverter.ToXml(book);
+            var xDocument = book.ToXml();
 
-            var book2 = BookConverter.ToBook(xDocument);
+            var book2 = xDocument.ToBook();
 
             Assert.AreEqual(book.Md5Hash, book2.Md5Hash);
             Assert.AreEqual(book.Name, book2.Name);

@@ -33,7 +33,7 @@ namespace MetaRanker
 
         private XDocument GetTotalMeta(OriginalMetaInformation meta, int baseMetasCount)
         {            
-            Book primaryBook = BookConverter.ToBook(meta.PrimaryMeta);
+            Book primaryBook = meta.PrimaryMeta.ToBook();
 
             RankMeta(meta, baseMetasCount);
 
@@ -103,7 +103,7 @@ namespace MetaRanker
         {
             baseMetasCount = Math.Min(baseMetasCount, meta.AlternativeMeta.Count);
 
-            Book primaryBook = BookConverter.ToBook(meta.PrimaryMeta);
+            Book primaryBook = meta.PrimaryMeta.ToBook();
             List<Book> altBooks = meta.AlternativeMeta.Select(BookConverter.ToBook).ToList();
 
             // задание веса каждой xml
