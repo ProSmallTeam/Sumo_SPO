@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FolderPickerLib;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     /// <summary>
     /// Interaction logic for DirectoryAdding.xaml

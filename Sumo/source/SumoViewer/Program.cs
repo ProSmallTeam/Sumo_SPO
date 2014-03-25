@@ -1,9 +1,9 @@
 ﻿using System;
 using Sumo.API;
-using VisualSumoWPF.DbBookService;
+using SumoViewer.DbBookService;
 using IDbMetaManager = Sumo.API.IDbMetaManager;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     internal class Program
     {

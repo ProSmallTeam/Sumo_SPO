@@ -8,7 +8,7 @@ using DevExpress.Utils;
 using DevExpress.Xpf.Grid;
 using Sumo.API;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     public partial class MainWindow : Window
     {

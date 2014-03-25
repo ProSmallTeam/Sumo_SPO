@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VisualSumoWPF.DbBookService;
+using SumoViewer.DbBookService;
 using CategoriesMultiList = Sumo.API.CategoriesMultiList;
 using CategoryNode = Sumo.API.CategoryNode;
 using IDbMetaManager = Sumo.API.IDbMetaManager;
 using SumoSession = Sumo.API.SumoSession;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     internal class WcfAdapter : IDbMetaManager
     {

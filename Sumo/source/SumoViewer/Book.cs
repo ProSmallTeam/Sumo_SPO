@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     public class Book
     {

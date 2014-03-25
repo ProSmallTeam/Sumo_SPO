@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Sumo.API;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     internal class Presenter
     {

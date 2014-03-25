@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sumo.API;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
     public class MetaManagerFacade
     {

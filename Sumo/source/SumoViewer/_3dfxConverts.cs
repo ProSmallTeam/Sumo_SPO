@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Sumo.API;
 
-namespace VisualSumoWPF
+namespace SumoViewer
 {
 // ReSharper disable InconsistentNaming
     internal class 	_3dfxConverts
