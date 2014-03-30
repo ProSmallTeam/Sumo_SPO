@@ -11,13 +11,17 @@ namespace DBMetaManager
     public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;
-        private readonly List<SessionData> _sessionsList;
+        private readonly List<SessionData> _sessionsList = new List<SessionData>();
         private int _nextSessionId = 0;
         
         public DbMetaManager()
         {
-            _sessionsList = new List<SessionData>();
             _dataBase = new DB.DataBase("mongodb://localhost/?safe=false"); ;
+        }
+
+        public DbMetaManager(IDataBase dataBase)
+        {
+            _dataBase = dataBase;
         }
 
         public SumoSession CreateQuery(string query)

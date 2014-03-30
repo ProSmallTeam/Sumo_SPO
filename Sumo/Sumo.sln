@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Utilities", "source\Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumoViewer", "source\SumoViewer\SumoViewer.csproj", "{6EC7B767-2E64-4C10-84A4-64291B4B6CE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMetaManager.Tests", "source\DBMetaManager.Tests\DBMetaManager.Tests.csproj", "{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +273,16 @@ Global
 		{6EC7B767-2E64-4C10-84A4-64291B4B6CE0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6EC7B767-2E64-4C10-84A4-64291B4B6CE0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6EC7B767-2E64-4C10-84A4-64291B4B6CE0}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BFA324E5-1DC4-4956-A657-D73A28CA5B4B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
