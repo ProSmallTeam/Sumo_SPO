@@ -1,2 +1,2 @@
 start "" ".\Debug\bin\BookServiceStub.exe"
-start "" ".\Debug\bin\VisualSumoWPF.exe" "--WCF"
+start "" ".\Debug\bin\SumoViewer.exe" "--WCF"
