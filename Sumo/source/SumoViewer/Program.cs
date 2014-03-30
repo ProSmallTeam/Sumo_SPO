@@ -13,13 +13,8 @@ namespace SumoViewer
             IDbMetaManager metaManager = new MetaManagerStub();
 
             if (args.Length == 1)
-            {
                 if (args[0] == "--WCF")
-                {
                     metaManager = new WcfAdapter(new DbMetaManagerClient());
-                }
-            }
-
 
             var facade = new MetaManagerFacade(metaManager);
 
