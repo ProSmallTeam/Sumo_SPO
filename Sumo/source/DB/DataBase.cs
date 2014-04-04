@@ -32,9 +32,9 @@ namespace DB
 
         #endregion
 
-        public DataBase(string connectiongString, string nameOfDataBase = "library")
+        public DataBase(string connectionString, string nameOfDataBase = "library")
         {
-            var client = new MongoClient(connectiongString);
+            var client = new MongoClient(connectionString);
             var server = client.GetServer();
 
             _nameOfDataBase = nameOfDataBase;
