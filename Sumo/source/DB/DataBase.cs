@@ -31,10 +31,10 @@ namespace DB
         public static MongoCollection<BsonDocument> Tasks;
 
         #endregion
-
-        public DataBase(string connectionString, string nameOfDataBase = "library")
+        
+        public DataBase(string connectiongString, string nameOfDataBase = Resourses.MongoDataBaseName)
         {
-            var client = new MongoClient(connectionString);
+            var client = new MongoClient(connectiongString);
             var server = client.GetServer();
 
             _nameOfDataBase = nameOfDataBase;

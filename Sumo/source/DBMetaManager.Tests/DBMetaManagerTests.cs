@@ -22,8 +22,6 @@ namespace DBMetaManager.Tests
         [Test]
         public void WillReturnOnlyDocumetsAtCorrectQuery ()
         {
-            var a = It.IsAny<string>();
-            Trace.WriteLine(a);
             const string firstNotInterestingQuery = "not interesting query";
             const string secondNotInterestingQuery = "not interesting query";
             const string correctQuery = "Correct query";

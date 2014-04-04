@@ -6,7 +6,6 @@ using DB;
 
 namespace DBMetaManager
 {
-
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class DbMetaManager : IDbMetaManager
     {
@@ -16,7 +15,7 @@ namespace DBMetaManager
         
         public DbMetaManager()
         {
-            _dataBase = new DB.DataBase("mongodb://localhost/?safe=false"); ;
+            _dataBase = new DB.DataBase(Resourses.MongoConnectionString); ;
         }
 
         public DbMetaManager(IDataBase dataBase)
