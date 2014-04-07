@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.Remoting.Channels;
 using DB;
-using DBMetaManager;
 using Moq;
 using NUnit.Framework;
 using Sumo.Api;
@@ -32,15 +29,14 @@ namespace DBMetaManager.Tests
 
             metaManager.GetStatistic(session.SessionId);
 
-           dbMock.Verify(db => db.GetStatistic(someQuery), Times.AtLeastOnce);
-           dbMock.Verify(db => 
-               db.GetStatistic(It.IsNotIn(new string[]{someQuery})), Times.Never);
+            dbMock.Verify(db => db.GetStatistic(someQuery), Times.AtLeastOnce);
+            dbMock.Verify(db =>
+                db.GetStatistic(It.IsNotIn(new string[] { someQuery })), Times.Never);
 
         }
 
         [Test]
-        [ExpectedException]
-        public void GetDocumentsWithNotExistingSessionWillThrowException()
+        public void GetStasticWithNotExistingSessionWillReturnEmptyStatistic()
         {
             var dataBase = Mock.Of<IDataBase>();
 
@@ -49,21 +45,36 @@ namespace DBMetaManager.Tests
             var session = metaManager.CreateQuery("query");
             metaManager.CloseSession(new SumoSession());
 
-            metaManager.GetDocuments(session.SessionId, session.Count);
+            var statistic = metaManager.GetStatistic(session.SessionId);
+
+            Assert.AreEqual(0, statistic.Node.Count);
+            Assert.AreEqual(0, statistic.Childs.Count);
+        }
 
 
+        [Test]
+        public void GetDocumentsWithNotExistingSessionWillReturnEmptyCollection()
+        {
+            var dataBase = Mock.Of<IDataBase>();
+
+            var metaManager = new DbMetaManager(dataBase);
+
+            var session = metaManager.CreateQuery("query");
+            metaManager.CloseSession(new SumoSession());
+
+            var documents = metaManager.GetDocuments(session.SessionId, session.Count);
+
+            Assert.AreEqual(0, documents.Count);
         }
 
         [Test]
-        [ExpectedException]
-        public void ClosingNotExistingSessionWillThrowException()
+        public void ClosingNotExistingSessionWillNotThrowException()
         {
             var dataBase = Mock.Of<IDataBase>();
 
             var metaManager = new DbMetaManager(dataBase);
 
             metaManager.CloseSession(new SumoSession());
-
         }
 
         [Test]

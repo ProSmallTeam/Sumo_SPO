@@ -19,6 +19,10 @@ namespace Sumo.Api
             Childs = childs;
         }
 
+        public CategoriesMultiList()
+            : this(new CategoryNode(), new List<CategoriesMultiList>())
+        { }
+
         public CategoriesMultiList(CategoryNode node) : this(node, new List<CategoriesMultiList>())
         { }
 

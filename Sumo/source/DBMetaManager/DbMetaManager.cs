@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using Sumo.Api;
 using DB;
@@ -10,14 +9,9 @@ namespace DBMetaManager
     public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;
-        private readonly List<SessionData> _sessionsList = new List<SessionData>();
-        private int _nextSessionId = 0;
-        
-        public DbMetaManager()
-        {
-            _dataBase = new DB.DataBase(Resourses.MongoConnectionString); ;
-        }
 
+        private readonly SessionStorage _sessionStorage = new SessionStorage();
+        
         public DbMetaManager(IDataBase dataBase)
         {
             _dataBase = dataBase;
@@ -25,38 +19,33 @@ namespace DBMetaManager
 
         public SumoSession CreateQuery(string query)
         {
-            var session = new SumoSession
-            {
-                SessionId = _nextSessionId,
-                Count = _dataBase.GetStatistic(query)
-            };
+            int statistic = _dataBase.GetStatistic(query);
 
-            var sessionData = new SessionData {Query = query, SessionId = session.SessionId};
-            _sessionsList.Add(sessionData);
+            int sessionId = _sessionStorage.AddSession(new Session(query, _dataBase));
 
-            _nextSessionId++;
-            return session;
-        }
-
-        public List<Book> GetDocuments(int sessionId, int count, int offset = 0)
-        {
-            var query = _sessionsList.Single(t => t.SessionId == sessionId).Query;
-
-            var bookList = _dataBase.GetBooks(query, count, offset);
-
-            return bookList;
-        }
-
-        public CategoriesMultiList GetStatistic(int sessionId)
-        {
-            var query = _sessionsList.Single(t => t.SessionId == sessionId).Query;
-
-            return _dataBase.GetStatisticTree(query);
+            return new SumoSession { SessionId = sessionId, Count = statistic };
         }
 
         public void CloseSession(SumoSession session)
         {
-            _sessionsList.Remove(_sessionsList.Single(t => t.SessionId == session.SessionId));
+            _sessionStorage.RemoveSession(session);
+        }
+
+        public List<Book> GetDocuments(int sessionId, int count, int offset = 0)
+        {
+            var session = GetSession(sessionId);
+            return session.GetDocuments(count, offset);
+        }
+
+        public CategoriesMultiList GetStatistic(int sessionId)
+        {
+            var session = GetSession(sessionId);
+            return session.GetStatistic();
+        }
+
+        private ISession GetSession(int sessionId)
+        {
+            return _sessionStorage.GetSession(sessionId);
         }
     }
 }

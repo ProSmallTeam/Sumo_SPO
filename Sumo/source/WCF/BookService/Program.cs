@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using DB;
 using DBMetaManager;
+using Sumo.Api;
 
 namespace BookService
 {
@@ -15,7 +15,7 @@ namespace BookService
         {
 
             Console.WriteLine("Hell0");
-            var dbMetaManagerHost = CreateDbMetaManagerHost(typeof(DbMetaManager));
+            var dbMetaManagerHost = CreateDbMetaManagerHost();
 
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
@@ -29,10 +29,12 @@ namespace BookService
             Console.WriteLine("Done");
         }
 
-        private static ServiceHost CreateDbMetaManagerHost(Type type)
+        private static ServiceHost CreateDbMetaManagerHost()
         {
-            var host = new ServiceHost(type, new Uri("http://localhost:1060/TestService"));
-            host.AddServiceEndpoint(typeof(Sumo.Api.IDbMetaManager), new BasicHttpBinding(), "");
+            var metaManager = new DbMetaManager(new DataBase(Resourses.MongoConnectionString));
+
+            var host = new ServiceHost(metaManager, new Uri("http://localhost:1060/TestService"));
+            host.AddServiceEndpoint(typeof(IDbMetaManager), new BasicHttpBinding(), "");
             return host;
         }
     }
