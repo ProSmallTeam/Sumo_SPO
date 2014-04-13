@@ -4,7 +4,7 @@ using System.ServiceModel;
 
 namespace Sumo.Api
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class MetaManagerStub : IDbMetaManager
     {
         private int _operationsCounter = 0;

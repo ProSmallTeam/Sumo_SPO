@@ -15,7 +15,7 @@ namespace SumoViewer.DbBookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SumoSession", Namespace="http://schemas.datacontract.org/2004/07/Sumo.API")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SumoSession", Namespace="http://schemas.datacontract.org/2004/07/Sumo.Api")]
     [System.SerializableAttribute()]
     public partial struct SumoSession : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -75,7 +75,7 @@ namespace SumoViewer.DbBookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Book", Namespace="http://schemas.datacontract.org/2004/07/Sumo.API")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Book", Namespace="http://schemas.datacontract.org/2004/07/Sumo.Api")]
     [System.SerializableAttribute()]
     public partial class Book : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -168,7 +168,7 @@ namespace SumoViewer.DbBookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CategoriesMultiList", Namespace="http://schemas.datacontract.org/2004/07/Sumo.API")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CategoriesMultiList", Namespace="http://schemas.datacontract.org/2004/07/Sumo.Api")]
     [System.SerializableAttribute()]
     public partial class CategoriesMultiList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -229,7 +229,7 @@ namespace SumoViewer.DbBookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CategoryNode", Namespace="http://schemas.datacontract.org/2004/07/Sumo.API")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CategoryNode", Namespace="http://schemas.datacontract.org/2004/07/Sumo.Api")]
     [System.SerializableAttribute()]
     public partial struct CategoryNode : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

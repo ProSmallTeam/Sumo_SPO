@@ -45,12 +45,24 @@ namespace SumoViewer
         public CategoriesMultiList GetStatistic(int sessionId)
         {
             DbBookService.CategoriesMultiList q = _wcfClient.GetStatistic(sessionId);
-            var a = new CategoriesMultiList(CastToNode(q.Node))
+
+            var a = new CategoriesMultiList(CastToNode(q.Node));
+
+            var categories = new List<CategoriesMultiList>();
+            if (q.Childs != null)
             {
-                Childs = q.Childs.Select(RecursionCastMultiList).ToList()
-            };
+                foreach (var child in q.Childs)
+                {
+                    var recursionCastMultiList = RecursionCastMultiList(child);
+                    categories.Add(recursionCastMultiList);
+                }
+
+                a.Childs = categories;
+
+            }
 
             return a;
+
         }
 
         public void CloseSession(SumoSession session)
@@ -60,11 +72,19 @@ namespace SumoViewer
 
         private static CategoriesMultiList RecursionCastMultiList(DbBookService.CategoriesMultiList categoriesMultiList)
         {
-            var a = new CategoriesMultiList(CastToNode(categoriesMultiList.Node));
+            var categoryNode = CastToNode(categoriesMultiList.Node);
+            var a = new CategoriesMultiList(categoryNode);
 
             if (categoriesMultiList.Childs.Count != 0)
             {
-                a.Childs = categoriesMultiList.Childs.Select(RecursionCastMultiList).ToList();
+                var categories = new List<CategoriesMultiList>();
+                foreach (var child in categoriesMultiList.Childs)
+                {
+                    var recursionCastMultiList = RecursionCastMultiList(child);
+                    categories.Add(recursionCastMultiList);
+                }
+
+                a.Childs = categories;
             }
 
             return a;

@@ -16,6 +16,8 @@ namespace SumoViewer
                 if (args[0] == "--WCF")
                     metaManager = new WcfAdapter(new DbMetaManagerClient());
 
+            //metaManager = new WcfAdapter(new DbMetaManagerClient());
+
             var facade = new MetaManagerFacade(metaManager);
 
             var presenter = new Presenter(facade);

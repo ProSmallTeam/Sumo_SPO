@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using BookService;
+using DBMetaManager;
 using Sumo.Api;
 
 namespace BookServiceStub
 {
-    internal class Program
+    public  class Program
     {
         /// <summary>
         ///     Запускает WCF сервис.
@@ -12,7 +15,7 @@ namespace BookServiceStub
         private static void Main(string[] args)
         {
             Console.WriteLine("Hell0");
-            ServiceHost dbMetaManagerHost = CreateDbMetaManagerHost(typeof (MetaManagerStub));
+            ServiceHost dbMetaManagerHost = BookServiceHost.Get(typeof(MetaManagerStub));
 
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
@@ -25,12 +28,6 @@ namespace BookServiceStub
 
             Console.WriteLine("Done");
         }
-
-        private static ServiceHost CreateDbMetaManagerHost(Type type)
-        {
-            var host = new ServiceHost(type, new Uri("http://localhost:1060/TestService"));
-            host.AddServiceEndpoint(typeof (IDbMetaManager), new BasicHttpBinding(), "");
-            return host;
-        }
     }
+
 }

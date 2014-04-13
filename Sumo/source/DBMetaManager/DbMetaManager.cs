@@ -5,7 +5,10 @@ using DB;
 
 namespace DBMetaManager
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(
+        InstanceContextMode = InstanceContextMode.Single, 
+        ConcurrencyMode = ConcurrencyMode.Multiple)
+    ]
     public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;

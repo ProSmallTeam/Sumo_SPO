@@ -3,7 +3,7 @@ using System.ServiceModel;
 
 namespace Sumo.Api
 {
-    [ServiceContract]
+    [ServiceContract(SessionMode = SessionMode.Allowed)]
     public interface IDbMetaManager
     {
         [OperationContract]
