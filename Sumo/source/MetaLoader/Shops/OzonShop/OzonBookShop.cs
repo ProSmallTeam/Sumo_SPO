@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     using HtmlAgilityPack;
 
@@ -112,7 +113,8 @@
         /// <returns>
         /// The <see cref="BookInfo[]"/>.
         /// </returns>
-        public IEnumerable<Book> Parse(Page document)
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1116:SplitParametersMustStartOnLineAfterDeclaration", Justification = "Reviewed. Suppression is OK here.")]
+        public List<Book> Parse(Page document)
         {
             // Заводим контейнер для сохранения информации
             var book = new Book();
@@ -132,8 +134,13 @@
                 "Author", new List<string> { this.Get("//p[@itemprop='author']/a", document.Document) });
             book.SecondaryFields.Add(
                 "PublishHouse", new List<string> { this.Get("//p[@itemprop='publisher']/a", document.Document) });
-            book.SecondaryFields.Add("Language", new List<string>{
-                this.Get("//p[@itemprop='inLanguage']", document.Document).Remove(0, "Языки: ".Length)});
+            book.SecondaryFields.Add(
+                "Language",
+                new List<string>
+                    {
+                        this.Get("//p[@itemprop='inLanguage']", document.Document)
+                            .Remove(0, "Языки: ".Length)
+                    });
 
             // Вытаскиваем ISBN и год издания
             var publishYearAndIsbn = this.Get("//p[@itemprop='isbn']", document.Document).Substring("ISBN ".Length);
@@ -142,11 +149,19 @@
                 publishYearAndIsbn.Substring(0, publishYearAndIsbn.Length - "; 2013 г.".Length)
                                   .Split(new[] { ',', ' ' }));
             book.SecondaryFields["ISBN"].RemoveAll(isbn => isbn == string.Empty);
-            book.SecondaryFields.Add("PublishYear", new List<string> { publishYearAndIsbn.Substring(publishYearAndIsbn.Length - "2013 г.".Length, 4) });
+            book.SecondaryFields["ISBN"].RemoveAll(isbn => isbn == null);
+            book.SecondaryFields.Add(
+                "PublishYear",
+                new List<string> { publishYearAndIsbn.Substring(publishYearAndIsbn.Length - "2013 г.".Length, 4) });
 
             // Вытаскиваем количество страниц в книге
             var pageCountInText = this.Get("//span[@itemprop='numberOfPages']", document.Document);
-            book.SecondaryFields.Add("PageCount", new List<string> { Convert.ToInt32(pageCountInText.Substring(0, pageCountInText.Length - 5)).ToString() });
+            book.SecondaryFields.Add(
+                "PageCount",
+                new List<string>
+                    {
+                        Convert.ToInt32(pageCountInText.Substring(0, pageCountInText.Length - 5)).ToString()
+                    });
 
             // Вытаскиваем цепочку категорий
             // var ozonChainCategories = new OzonChainCategories();
@@ -154,7 +169,13 @@
             // book.Сategories = ozonChainCategories;
 
             // вытаскиваем ссылку на картинку с книгой
-            book.SecondaryFields.Add("PictureLink", new List<string> { document.Document.DocumentNode.SelectNodes("//img[@class=\"eMicroGallery_fullImage\"]")[0].Attributes["src"].Value });
+            book.SecondaryFields.Add(
+                "PictureLink",
+                new List<string>
+                    {
+                        document.Document.DocumentNode.SelectNodes(
+                            "//img[@class=\"eMicroGallery_fullImage\"]")[0].Attributes["src"].Value
+                    });
 
             // втаскиваем аннотацию на книгу
             // container.Annotation = this.Get("//div[@id='detail_description']/table/tr/td");
