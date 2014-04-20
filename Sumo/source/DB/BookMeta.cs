@@ -24,17 +24,9 @@ namespace DB
         {
             try
             {
-                var idOfAltMeta = new List<int>();
+                var idOfAltMeta = InsertAltBookMeta(alternativeBook);
 
-                if (alternativeBook != null)
-                    foreach (var altBookMeta in alternativeBook.Select(altBook => BookTools.CreateBook(altBook, AlternativeMeta)))
-                    {
-                        AlternativeMeta.Insert(altBookMeta);
-
-                        idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
-                    }
-
-                var document = BookTools.CreateBook(book, Books, idOfAltMeta);
+                var document = BookTools.CreateBook(Books, book, idOfAltMeta);
 
                 Books.Insert(document);
 
@@ -48,28 +40,30 @@ namespace DB
 
         }
 
+        private List<int> InsertAltBookMeta(List<Book> alternativeBook)
+        {
+            var idOfAltMeta = new List<int>();
+
+            if (alternativeBook != null)
+                foreach (var altBookMeta in alternativeBook.Select(altBook => BookTools.CreateBook(AlternativeMeta, altBook)))
+                {
+                    AlternativeMeta.Insert(altBookMeta);
+
+                    idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
+                }
+            return idOfAltMeta;
+        }
+
         public int DeleteBookMeta(string md5Hash)
         {
             try
             {
                 var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
-
                 var book = Books.FindOneAs<BsonDocument>(query);
 
+                DeleteAltBookMeta(book);
+
                 Books.Remove(query);
-
-                var stringOfid = book["AlternativeMeta"].ToString();
-                var idOfAltMeta = stringOfid
-                                           .Substring(1, stringOfid.Length - 2)
-                                           .Split(new[] { ',' }).ToList();
-
-                foreach (var id in idOfAltMeta)
-                {
-                    query = new QueryDocument(new BsonDocument { { "_id", int.Parse(id) } });
-
-                    AlternativeMeta.Remove(query);
-
-                }
 
                 return 0;
             }
@@ -79,6 +73,32 @@ namespace DB
             }
         }
 
+        private void DeleteAltBookMeta(BsonDocument book)
+        {
+            var idOfAltMeta = GetAltMetaId(book);
+
+            foreach (var id in idOfAltMeta)
+            {
+                RemoveAltBookMeta(id);
+            }
+        }
+
+        private void RemoveAltBookMeta(string id)
+        {
+            var query = new QueryDocument(new BsonDocument {{"_id", int.Parse(id)}});
+
+            AlternativeMeta.Remove(query);
+        }
+
+        private static IEnumerable<string> GetAltMetaId(BsonDocument book)
+        {
+            var stringOfId = book["AlternativeMeta"].ToString();
+            var idOfAltMeta = stringOfId
+                .Substring(1, stringOfId.Length - 2)
+                .Split(new[] {','}).ToList();
+            return idOfAltMeta;
+        }
+
         public bool IsHaveBookMeta(string md5Hash)
         {
             return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
@@ -86,14 +106,26 @@ namespace DB
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
-            if (query == null) return BookTools.BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
+            if (query == null) return GetAllBooks();
 
             var attrId = new QueryCreator().Convert(query);
 
             return GetBooksByAttrId(attrId, limit, offset);
         }
 
+        private List<Book> GetAllBooks()
+        {
+            return BookTools.BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
+        }
+
         private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
+        {
+            var query = CreateMultipleQuery(attrId);
+
+            return BookTools.BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+        }
+
+        private static QueryDocument CreateMultipleQuery(IEnumerable<int> attrId)
         {
             var query = new QueryDocument(true);
 
@@ -101,8 +133,7 @@ namespace DB
             {
                 query.Add("Attributes", id);
             }
-
-            return BookTools.BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+            return query;
         }
     }
 }

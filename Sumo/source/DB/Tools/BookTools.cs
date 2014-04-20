@@ -6,7 +6,7 @@ using Sumo.Api;
 
 static internal class BookTools
 {
-    public static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, IEnumerable<int> idOfAltMeta = null)
+    public static BsonDocument CreateBook(MongoCollection<BsonDocument> collections, Book book, IEnumerable<int> idOfAltMeta = null)
     {
         var attributes = new List<int>();
 
