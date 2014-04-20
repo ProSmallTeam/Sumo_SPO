@@ -39,45 +39,77 @@ internal class Statistic
 
     private int GetStatistic(List<int> attrId)
     {
+        var queries = CreateStatisticQuery(attrId);
+
+        return (int)Books.FindAs<BsonDocument>(queries).Count();
+    }
+
+    private static QueryDocument CreateStatisticQuery(List<int> attrId)
+    {
         var queries = new QueryDocument(true);
 
         foreach (var id in attrId)
         {
             queries.Add("Attributes", id);
         }
-
-        return (int)Books.FindAs<BsonDocument>(queries).Count();
+        return queries;
     }
 
     private void AddChilds(CategoriesMultiList tree, List<int> listId)
     { 
-        var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
-
-        var childs = Attributes.FindAs<BsonDocument>(queryDocument).ToList();
+        var childs = FindChilds(tree.Node.Id);
 
         if (!childs.Any())
             return;
 
         foreach (var child in childs)
         {
-            var list = new List<int>(listId);
-            var childId = Int32.Parse(child["_id"].ToString());
-            if(!list.Contains(childId))
-                list.Add(childId);
-                 
-                
-            var node = new CategoryNode
-                {
-                    Count = GetStatistic(list),
-                    Id = Int32.Parse(child["_id"].ToString()),
-                    Name = child["Name"].ToString()
-                };
-
-            var subTree = new CategoriesMultiList(node);
+            var subTree = GetTree(child, listId);
 
             AddChilds(subTree, listId);
 
             tree.AddChild(subTree);
         }
+    }
+
+    private CategoriesMultiList GetTree(BsonDocument root, List<int> attributesId)
+    {
+        var rootId = Int32.Parse(root["_id"].ToString());
+
+        var attrId = AddAttribute(rootId, attributesId);
+
+        var subTree = CreateTree(root, attrId);
+        return subTree;
+    }
+
+    private static List<int> AddAttribute(int attributeId, List<int> attributesId)
+    {
+        var attrId = new List<int>(attributesId);
+        var rootId = attributeId;
+        if (!attrId.Contains(rootId))
+            attrId.Add(rootId);
+        return attrId;
+    }
+
+    private CategoriesMultiList CreateTree(BsonDocument root, List<int> attrId)
+    {
+        var node = new CategoryNode
+            {
+                Count = GetStatistic(attrId),
+                Id = Int32.Parse(root["_id"].ToString()),
+                Name = root["Name"].ToString()
+            };
+
+        var subTree = new CategoriesMultiList(node);
+
+        return subTree;
+    }
+
+    private List<BsonDocument> FindChilds(int id)
+    {
+        var queryDocument = new QueryDocument(new BsonDocument {{"FatherRef", id}});
+
+        var childs = Attributes.FindAs<BsonDocument>(queryDocument).ToList();
+        return childs;
     }
 }
