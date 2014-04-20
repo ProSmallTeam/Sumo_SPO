@@ -80,12 +80,12 @@ namespace DB
 
         public int GetStatistic(string query)
         {
-            return statistic.GetStatistic(query);
+            return statistic.Get(query);
         }
 
         public CategoriesMultiList GetStatisticTree(string query)
         {
-            return statistic.GetStatisticTree(query);
+            return statistic.GetTree(query);
         }
 
         #endregion      

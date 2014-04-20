@@ -18,20 +18,18 @@ namespace DB
             Attributes = attributes;
         }
 
-        public CategoriesMultiList GetStatisticTree(string query)
+        public CategoriesMultiList GetTree(string query)
         {
-            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = GetStatistic(query), Id = 0, Name = "/" });
+            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = Get(query), Id = 0, Name = "/" });
 
-            var listId = new List<int>();
             var attrId = new QueryCreator().Convert(query);
-            listId.AddRange(attrId);
 
-            AddChilds(statisticTree, listId);
+            AddChilds(statisticTree, attrId);
 
             return statisticTree;
         }
 
-        public int GetStatistic(string query)
+        public int Get(string query)
         {
             var attrId = new QueryCreator().Convert(query);
 
