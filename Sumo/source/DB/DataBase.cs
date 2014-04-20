@@ -44,36 +44,6 @@ namespace DB
             SetCollections();
         }
 
-        private void SetCollections()
-        {
-            Books = Database.GetCollection<BsonDocument>("Books");
-
-            Attributes = Database.GetCollection<BsonDocument>("Attributes");
-
-            AlternativeMeta = Database.GetCollection<BsonDocument>("AlternativeMeta");
-
-            Tasks = Database.GetCollection<BsonDocument>("Tasks");
-
-        }
-
-        public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
-        {
-            return collection.FindAs<BsonDocument>(query).ToList();
-        }
-
-        public void Indexing()
-        {
-            Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
-            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
-            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("FatherRef"));
-            AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
-        }
-
-        public void Drop()
-        {
-            Database.Drop();
-        }
-
         public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
             try
@@ -133,6 +103,127 @@ namespace DB
             }
         }
 
+        public bool IsHaveBookMeta(string md5Hash)
+        {
+            return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
+        }
+
+        public int GetStatistic(string query)
+        {
+            var attrId = new QueryCreator().Convert(query);
+
+            return GetStatistic(attrId);
+        }
+
+        public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
+        {
+            if (query == null) return BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
+
+            var attrId = new QueryCreator().Convert(query);
+
+            return GetBooksByAttrId(attrId, limit, offset);
+        }
+
+        /// <summary>
+        /// TODO: удалить метод при первой возможности.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="parrentId"></param>
+        /// <param name="rootId"></param>
+        /// <returns></returns>
+        public int SaveAttribute(string name, int parrentId, int rootId)
+        {
+            var IsRoot = false;
+
+            try
+            {
+                Attributes.Insert(new BsonDocument
+                    {
+                        {"_id", Attributes.Count()},
+                        {"Name", name},
+                        {"IsRoot", IsRoot},
+                        {"RootRef", rootId},
+                        {"FatherRef", parrentId}
+                    }
+                    );
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        public int InsertTask(Task task, bool flagOfHighPriority = false)
+        {
+            return TaskManager.InsertTask(Tasks, task, flagOfHighPriority);
+        }
+
+        public int RemoveTask(Task task)
+        {
+            return TaskManager.RemoveTask(Tasks, task);
+        }
+
+        public List<Task> GetTask(int quantity)
+        {
+            return TaskManager.GetTask(Tasks, quantity);
+        }
+
+        public static int GetStatistic(List<int> attrId)
+        {
+            var queries = new QueryDocument(true);
+
+            foreach (var id in attrId)
+            {
+                queries.Add("Attributes", id);
+            }
+
+            return (int)Books.FindAs<BsonDocument>(queries).Count();
+        }
+
+        private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
+        {
+            var query = new QueryDocument(true);
+
+            foreach (var id in attrId)
+            {
+                query.Add("Attributes", id);
+            }
+
+            return BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+        }
+
+        public void Indexing()
+        {
+            Books.EnsureIndex(new IndexKeysBuilder().Ascending("Attributes"));
+            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+            Attributes.EnsureIndex(new IndexKeysBuilder().Ascending("FatherRef"));
+            AlternativeMeta.EnsureIndex(new IndexKeysBuilder().Ascending("_id"));
+        }
+
+        private void SetCollections()
+        {
+            Books = Database.GetCollection<BsonDocument>("Books");
+
+            Attributes = Database.GetCollection<BsonDocument>("Attributes");
+
+            AlternativeMeta = Database.GetCollection<BsonDocument>("AlternativeMeta");
+
+            Tasks = Database.GetCollection<BsonDocument>("Tasks");
+
+        }
+
+        public void Drop()
+        {
+            Database.Drop();
+        }
+        
+        public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
+        {
+            return collection.FindAs<BsonDocument>(query).ToList();
+        }
+
         private static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, IEnumerable<int> idOfAltMeta = null)
         {
             var attributes = new List<int>();
@@ -187,96 +278,17 @@ namespace DB
             attributes.Add(idAttr);
         }
 
-        public bool IsHaveBookMeta(string md5Hash)
-        {
-            return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
-        }
+        
 
-        public int GetStatistic(string query)
-        {
-            var attrId = new QueryCreator().Convert(query);
+        
 
-            return GetStatistic(attrId);
-        }
+        
 
-        public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
-        {
-            if (query == null) return BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
+        
 
-            var attrId = new QueryCreator().Convert(query);
+        
 
-            return GetBooksByAttrId(attrId, limit, offset);
-        }
-
-        public static int GetStatistic(List<int> attrId)
-        {
-            var queries = new QueryDocument(true);
-
-            foreach (var id in attrId)
-            {
-                queries.Add("Attributes", id);
-            }
-
-            return (int)Books.FindAs<BsonDocument>(queries).Count();
-        }
-
-        private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
-        {
-            var query = new QueryDocument(true);
-
-            foreach (var id in attrId)
-            {
-                query.Add("Attributes", id);
-            }
-
-            return BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
-        }
-
-        /// <summary>
-        /// TODO: удалить метод при первой возможности.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="parrentId"></param>
-        /// <param name="rootId"></param>
-        /// <returns></returns>
-        public int SaveAttribute(string name, int parrentId, int rootId)
-        {
-            var IsRoot = false;
-
-            try
-            {
-                Attributes.Insert(new BsonDocument
-                    {
-                        {"_id", Attributes.Count()},
-                        {"Name", name},
-                        {"IsRoot", IsRoot},
-                        {"RootRef", rootId},
-                        {"FatherRef", parrentId}
-                    }
-                    );
-
-                return 0;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
-        }
-
-        public int InsertTask(Task task, bool flagOfHighPriority = false)
-        {
-            return TaskManager.InsertTask(Tasks, task, flagOfHighPriority);
-        }
-
-        public int RemoveTask(Task task)
-        {
-            return TaskManager.RemoveTask(Tasks, task);
-        }
-
-        public List<Task> GetTask(int quantity)
-        {
-            return TaskManager.GetTask(Tasks, quantity);
-        }
+        
 
         public CategoriesMultiList GetStatisticTree(string query)
         {
