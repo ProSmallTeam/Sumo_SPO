@@ -8,7 +8,7 @@ using Task = Sumo.Api.Task;
 
 namespace DB
 {
-    internal class TaskManager
+    internal static class TaskManager
     {
         private static void UpdateTask(MongoCollection<BsonDocument> collection ,IEnumerable<Task> tasks)
         {
@@ -19,7 +19,7 @@ namespace DB
             }
         }
 
-        public List<Task> GetTask(MongoCollection<BsonDocument> collection, int quantity)
+        public static List<Task> GetTask(MongoCollection<BsonDocument> collection, int quantity)
         {
             const int HighPriority = 1;
             const int LowPriority = 0;
@@ -44,7 +44,7 @@ namespace DB
             return result;
         }
 
-        public int RemoveTask(MongoCollection<BsonDocument> collection, Task task)
+        public static int RemoveTask(MongoCollection<BsonDocument> collection, Task task)
         {
             var query = new QueryDocument(new BsonDocument { { "Path", task.PathToFile } });
 
@@ -59,7 +59,7 @@ namespace DB
             }
         }
 
-        public int InsertTask(MongoCollection<BsonDocument> collection, Task task, bool flagOfHighPriority = false)
+        public static int InsertTask(MongoCollection<BsonDocument> collection, Task task, bool flagOfHighPriority = false)
         {
             var priority = flagOfHighPriority ? 1 : 0;
 

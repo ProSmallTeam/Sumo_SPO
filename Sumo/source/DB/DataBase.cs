@@ -201,7 +201,7 @@ namespace DB
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
-            if (query == null) return ConvertToBook(Books.FindAllAs<BsonDocument>().ToList());
+            if (query == null) return BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
 
             var attrId = new QueryCreator().Convert(query);
 
@@ -229,7 +229,7 @@ namespace DB
                 query.Add("Attributes", id);
             }
 
-            return ConvertToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
+            return BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
         }
 
         /// <summary>
@@ -265,17 +265,17 @@ namespace DB
 
         public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
-            return new TaskManager().InsertTask(Tasks, task, flagOfHighPriority);
+            return TaskManager.InsertTask(Tasks, task, flagOfHighPriority);
         }
 
         public int RemoveTask(Task task)
         {
-            return new TaskManager().RemoveTask(Tasks, task);
+            return TaskManager.RemoveTask(Tasks, task);
         }
 
         public List<Task> GetTask(int quantity)
         {
-            return new TaskManager().GetTask(Tasks, quantity);
+            return TaskManager.GetTask(Tasks, quantity);
         }
 
         public CategoriesMultiList GetStatisticTree(string query)
@@ -367,7 +367,7 @@ namespace DB
             }
         }
 
-        private static List<Book> ConvertToBook(IEnumerable<BsonDocument> list)
+        private static List<Book> BsdToBook(IEnumerable<BsonDocument> list)
         {
             var listBook = new List<Book>();
 

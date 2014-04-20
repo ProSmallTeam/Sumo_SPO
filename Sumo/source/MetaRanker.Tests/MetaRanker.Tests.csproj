@@ -65,6 +65,7 @@
     </Content>
     <Content Include="xmlfiles\Игра престолов. Битва королей\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="xmlfiles\Океан в конце дороги\Labirint.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -102,6 +103,17 @@
     <Content Include="xmlfiles\Рыцарь Семи Королевств\Читай город.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="xmlfiles\Игра престолов. Битва королей\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="xmlfiles\Океан в конце дороги\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="xmlfiles\Рыцарь Семи Королевств\total.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
