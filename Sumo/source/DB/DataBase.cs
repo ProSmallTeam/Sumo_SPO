@@ -278,18 +278,6 @@ namespace DB
             attributes.Add(idAttr);
         }
 
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
         public CategoriesMultiList GetStatisticTree(string query)
         {
             var statisticTree = new CategoriesMultiList(new CategoryNode { Count = GetStatistic(query), Id = 0, Name = "/" });
@@ -336,8 +324,6 @@ namespace DB
                 tree.AddChild(subTree);
             }
         }
-
-        
 
         private static Dictionary<string, List<string>> GetSecondaryFields(BsonDocument bsonBook)
         {

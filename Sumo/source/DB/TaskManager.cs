@@ -21,26 +21,41 @@ namespace DB
 
         public static List<Task> GetTask(MongoCollection<BsonDocument> collection, int quantity)
         {
-            const int HighPriority = 1;
-            const int LowPriority = 0;
-
-            var query = new QueryDocument(new BsonDocument { { "Priority", HighPriority }, { "Receipt", false } });
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
-
-            var result = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
+            var result = GetTaskWithHighPriority(collection, quantity);
 
             var count = result.Count;
 
             if (count < quantity)
             {
-                query = new QueryDocument(new BsonDocument { { "Priority", LowPriority }, { "Receipt", false } });
-                tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
+                var tasks = GetTaskWithLowPriority(collection, quantity, count);
 
-                result.AddRange(tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }));
+                result.AddRange(tasks);
             }
 
             UpdateTask(collection, result);
 
+            return result;
+        }
+
+        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity, int count)
+        {
+            const int lowPriority = 0;
+
+            var query = new QueryDocument(new BsonDocument {{"Priority", lowPriority}, {"Receipt", false}});
+            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
+
+            var tasks = tempList.Select(task => new Task {PathToFile = task["Path"].ToString()}).ToList();
+            return tasks;
+        }
+
+        private static List<Task> GetTaskWithHighPriority(MongoCollection<BsonDocument> collection, int quantity)
+        {
+            const int highPriority = 1;
+
+            var query = new QueryDocument(new BsonDocument {{"Priority", highPriority}, {"Receipt", false}});
+            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
+
+            var result = tempList.Select(task => new Task {PathToFile = task["Path"].ToString()}).ToList();
             return result;
         }
 
