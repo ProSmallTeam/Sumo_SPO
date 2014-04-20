@@ -67,7 +67,7 @@ namespace DB.Test
         public void GetBook()
         {
             var time = DateTime.Now;
-            var book = _database.GetBooks("2010, Макарский");
+            var book = _database.GetBooks("2010, М. Ховард");
             string name = null;
             if (book != null)
                 name = book[0].Name;

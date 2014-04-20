@@ -106,7 +106,7 @@ namespace DB
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
-            if (query == null) return GetAllBooks();
+            if (query == "") return GetAllBooks();
 
             var attrId = new QueryCreator().Convert(query);
 
@@ -120,6 +120,8 @@ namespace DB
 
         private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
         {
+            if (!attrId.Any()) return new List<Book>();
+
             var query = CreateMultipleQuery(attrId);
 
             return BookTools.BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());

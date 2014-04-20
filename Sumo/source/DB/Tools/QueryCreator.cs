@@ -15,7 +15,8 @@ namespace DB
 
             var query = attributes.Select(attributeName => new QueryDocument(new BsonDocument {{ "Name", attributeName }}));
             var queryResults = query.Select(queryDocument => DataBase.Attributes.FindOneAs<BsonDocument>(queryDocument)).Where(document => document != null);
-            return queryResults.Select(attr => int.Parse(attr["_id"].ToString())).ToList();
+            var result = queryResults.Select(attr => int.Parse(attr["_id"].ToString())).ToList();
+            return result;
         }
 
         public static List<string> GetTypes(string stringParse)
