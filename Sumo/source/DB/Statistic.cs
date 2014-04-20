@@ -38,12 +38,12 @@ namespace DB
 
         private int GetStatistic(List<int> attrId)
         {
-            var queries = CreateStatisticQuery(attrId);
+            var queries = CreateMultipleQuery(attrId);
 
             return (int)Books.FindAs<BsonDocument>(queries).Count();
         }
 
-        private static QueryDocument CreateStatisticQuery(List<int> attrId)
+        private static QueryDocument CreateMultipleQuery(List<int> attrId)
         {
             var queries = new QueryDocument(true);
 
