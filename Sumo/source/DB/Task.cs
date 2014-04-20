@@ -10,7 +10,7 @@ namespace DB
 {
     internal static class TaskManager
     {
-        public static List<Task> GetTask(MongoCollection<BsonDocument> collection, int quantity)
+        public static List<Task> Get(MongoCollection<BsonDocument> collection, int quantity)
         {
             var result = GetTaskWithHighPriority(collection, quantity);
 

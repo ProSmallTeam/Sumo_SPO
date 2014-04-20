@@ -42,13 +42,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\AttributesTools.cs" />
+    <Compile Include="Tools\BookTools.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="IDataBase.cs" />
     <Compile Include="NoAttrException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryCreator.cs" />
-    <Compile Include="StatisticTools.cs" />
-    <Compile Include="TaskManager.cs" />
+    <Compile Include="Tools\QueryCreator.cs" />
+    <Compile Include="Tools\Statistic.cs" />
+    <Compile Include="Tools\Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

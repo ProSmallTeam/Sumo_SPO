@@ -16,8 +16,6 @@ namespace DB
 
         List<Book> GetBooks(string query, int limit, int offset);
 
-        int SaveAttribute(string name, int parrentId, int rootId);
-
         int InsertTask(Task task, bool flagOfHighPriority);
 
         int RemoveTask(Task task);

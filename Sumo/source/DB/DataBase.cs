@@ -16,6 +16,8 @@ namespace DB
 
         private readonly string _nameOfDataBase;
 
+        private readonly BookMeta bookMeta;
+
         #region Коллекции
 
         // Коллекция, в которой хранится информация о книгах.
@@ -42,72 +44,34 @@ namespace DB
             Database = server.GetDatabase(_nameOfDataBase);
 
             SetCollections();
+
+            bookMeta = new BookMeta(Books, AlternativeMeta);
         }
+
+        #region BookMeta
 
         public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
         {
-            try
-            {
-                var idOfAltMeta = new List<int>();
-
-                if (alternativeBook != null)
-                    foreach (var altBookMeta in alternativeBook.Select(altBook => CreateBook(altBook, AlternativeMeta)))
-                    {
-                        AlternativeMeta.Insert(altBookMeta);
-
-                        idOfAltMeta.Add(int.Parse(altBookMeta["_id"].ToString()));
-                    }
-
-                var document = CreateBook(book, Books, idOfAltMeta);
-
-                Books.Insert(document);
-
-                return 0;
-            }
-            catch (Exception)
-            {
-
-                return -1;
-            }
-
+            return bookMeta.SaveBookMeta(book, alternativeBook);
         }
 
         public int DeleteBookMeta(string md5Hash)
         {
-            try
-            {
-                var query = new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } });
-
-                var book = Books.FindOneAs<BsonDocument>(query);
-
-                Books.Remove(query);
-
-                var stringOfid = book["AlternativeMeta"].ToString();
-                var idOfAltMeta = stringOfid
-                                           .Substring(1, stringOfid.Length - 2)
-                                           .Split(new[] { ',' }).ToList();
-
-                foreach (var id in idOfAltMeta)
-                {
-                    query = new QueryDocument(new BsonDocument { { "_id", int.Parse(id) } });
-
-                    AlternativeMeta.Remove(query);
-
-                }
-
-                return 0;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
+            return bookMeta.DeleteBookMeta(md5Hash);
         }
 
         public bool IsHaveBookMeta(string md5Hash)
         {
-            return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
+            return bookMeta.IsHaveBookMeta(md5Hash);
         }
-       
+
+        public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
+        {
+            return bookMeta.GetBooks(query, limit, offset);
+        }
+
+        #endregion
+
         #region Statistic
 
         public int GetStatistic(string query)
@@ -120,47 +84,7 @@ namespace DB
             return new StatisticTools().GetStatisticTree(query);
         }
 
-        #endregion
-
-        public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
-        {
-            if (query == null) return BsdToBook(Books.FindAllAs<BsonDocument>().ToList());
-
-            var attrId = new QueryCreator().Convert(query);
-
-            return GetBooksByAttrId(attrId, limit, offset);
-        }
-
-        /// <summary>
-        /// TODO: удалить метод при первой возможности.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="parrentId"></param>
-        /// <param name="rootId"></param>
-        /// <returns></returns>
-        public int SaveAttribute(string name, int parrentId, int rootId)
-        {
-            var IsRoot = false;
-
-            try
-            {
-                Attributes.Insert(new BsonDocument
-                    {
-                        {"_id", Attributes.Count()},
-                        {"Name", name},
-                        {"IsRoot", IsRoot},
-                        {"RootRef", rootId},
-                        {"FatherRef", parrentId}
-                    }
-                    );
-
-                return 0;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
-        }
+        #endregion      
 
         #region Task
 
@@ -176,22 +100,10 @@ namespace DB
 
         public List<Task> GetTask(int quantity)
         {
-            return TaskManager.GetTask(Tasks, quantity);
+            return TaskManager.Get(Tasks, quantity);
         }
 
         #endregion
-
-        private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
-        {
-            var query = new QueryDocument(true);
-
-            foreach (var id in attrId)
-            {
-                query.Add("Attributes", id);
-            }
-
-            return BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
-        }
 
         #region DbTools
 
@@ -221,126 +133,6 @@ namespace DB
         }
         
         #endregion
-
-        public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
-        {
-            return collection.FindAs<BsonDocument>(query).ToList();
-        }
-
-        private static BsonDocument CreateBook(Book book, MongoCollection<BsonDocument> collections, IEnumerable<int> idOfAltMeta = null)
-        {
-            var attributes = new List<int>();
-
-            if (book.SecondaryFields != null)
-                attributes = GetListOfAttributes(book);
-
-            var document = new BsonDocument
-                {
-                    {"_id", collections.Count()},
-                    {"Md5Hash", book.Md5Hash},
-                    {"Name", book.Name},
-                    {"Path", book.Path}, //место подключения поддержки различных пользователей
-                    {"Attributes", new BsonArray(attributes)},
-                    {"AlternativeMeta", idOfAltMeta != null ? new BsonArray(idOfAltMeta) : null }
-                };
-
-            return document;
-        }
-
-        private static List<int> GetListOfAttributes(Book book)
-        {
-            var attributes = new List<int>();
-            foreach (var field in book.SecondaryFields)
-                foreach (var nameOfAttribute in field.Value)
-                {
-                    var document = new QueryDocument(new BsonDocument {{"Name", nameOfAttribute}});
-                    var attribute = Attributes.FindOneAs<BsonDocument>(document);
-                    if (attribute == null)
-                        throw new NoAttrException();
-
-                    var idAttr = int.Parse(attribute["_id"].ToString());
-
-                    AddFatherAttr(attribute, attributes);
-
-                    attributes.Add(idAttr);
-                }
-
-            return attributes;
-        }
-
-        private static void AddFatherAttr(BsonDocument attribute, List<int> attributes)
-        {
-            var document = new QueryDocument(new BsonDocument { { "_id", int.Parse(attribute["FatherRef"].ToString()) } });
-            var fatherAttr = Attributes.FindOneAs<BsonDocument>(document);
-
-            if (fatherAttr == null) return;
-
-            AddFatherAttr(fatherAttr, attributes);
-
-            var idAttr = int.Parse(fatherAttr["_id"].ToString());
-            attributes.Add(idAttr);
-        }
-
-        private static Dictionary<string, List<string>> GetSecondaryFields(BsonDocument bsonBook)
-        {
-            var listOfAttributes = bsonBook.GetValue("Attributes");
-            var listOfSecondaryFields = new Dictionary<string, List<string>>();
-
-
-            foreach (var attribute in listOfAttributes.AsBsonArray)
-            {
-                var query = new QueryDocument("_id", attribute);
-
-                var document = Attributes.FindOneAs<BsonDocument>(query);
-
-                var id = document["RootRef"];
-                query = new QueryDocument("_id", id);
-
-                var secondaryField = Attributes.FindOneAs<BsonDocument>(query);
-
-                if(secondaryField == null) continue;
-
-                var name = secondaryField["Name"].ToString();
-                var value = document["Name"].ToString();
-
-                InsertKeyValuedPairIntoListOfSecondaryFields(listOfSecondaryFields, name, value);
-            }
-
-            return listOfSecondaryFields;
-        }
-
-        private static void InsertKeyValuedPairIntoListOfSecondaryFields(Dictionary<string, List<string>> listOfSecondaryFields, string name, string value)
-        {
-            if (listOfSecondaryFields.ContainsKey(name))
-            {
-                listOfSecondaryFields[name].Add(value);
-            }
-            else
-            {
-                listOfSecondaryFields.Add(name, new List<string> { value });
-            }
-        }
-
-        private static List<Book> BsdToBook(IEnumerable<BsonDocument> list)
-        {
-            var listBook = new List<Book>();
-
-            foreach (var bsonBook in list)
-            {
-                var secondaryFields = GetSecondaryFields(bsonBook);
-
-                listBook.Add(new Book
-                                   {
-                                       Name = bsonBook["Name"].ToString(),
-                                       Md5Hash = bsonBook["_id"].ToString(),
-                                       Path = bsonBook.Contains("Path") ? bsonBook["Path"].ToString() : null,
-                                       SecondaryFields = secondaryFields
-                                   }
-                            );
-            }
-
-            return listBook;
-        }
     }
 }
 
