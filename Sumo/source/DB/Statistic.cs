@@ -6,8 +6,17 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Sumo.Api;
 
-internal class StatisticTools
+internal class Statistic
 {
+    private readonly MongoCollection<BsonDocument> Books;
+    private readonly MongoCollection<BsonDocument> Attributes;
+
+    public Statistic(MongoCollection<BsonDocument> books, MongoCollection<BsonDocument> attributes)
+    {
+        Books = books;
+        Attributes = attributes;
+    }
+
     public CategoriesMultiList GetStatisticTree(string query)
     {
         var statisticTree = new CategoriesMultiList(new CategoryNode { Count = GetStatistic(query), Id = 0, Name = "/" });
@@ -28,7 +37,7 @@ internal class StatisticTools
         return GetStatistic(attrId);
     }
 
-    private static int GetStatistic(List<int> attrId)
+    private int GetStatistic(List<int> attrId)
     {
         var queries = new QueryDocument(true);
 
@@ -37,14 +46,14 @@ internal class StatisticTools
             queries.Add("Attributes", id);
         }
 
-        return (int)DataBase.Books.FindAs<BsonDocument>(queries).Count();
+        return (int)Books.FindAs<BsonDocument>(queries).Count();
     }
 
-    private static void AddChilds(CategoriesMultiList tree, List<int> listId)
+    private void AddChilds(CategoriesMultiList tree, List<int> listId)
     { 
         var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
 
-        var childs = DataBase.Attributes.FindAs<BsonDocument>(queryDocument).ToList();
+        var childs = Attributes.FindAs<BsonDocument>(queryDocument).ToList();
 
         if (!childs.Any())
             return;

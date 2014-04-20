@@ -17,6 +17,8 @@ namespace DB
         private readonly string _nameOfDataBase;
 
         private readonly BookMeta bookMeta;
+        private readonly Statistic statistic;
+        private readonly TaskManager taskManager;
 
         #region Коллекции
 
@@ -46,6 +48,8 @@ namespace DB
             SetCollections();
 
             bookMeta = new BookMeta(Books, AlternativeMeta);
+            statistic = new Statistic(Books, Attributes);
+            taskManager = new TaskManager(Tasks);
         }
 
         #region BookMeta
@@ -76,12 +80,12 @@ namespace DB
 
         public int GetStatistic(string query)
         {
-            return new StatisticTools().GetStatistic(query);
+            return statistic.GetStatistic(query);
         }
 
         public CategoriesMultiList GetStatisticTree(string query)
         {
-            return new StatisticTools().GetStatisticTree(query);
+            return statistic.GetStatisticTree(query);
         }
 
         #endregion      
@@ -90,17 +94,17 @@ namespace DB
 
         public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
-            return TaskManager.InsertTask(Tasks, task, flagOfHighPriority);
+            return taskManager.InsertTask(task, flagOfHighPriority);
         }
 
         public int RemoveTask(Task task)
         {
-            return TaskManager.RemoveTask(Tasks, task);
+            return taskManager.RemoveTask(task);
         }
 
         public List<Task> GetTask(int quantity)
         {
-            return TaskManager.Get(Tasks, quantity);
+            return taskManager.Get(quantity);
         }
 
         #endregion

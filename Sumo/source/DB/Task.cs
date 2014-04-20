@@ -8,34 +8,41 @@ using Task = Sumo.Api.Task;
 
 namespace DB
 {
-    internal static class TaskManager
+    internal class TaskManager
     {
-        public static List<Task> Get(MongoCollection<BsonDocument> collection, int quantity)
+        private MongoCollection<BsonDocument> Tasks;
+
+        public TaskManager(MongoCollection<BsonDocument> tasks)
         {
-            var result = GetTaskWithHighPriority(collection, quantity);
+            Tasks = tasks;
+        }
+
+        public List<Task> Get(int quantity)
+        {
+            var result = GetTaskWithHighPriority(Tasks, quantity);
 
             var count = result.Count;
 
             if (count < quantity)
             {
-                var tasks = GetTaskWithLowPriority(collection, quantity - count);
+                var tasks = GetTaskWithLowPriority(this.Tasks, quantity - count);
 
                 result.AddRange(tasks);
             }
 
-            UpdateTask(collection, result);
+            UpdateTask(Tasks, result);
 
             return result;
         }
 
         
-        public static int RemoveTask(MongoCollection<BsonDocument> collection, Task task)
+        public int RemoveTask(Task task)
         {
             var query = new QueryDocument(new BsonDocument { { "Path", task.PathToFile } });
 
             try
             {
-                collection.Remove(query);
+                Tasks.Remove(query);
                 return 0;
             }
             catch (Exception)
@@ -44,7 +51,7 @@ namespace DB
             }
         }
 
-        public static int InsertTask(MongoCollection<BsonDocument> collection, Task task, bool flagOfHighPriority = false)
+        public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
             var priority = flagOfHighPriority ? 1 : 0;
 
@@ -56,7 +63,7 @@ namespace DB
                                      };
             try
             {
-                collection.Insert(_task);
+                Tasks.Insert(_task);
 
                 return 0;
             }

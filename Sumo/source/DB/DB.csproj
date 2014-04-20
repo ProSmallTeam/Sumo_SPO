@@ -42,6 +42,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMeta.cs" />
     <Compile Include="Tools\AttributesTools.cs" />
     <Compile Include="Tools\BookTools.cs" />
     <Compile Include="DataBase.cs" />
@@ -49,8 +50,8 @@
     <Compile Include="NoAttrException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\QueryCreator.cs" />
-    <Compile Include="Tools\Statistic.cs" />
-    <Compile Include="Tools\Task.cs" />
+    <Compile Include="Statistic.cs" />
+    <Compile Include="Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

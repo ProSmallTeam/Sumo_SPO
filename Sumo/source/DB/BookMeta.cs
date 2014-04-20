@@ -14,10 +14,10 @@ namespace DB
         private MongoCollection<BsonDocument> AlternativeMeta;
 
 
-        public BookMeta(MongoCollection<BsonDocument> bookCollection, MongoCollection<BsonDocument> altMetaCollection)
+        public BookMeta(MongoCollection<BsonDocument> books, MongoCollection<BsonDocument> alternativeMeta)
         {
-            Books = bookCollection;
-            AlternativeMeta = altMetaCollection;
+            Books = books;
+            AlternativeMeta = alternativeMeta;
         }
 
         public int SaveBookMeta(Book book, List<Book> alternativeBook = null)
