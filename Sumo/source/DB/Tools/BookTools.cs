@@ -53,29 +53,37 @@ static internal class BookTools
         var listOfSecondaryFields = new Dictionary<string, List<string>>();
 
 
-        foreach (var attribute in listOfAttributes.AsBsonArray)
+        foreach (var attributeId in listOfAttributes.AsBsonArray)
         {
-            var query = new QueryDocument("_id", attribute);
-
-            var document = DataBase.Attributes.FindOneAs<BsonDocument>(query);
-
-            var id = document["RootRef"];
-            query = new QueryDocument("_id", id);
-
-            var secondaryField = DataBase.Attributes.FindOneAs<BsonDocument>(query);
-
-            if(secondaryField == null) continue;
-
-            var name = secondaryField["Name"].ToString();
-            var value = document["Name"].ToString();
-
-            InsertKeyValuedPairIntoListOfSecondaryFields(listOfSecondaryFields, name, value);
+            AddToSecondaryFields(listOfSecondaryFields, attributeId);
         }
 
         return listOfSecondaryFields;
     }
 
-    private static void InsertKeyValuedPairIntoListOfSecondaryFields(Dictionary<string, List<string>> listOfSecondaryFields, string name, string value)
+    private static void AddToSecondaryFields(Dictionary<string, List<string>> listOfSecondaryFields, BsonValue attributeId)
+    {
+        var document = FindAttribute(attributeId.ToInt32());
+
+        var rootId = document["RootRef"].ToInt32();
+        var secondaryField = FindAttribute(rootId);
+
+        if (secondaryField == null) return;
+
+        var name = secondaryField["Name"].ToString();
+        var value = document["Name"].ToString();
+
+        InsertValueToDictionary(listOfSecondaryFields, name, value);
+    }
+
+    private static BsonDocument FindAttribute(int id)
+    {
+        var query = new QueryDocument("_id", id);
+        var document = DataBase.Attributes.FindOneAs<BsonDocument>(query);
+        return document;
+    }
+
+    private static void InsertValueToDictionary(Dictionary<string, List<string>> listOfSecondaryFields, string name, string value)
     {
         if (listOfSecondaryFields.ContainsKey(name))
         {
