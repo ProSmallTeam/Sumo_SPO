@@ -64,6 +64,10 @@
       <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>
       <Name>Network</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shops\LabirintShop\LabirintShop.csproj">
+      <Project>{0f583ec0-6849-4125-8c81-496c9b9e5fb9}</Project>
+      <Name>LabirintShop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shops\OzonShop\OzonShop.csproj">
       <Project>{0EF701E6-38C8-40D8-B523-54D46286B631}</Project>
       <Name>OzonShop</Name>

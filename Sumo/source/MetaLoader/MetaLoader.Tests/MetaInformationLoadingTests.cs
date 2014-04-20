@@ -1,4 +1,5 @@
 ﻿using OzonShop;
+using LabirintShop;
 
 namespace MetaLoaderLib.Tests
 {
@@ -48,6 +49,36 @@ namespace MetaLoaderLib.Tests
             Assert.AreEqual(new List<string> { "2012" }, book.SecondaryFields["PublishYear"]);
             Assert.AreEqual(new List<string> { "272" }, book.SecondaryFields["PageCount"]);
             Assert.AreEqual(new List<string> { "./Sample_files/1005192119(1).jpg" }, book.SecondaryFields["PictureLink"]);
+        }
+
+        /// <summary>
+        /// The labirint test.
+        /// </summary>
+        [Test]
+        public void LabirintShopTest()
+        {
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.Load("SampleLabirint.htm");
+            var page = new Page { Url = "SampleLabirint.htm", Document = htmlDocument };
+
+            var network = new HttpNetwork();
+            var shop = new LabirintBookShop(network);
+
+            var book = shop.Parse(page)[0];
+
+            Assert.AreEqual("CSS3. Руководство разработчика", book.Name);
+            Assert.AreEqual(
+            new List<string>
+            {
+                "978-5-7502-0413-7"
+            },
+                book.SecondaryFields["ISBN"]);
+            Assert.AreEqual(new List<string> { "BHV" }, book.SecondaryFields["PublishHouse"]);
+            Assert.AreEqual(new List<string> { "Питер Гастон" }, book.SecondaryFields["Author"]);
+            Assert.AreEqual(new List<string> { "332442" }, book.SecondaryFields["InternalId"]);
+            Assert.AreEqual(new List<string> { "SampleLabirint.htm" }, book.SecondaryFields["UrlLink"]);
+            Assert.AreEqual(new List<string> { "2012" }, book.SecondaryFields["PublishYear"]);
+            Assert.AreEqual(new List<string> { "288" }, book.SecondaryFields["PageCount"]);
         }
     }
 }

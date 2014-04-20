@@ -60,7 +60,7 @@
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        private IEnumerable<Book> SearchByField(string field)
+        private List<Book> SearchByField(string field)
         {
             var metaContainers = new List<Book>();
 
@@ -83,9 +83,9 @@
         /// The document.
         /// </param>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        private IEnumerable<Book> ParseMultiPage(HtmlDocument document)
+        private List<Book> ParseMultiPage(HtmlDocument document)
         {
             var bookHrefBlocks = document.DocumentNode.SelectNodes("//div[@class='bOneTile inline']");
             
