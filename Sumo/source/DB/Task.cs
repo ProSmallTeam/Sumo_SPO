@@ -19,18 +19,17 @@ namespace DB
 
         public List<Task> Get(int quantity)
         {
-            var result = GetTaskWithHighPriority(Tasks, quantity);
+            var result = GetTaskWithHighPriority(quantity);
 
             var count = result.Count;
 
             if (count < quantity)
             {
-                var tasks = GetTaskWithLowPriority(this.Tasks, quantity - count);
-
+                var tasks = GetTaskWithLowPriority(quantity - count);
                 result.AddRange(tasks);
             }
 
-            UpdateTask(Tasks, result);
+            UpdateTask(result);
 
             return result;
         }
@@ -64,7 +63,6 @@ namespace DB
             try
             {
                 Tasks.Insert(_task);
-
                 return 0;
             }
             catch (Exception)
@@ -74,34 +72,54 @@ namespace DB
             }
         }
 
-        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity)
+        private List<Task> GetTaskWithLowPriority(int quantity)
         {
             const int lowPriority = 0;
 
-            var query = new QueryDocument(new BsonDocument { { "Priority", lowPriority }, { "Receipt", false } });
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
-
-            var tasks = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
+            var tasks = GetTasks(quantity, lowPriority);
             return tasks;
         }
 
-        private static List<Task> GetTaskWithHighPriority(MongoCollection<BsonDocument> collection, int quantity)
+        private List<Task> GetTaskWithHighPriority(int quantity)
         {
             const int highPriority = 1;
 
-            var query = new QueryDocument(new BsonDocument { { "Priority", highPriority }, { "Receipt", false } });
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
-
-            var result = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
-            return result;
+            var tasks = GetTasks(quantity, highPriority);
+            return tasks;
         }
 
-        private static void UpdateTask(MongoCollection<BsonDocument> collection, IEnumerable<Task> tasks)
+        private List<Task> GetTasks(int quantity, int priority)
+        {
+            var tempList = FindTasks(quantity, priority);
+
+            var tasks = BsdToTask(tempList);
+            return tasks;
+        }
+
+        private List<BsonDocument> FindTasks(int quantity, int priority)
+        {
+            var query = new QueryDocument(new BsonDocument {{"Priority", priority}, {"Receipt", false}});
+            var tempList = Find(query, quantity);
+
+            return tempList;
+        }
+
+        private List<BsonDocument> Find(QueryDocument query, int quantity)
+        {
+            return Tasks.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
+        }
+
+        private static List<Task> BsdToTask(List<BsonDocument> tempList)
+        {
+            return tempList.Select(task => new Task {PathToFile = task["Path"].ToString()}).ToList();
+        }
+
+        private void UpdateTask(IEnumerable<Task> tasks)
         {
             var update = Update.Set("Receipt", true);
             foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { { "Path", task.PathToFile } })))
             {
-                collection.Update(query, update, UpdateFlags.Multi);
+                Tasks.Update(query, update, UpdateFlags.Multi);
             }
         }
 
