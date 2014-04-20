@@ -18,7 +18,7 @@ namespace DB
 
             if (count < quantity)
             {
-                var tasks = GetTaskWithLowPriority(collection, quantity, count);
+                var tasks = GetTaskWithLowPriority(collection, quantity - count);
 
                 result.AddRange(tasks);
             }
@@ -67,12 +67,12 @@ namespace DB
             }
         }
 
-        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity, int count)
+        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity)
         {
             const int lowPriority = 0;
 
             var query = new QueryDocument(new BsonDocument { { "Priority", lowPriority }, { "Receipt", false } });
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
+            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
 
             var tasks = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
             return tasks;
