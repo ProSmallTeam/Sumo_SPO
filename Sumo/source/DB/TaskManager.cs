@@ -10,15 +10,6 @@ namespace DB
 {
     internal static class TaskManager
     {
-        private static void UpdateTask(MongoCollection<BsonDocument> collection ,IEnumerable<Task> tasks)
-        {
-            var update = Update.Set("Receipt", true);
-            foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { { "Path", task.PathToFile } })))
-            {
-                collection.Update(query, update, UpdateFlags.Multi);
-            }
-        }
-
         public static List<Task> GetTask(MongoCollection<BsonDocument> collection, int quantity)
         {
             var result = GetTaskWithHighPriority(collection, quantity);
@@ -37,28 +28,7 @@ namespace DB
             return result;
         }
 
-        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity, int count)
-        {
-            const int lowPriority = 0;
-
-            var query = new QueryDocument(new BsonDocument {{"Priority", lowPriority}, {"Receipt", false}});
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
-
-            var tasks = tempList.Select(task => new Task {PathToFile = task["Path"].ToString()}).ToList();
-            return tasks;
-        }
-
-        private static List<Task> GetTaskWithHighPriority(MongoCollection<BsonDocument> collection, int quantity)
-        {
-            const int highPriority = 1;
-
-            var query = new QueryDocument(new BsonDocument {{"Priority", highPriority}, {"Receipt", false}});
-            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
-
-            var result = tempList.Select(task => new Task {PathToFile = task["Path"].ToString()}).ToList();
-            return result;
-        }
-
+        
         public static int RemoveTask(MongoCollection<BsonDocument> collection, Task task)
         {
             var query = new QueryDocument(new BsonDocument { { "Path", task.PathToFile } });
@@ -96,5 +66,37 @@ namespace DB
                 return -1;
             }
         }
+
+        private static List<Task> GetTaskWithLowPriority(MongoCollection<BsonDocument> collection, int quantity, int count)
+        {
+            const int lowPriority = 0;
+
+            var query = new QueryDocument(new BsonDocument { { "Priority", lowPriority }, { "Receipt", false } });
+            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
+
+            var tasks = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
+            return tasks;
+        }
+
+        private static List<Task> GetTaskWithHighPriority(MongoCollection<BsonDocument> collection, int quantity)
+        {
+            const int highPriority = 1;
+
+            var query = new QueryDocument(new BsonDocument { { "Priority", highPriority }, { "Receipt", false } });
+            var tempList = collection.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
+
+            var result = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
+            return result;
+        }
+
+        private static void UpdateTask(MongoCollection<BsonDocument> collection, IEnumerable<Task> tasks)
+        {
+            var update = Update.Set("Receipt", true);
+            foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { { "Path", task.PathToFile } })))
+            {
+                collection.Update(query, update, UpdateFlags.Multi);
+            }
+        }
+
     }
 }
