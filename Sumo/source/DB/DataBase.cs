@@ -107,13 +107,20 @@ namespace DB
         {
             return Books.Find(new QueryDocument(new BsonDocument { { "Md5Hash", md5Hash } })).Any();
         }
+       
+        #region Statistic
 
         public int GetStatistic(string query)
         {
-            var attrId = new QueryCreator().Convert(query);
-
-            return GetStatistic(attrId);
+            return new StatisticTools().GetStatistic(query);
         }
+
+        public CategoriesMultiList GetStatisticTree(string query)
+        {
+            return new StatisticTools().GetStatisticTree(query);
+        }
+
+        #endregion
 
         public List<Book> GetBooks(string query, int limit = 0, int offset = 0)
         {
@@ -155,6 +162,8 @@ namespace DB
             }
         }
 
+        #region Task
+
         public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
             return TaskManager.InsertTask(Tasks, task, flagOfHighPriority);
@@ -170,17 +179,7 @@ namespace DB
             return TaskManager.GetTask(Tasks, quantity);
         }
 
-        public static int GetStatistic(List<int> attrId)
-        {
-            var queries = new QueryDocument(true);
-
-            foreach (var id in attrId)
-            {
-                queries.Add("Attributes", id);
-            }
-
-            return (int)Books.FindAs<BsonDocument>(queries).Count();
-        }
+        #endregion
 
         private List<Book> GetBooksByAttrId(IEnumerable<int> attrId, int limit = 0, int offset = 0)
         {
@@ -193,6 +192,8 @@ namespace DB
 
             return BsdToBook(Books.FindAs<BsonDocument>(query).SetLimit(limit).SetSkip(offset).ToList());
         }
+
+        #region DbTools
 
         public void Indexing()
         {
@@ -219,6 +220,8 @@ namespace DB
             Database.Drop();
         }
         
+        #endregion
+
         public List<BsonDocument> Find(IMongoQuery query, MongoCollection collection)
         {
             return collection.FindAs<BsonDocument>(query).ToList();
@@ -276,53 +279,6 @@ namespace DB
 
             var idAttr = int.Parse(fatherAttr["_id"].ToString());
             attributes.Add(idAttr);
-        }
-
-        public CategoriesMultiList GetStatisticTree(string query)
-        {
-            var statisticTree = new CategoriesMultiList(new CategoryNode { Count = GetStatistic(query), Id = 0, Name = "/" });
-
-            var listId = new List<int>();
-            var attrId = new QueryCreator().Convert(query);
-            listId.AddRange(attrId);
-
-            AddChilds(statisticTree, listId);
-
-            return statisticTree;
-        }
-
-        private static void AddChilds(CategoriesMultiList tree, List<int> listId)
-        {
-            
-
-            var queryDocument = new QueryDocument(new BsonDocument { { "FatherRef", tree.Node.Id } });
-
-            var childs = Attributes.FindAs<BsonDocument>(queryDocument).ToList();
-
-            if (!childs.Any())
-                return;
-
-            foreach (var child in childs)
-            {
-                var list = new List<int>(listId);
-                var childId = int.Parse(child["_id"].ToString());
-                if(!list.Contains(childId))
-                    list.Add(childId);
-                 
-                
-                var node = new CategoryNode
-                {
-                    Count = GetStatistic(list),
-                    Id = int.Parse(child["_id"].ToString()),
-                    Name = child["Name"].ToString()
-                };
-
-                var subTree = new CategoriesMultiList(node);
-
-                AddChilds(subTree, listId);
-
-                tree.AddChild(subTree);
-            }
         }
 
         private static Dictionary<string, List<string>> GetSecondaryFields(BsonDocument bsonBook)
