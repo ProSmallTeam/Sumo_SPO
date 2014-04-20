@@ -63,23 +63,24 @@ static internal class BookTools
 
     private static void AddToSecondaryFields(Dictionary<string, List<string>> listOfSecondaryFields, BsonValue attributeId)
     {
-        var document = FindAttribute(attributeId.ToInt32());
+        var document = FindAttributeById(attributeId.ToInt32());
 
         var rootId = document["RootRef"].ToInt32();
-        var secondaryField = FindAttribute(rootId);
+        var root = FindAttributeById(rootId);
 
-        if (secondaryField == null) return;
+        if (root == null) return;
 
-        var name = secondaryField["Name"].ToString();
+        var name = root["Name"].ToString();
         var value = document["Name"].ToString();
 
         InsertValueToDictionary(listOfSecondaryFields, name, value);
     }
 
-    private static BsonDocument FindAttribute(int id)
+    private static BsonDocument FindAttributeById(int id)
     {
         var query = new QueryDocument("_id", id);
         var document = DataBase.Attributes.FindOneAs<BsonDocument>(query);
+
         return document;
     }
 
