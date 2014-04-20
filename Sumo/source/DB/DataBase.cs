@@ -265,65 +265,17 @@ namespace DB
 
         public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
-            var priority = flagOfHighPriority ? 1 : 0;
-            
-            var _task = new BsonDocument
-                                     {
-                                         {"Path", task.PathToFile}, 
-                                         {"Priority", priority}, 
-                                         {"Receipt", false}
-                                     };
-            try
-            {
-                Tasks.Insert(_task);
-
-                return 0;
-            }
-            catch (Exception)
-            {
-                
-                return  -1;
-            }
+            return new TaskManager().InsertTask(Tasks, task, flagOfHighPriority);
         }
 
         public int RemoveTask(Task task)
         {
-            var query = new QueryDocument(new BsonDocument { { "Path", task.PathToFile } });
-            
-            try
-            {
-                Tasks.Remove(query);
-                return 0;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
+            return new TaskManager().RemoveTask(Tasks, task);
         }
 
         public List<Task> GetTask(int quantity)
         {
-            const int HighPriority = 1;
-            const int LowPriority = 0;
-
-            var query = new QueryDocument(new BsonDocument { { "Priority", HighPriority }, { "Receipt", false } });
-            var tempList = Tasks.FindAs<BsonDocument>(query).SetLimit(quantity).ToList();
-
-            var result = tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }).ToList();
-
-            var count = result.Count;
-
-            if (count < quantity)
-            {
-                query = new QueryDocument(new BsonDocument { { "Priority", LowPriority }, { "Receipt", false } });
-                tempList = Tasks.FindAs<BsonDocument>(query).SetLimit(quantity - count).ToList();
-
-                result.AddRange(tempList.Select(task => new Task { PathToFile = task["Path"].ToString() }));
-            }
-
-            UpdateTask(result);
-
-            return result;
+            return new TaskManager().GetTask(Tasks, quantity);
         }
 
         public CategoriesMultiList GetStatisticTree(string query)
@@ -373,14 +325,7 @@ namespace DB
             }
         }
 
-        private static void UpdateTask(IEnumerable<Task> tasks)
-        {
-            var update = Update.Set("Receipt", true);
-            foreach (var query in tasks.Select(task => new QueryDocument(new BsonDocument { {"Path", task.PathToFile} })))
-            {
-                Tasks.Update(query, update, UpdateFlags.Multi);
-            }
-        }
+        
 
         private static Dictionary<string, List<string>> GetSecondaryFields(BsonDocument bsonBook)
         {

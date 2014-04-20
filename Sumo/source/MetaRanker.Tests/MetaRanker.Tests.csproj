@@ -63,9 +63,6 @@
     <Content Include="xmlfiles\Игра престолов. Битва королей\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="xmlfiles\Игра престолов. Битва королей\total.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="xmlfiles\Игра престолов. Битва королей\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -78,9 +75,6 @@
     <Content Include="xmlfiles\Океан в конце дороги\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="xmlfiles\Океан в конце дороги\total.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="xmlfiles\Океан в конце дороги\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -99,9 +93,6 @@
     <Content Include="xmlfiles\Рыцарь Семи Королевств\primary.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="xmlfiles\Рыцарь Семи Королевств\total.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="xmlfiles\Рыцарь Семи Королевств\Москва.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
