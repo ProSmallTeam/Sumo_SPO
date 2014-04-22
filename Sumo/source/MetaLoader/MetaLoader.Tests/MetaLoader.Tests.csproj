@@ -64,17 +64,59 @@
       <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>
       <Name>Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Shops\LabirintShop\LabirintShop.csproj">
-      <Project>{0f583ec0-6849-4125-8c81-496c9b9e5fb9}</Project>
-      <Name>LabirintShop</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shops\OzonShop\OzonShop.csproj">
       <Project>{0EF701E6-38C8-40D8-B523-54D46286B631}</Project>
       <Name>OzonShop</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SampleOzon.htm" />
+  </ItemGroup>  <ItemGroup>
+    <Content Include="htmFiles\Elegy %28Аманда Хокинг%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Elegy %28Аманда Хокинг%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Wreck This Journal %28Keri Smith%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Wreck This Journal %28Keri Smith%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Азазель %28Борис Акунин%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Азазель %28Борис Акунин%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Зов Кукушки %28Роберт Гэлбрейт%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Зов Кукушки %28Роберт Гэлбрейт%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Никому не говори %28Алафер Берк%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Никому не говори %28Алафер Берк%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28c++%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28c++%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28Про попугая Кешу и другие истории%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28Про попугая Кешу и другие истории%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28Шилдт%29\result.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="htmFiles\Результаты поиска %28Шилдт%29\Sample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
