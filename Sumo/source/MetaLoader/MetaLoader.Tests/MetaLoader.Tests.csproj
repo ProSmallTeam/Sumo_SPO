@@ -60,6 +60,10 @@
       <Project>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</Project>
       <Name>Sumo.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\XmlBookConverter\XmlBookConverter.csproj">
+      <Project>{83263186-7b44-447c-9807-6c72f41c2e95}</Project>
+      <Name>XmlBookConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{009dcfe2-1f01-48bf-8366-29621bd480d1}</Project>
       <Name>Network</Name>
@@ -68,7 +72,8 @@
       <Project>{0EF701E6-38C8-40D8-B523-54D46286B631}</Project>
       <Name>OzonShop</Name>
     </ProjectReference>
-  </ItemGroup>  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="htmFiles\Elegy %28Аманда Хокинг%29\result.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

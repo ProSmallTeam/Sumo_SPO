@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using OzonShop;
-using Sumo.Api;
-using XmlBookConverter;
-using XmlBookConverter.Tests;
-
-namespace MetaLoaderLib.Tests
+﻿namespace MetaLoaderLib.Tests
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using OzonShop;
     using HtmlAgilityPack;
-
     using Network;
-
     using NUnit.Framework;
 
     /// <summary>
