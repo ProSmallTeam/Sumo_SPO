@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Text;
 using System.Xml.Linq;
 using NUnit.Framework;
 using Sumo.Api;
@@ -28,6 +25,21 @@ namespace XmlBookConverter.Tests
         }
 
         #region XmlToBookTests
+
+        [Test]
+        public void ParseIncorrectXmlTest()
+        {
+            var xmlContent = @"<AnyString></AnyString>";
+            var xDocument = XDocument.Parse(xmlContent);
+
+            var book = xDocument.ToBook();
+
+            Assert.AreEqual("", book.Md5Hash);
+            Assert.AreEqual("Пустой", book.Name);
+            Assert.AreEqual("", book.Path);
+            
+            Assert.AreEqual(0, book.SecondaryFields.Count);
+        }
 
         [Test]
         public void ParseFullXmlTest()
@@ -207,7 +219,6 @@ namespace XmlBookConverter.Tests
                   <ISBN>6</ISBN>
                   <PublicYear>7</PublicYear>
                 </Book>", xDocument);
-
         }
 
         [Test]

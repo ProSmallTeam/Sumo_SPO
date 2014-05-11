@@ -10,7 +10,6 @@ namespace XmlBookConverter
         public static Book ToBook(this XDocument xDocument)
         {
             var root = xDocument.Element("Book");
-         //   var root = root.Element("SecondaryFields");
 
             var secondaryFields = new Dictionary<string, List<string>>();
 
@@ -66,11 +65,11 @@ namespace XmlBookConverter
 
         public static XDocument ToXml(this Book book)
         {
-            var md5HashElement = book.Md5Hash != null ? new XElement("Md5Hash", book.Md5Hash) : null;
+            var md5HashElement = !string.IsNullOrEmpty(book.Md5Hash) ? new XElement("Md5Hash", book.Md5Hash) : null;
 
-            var nameElement = book.Name != null ? new XElement("Name", book.Name) : null;
+            var nameElement = !string.IsNullOrEmpty(book.Name) ? new XElement("Name", book.Name) : null;
 
-            var pathElement = book.Path != null ? new XElement("Path", book.Path) : null;
+            var pathElement = !string.IsNullOrEmpty(book.Path) ? new XElement("Path", book.Path) : null;
 
             var bookElement = new XElement("Book", md5HashElement, nameElement, pathElement);
 
