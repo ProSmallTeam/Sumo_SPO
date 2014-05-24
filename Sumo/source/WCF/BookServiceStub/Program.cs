@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
 using BookService;
 using DBMetaManager;
+using StructureMap;
 using Sumo.Api;
 
 namespace BookServiceStub
@@ -14,20 +14,23 @@ namespace BookServiceStub
         /// </summary>
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hell0");
-            ServiceHost dbMetaManagerHost = BookServiceHost.Get(typeof(MetaManagerStub));
+            var type = typeof (MetaManagerStub);
+            var addres = Resources.BookServiceHostAdress;
 
-            dbMetaManagerHost.Open();
-            Console.WriteLine("Сервис запущен");
+            IContainer container =new Container(x => x.For<App>().Use<App>()
+                                               .Ctor<Type>().Is(type)
+                                               );
 
+            App app = container.With("Addres").EqualTo(addres).GetInstance<App>();
 
-            Console.ReadKey();
-
-            dbMetaManagerHost.Close();
-
-
-            Console.WriteLine("Done");
+            app.Run();
+           // var app = new App(typeof(MetaManagerStub));
+          //  app.Addres = Resources.BookServiceHostAdress;
+           // app.Run();
         }
+     
     }
+
+
 
 }
