@@ -17,16 +17,13 @@ namespace BookServiceStub
             var type = typeof (MetaManagerStub);
             var addres = Resources.BookServiceHostAdress;
 
-            IContainer container =new Container(x => x.For<App>().Use<App>()
+            IContainer container = new Container(x => x.For<App>().Use<App>()
                                                .Ctor<Type>().Is(type)
                                                );
 
             App app = container.With("Addres").EqualTo(addres).GetInstance<App>();
 
             app.Run();
-           // var app = new App(typeof(MetaManagerStub));
-          //  app.Addres = Resources.BookServiceHostAdress;
-           // app.Run();
         }
      
     }

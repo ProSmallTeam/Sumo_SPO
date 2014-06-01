@@ -27,7 +27,7 @@ namespace Coordinator
 
         private static IDbTaskManager GetDbTaskManager()
         {
-            var tcpUri = new Uri("http://localhost:1050/TestService");
+            var tcpUri = new Uri("http://localhost:1050/TaskService");
 
             var address = new EndpointAddress(tcpUri);
             var binding = new BasicHttpBinding();

@@ -7,7 +7,7 @@ namespace Sumo.Api
     /// <summary>
     /// Получает или дает задачи базе данных на добавление книг.
     /// </summary>
-    [ServiceContract]
+    [ServiceContract(SessionMode = SessionMode.Allowed)]
     public interface IDbTaskManager
     {
         [OperationContract]
