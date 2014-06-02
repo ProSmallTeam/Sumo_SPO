@@ -1,12 +1,11 @@
-﻿namespace MetaLoader
+﻿using Sumo.Api.Network;
+
+namespace MetaLoader
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
-
-    using Network;
-    using Network.Interfaces;
 
     using Sumo.Api;
 

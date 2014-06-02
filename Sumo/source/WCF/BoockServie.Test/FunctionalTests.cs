@@ -36,8 +36,6 @@ namespace BoockServie.Test
             Trace.WriteLine(sessionId);
             Trace.WriteLine(session.Count.ToString());
             Assert.AreEqual(10, session.SessionId);
-
-
         }
     }
 }

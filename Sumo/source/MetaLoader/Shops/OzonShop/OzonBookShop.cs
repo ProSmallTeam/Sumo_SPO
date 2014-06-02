@@ -1,12 +1,10 @@
-﻿namespace OzonShop
+﻿using Sumo.Api.Network;
+
+namespace OzonShop
 {
-    using System;
     using System.Collections.Generic;
 
     using HtmlAgilityPack;
-
-    using Network;
-    using Network.Interfaces;
 
     using Sumo.Api;
 
@@ -23,13 +21,13 @@
         /// </param>
         public OzonBookShop(INetwork network)
         {
-            Network = (HttpNetwork)network;
+            Network = network;
         }
 
         /// <summary>
         /// Gets or sets the network.
         /// </summary>
-        private HttpNetwork Network { get; set; }
+        private INetwork Network { get; set; }
 
         /// <summary>
         /// The search.
@@ -84,7 +82,7 @@
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        private IEnumerable<Book> ParseMultiPage(HtmlDocument document)
+        public IEnumerable<Book> ParseMultiPage(HtmlDocument document)
         {
             var bookHrefBlocks = document.DocumentNode.SelectNodes("//div[@class='bOneTile inline']");
 
@@ -92,12 +90,10 @@
 
             foreach (var bookHrefBlock in bookHrefBlocks)
             {
-                var bookHref = bookHrefBlock.SelectNodes("//a[class='jsUpdateLink jsPic']@href");
-                var page =
-                    this.Network.LoadDocument(
-                        "http://www.ozon.ru" + bookHref);
-
-                metaContainers.AddRange(this.Parse(page));
+                var bookHref = bookHrefBlock.SelectNodes("//a[@class='jsUpdateLink jsPic']");
+                Page page = Network.LoadDocument("http://www.ozon.ru" + bookHref);
+                if (page != null)
+                    metaContainers.AddRange(Parse(page));
             }
 
             return metaContainers;

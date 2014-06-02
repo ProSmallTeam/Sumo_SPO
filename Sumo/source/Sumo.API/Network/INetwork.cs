@@ -1,7 +1,7 @@
-﻿namespace Network.Interfaces
-{
-    using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
+namespace Sumo.Api.Network
+{
     /// <summary>
     /// The Network interface.
     /// </summary>

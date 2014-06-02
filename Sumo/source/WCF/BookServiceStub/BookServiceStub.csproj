@@ -38,11 +38,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
@@ -53,17 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
-      <Project>{3c278094-3c15-44b5-9897-c080679b4af8}</Project>
-      <Name>DBMetaManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BookService\BookService.csproj">
-      <Project>{5ff96fa6-d008-4096-9720-d3dee3482acf}</Project>
-      <Name>BookService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,8 +1,8 @@
-﻿namespace LabirintShop
+﻿using Sumo.Api.Network;
+
+namespace LabirintShop
 {
     using System.Collections.Generic;
-
-    using Network.Interfaces;
 
     using Sumo.Api;
 

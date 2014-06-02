@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using NUnit.Framework;
 using Sumo.Api;
-using Sumo.Utilities;
+using Sumo.Test.Utilities;
 
 namespace XmlBookConverter.Tests
 {

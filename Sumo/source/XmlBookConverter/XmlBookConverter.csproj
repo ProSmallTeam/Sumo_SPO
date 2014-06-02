@@ -44,10 +44,6 @@
       <Project>{FEB2FAB1-3F61-47BE-9041-1CD2720413D3}</Project>
       <Name>Sumo.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sumo.Utilities\Sumo.Utilities.csproj">
-      <Project>{603af945-776f-4e72-af6a-9eb73d0d4099}</Project>
-      <Name>Sumo.Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

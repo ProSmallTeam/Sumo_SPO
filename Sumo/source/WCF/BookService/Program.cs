@@ -1,5 +1,4 @@
 ﻿using System;
-using DB;
 using DBMetaManager;
 
 namespace BookService
@@ -26,8 +25,5 @@ namespace BookService
 
             Console.WriteLine("Done");
         }
-
-
-
     }
 }

@@ -41,13 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,25 +73,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
-      <Project>{3c278094-3c15-44b5-9897-c080679b4af8}</Project>
-      <Name>DBMetaManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DB\DB.csproj">
-      <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
-      <Name>DB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BookServiceStub\BookServiceStub.csproj">
-      <Project>{0b99047c-2bb1-4701-bfed-9684d4d14715}</Project>
-      <Name>BookServiceStub</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BookService\BookService.csproj">
-      <Project>{5ff96fa6-d008-4096-9720-d3dee3482acf}</Project>
-      <Name>BookService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

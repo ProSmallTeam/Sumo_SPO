@@ -1,11 +1,17 @@
-﻿namespace MetaLoaderLib.Tests
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Xml.Linq;
+using Moq;
+using Sumo.Api.Network;
+using Sumo.Test.Utilities;
+using XmlBookConverter;
+
+namespace MetaLoaderLib.Tests
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using OzonShop;
     using HtmlAgilityPack;
-    using Network;
     using NUnit.Framework;
 
     /// <summary>
@@ -14,102 +20,74 @@
     [TestFixture]
     public class MetaInformationLoadingTests
     {
-        private List<string> _documentForTestingPaths;
-        private readonly HttpNetwork _network = new HttpNetwork();
+        private Mock<INetwork> _networkMock;
         private OzonBookShop _shop;
 
         [SetUp]
-        public void TestsSetup()
+        public void SetUp()
         {
-            _shop = new OzonBookShop(_network);
+            _networkMock = new Mock<INetwork>();
 
-            _documentForTestingPaths = new List<string>();
-
-            var documentsPath = Directory.GetDirectories(".\\htmFiles");
-
-            _documentForTestingPaths.AddRange(documentsPath);
+            _shop = new OzonBookShop(_networkMock.Object);
         }
 
         [Test]
-        public void OzonShopTest()
+        public void OzonShopSingleResultTest()
         {
-            var htmlDocument = new HtmlDocument();
-
-            foreach (var documentPath in _documentForTestingPaths)
+            foreach (var directory in Directory.GetDirectories(".\\htmFiles\\Single"))
             {
-                var sampleBody = new StreamReader(documentPath + "\\Sample.htm", Encoding.Default).ReadToEnd();
+                var sampleBody = new StreamReader(directory + "\\Sample.htm", Encoding.Default).ReadToEnd();
+
+                var htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(sampleBody);
 
-                var page = new Page()
-                {
-                    Document = htmlDocument,
-                    Url = documentPath + "\\Sample.html"
-                };
+                var page = new Page
+                    {
+                        Document = htmlDocument,
+                        Url = directory + "\\Sample.htm"
+                    };
 
-                var resultBooks = _shop.Parse(page);
+                var resultBooks = _shop.Parse(page).ToList();
+                Assert.IsTrue(resultBooks.Any());
 
-                //var result = resultBooks.Aggregate<Book, string>(null, (current, book) => current + book..ToString());
+                var book = resultBooks.First();
 
-                var exceptedXml = File.ReadAllText(documentPath + "\\result.xml");
+                var exceptedBookXml = File.ReadAllText(directory + "\\result.xml");
 
-                //Assert.AreEqual(exceptedXml, result);
+                CompareIgnoreWhiteSpaces(exceptedBookXml, book.ToXml());
             }
         }
-        /*
-                /// <summary>
-                /// The ozon test.
-                /// </summary>
-                [Test]
-                public void OzonShopTest()
-                {
-                    var htmlDocument = new HtmlDocument();
-                    htmlDocument.Load("SampleOzon.htm");
+        
+        [Test]
+        public void OzonShopMultiResultsTest()
+        {            
+            foreach (var directory in Directory.GetDirectories(".\\htmFiles\\Multi"))
+            {
+                var sampleBody = new StreamReader(directory + "\\Sample.htm", Encoding.Default).ReadToEnd();
 
-                    var page = new Page { Url = "SampleOzon.htm", Document = htmlDocument };
+                var htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(sampleBody);
 
-                    var network = new HttpNetwork();
-                    var shop = new OzonBookShop(network);
+                _shop.ParseMultiPage(htmlDocument).ToList();
 
-                    var book = shop.Parse(page);
-                }
-                public const string ValidIsbn = "978-5-7502-0413-7";
-                public const string InvalidIsbn = "Some crap";
+                Trace.WriteLine(directory + "\\result.xml");
 
-        /*        [Test]
-                public void ValidIsbnTest()
-                {
-                    var goodContainer = OzonPageParser.Parse(ValidIsbn);
-                    Assert.AreEqual(goodContainer.Author, "Питер Гастон");
-                    Assert.AreEqual(goodContainer.PageCount, 272);
-                    Assert.AreEqual(goodContainer.PublishYear, "2012");
-                    Assert.AreEqual(goodContainer.InternalId, "8465610");
-                    Assert.AreEqual(goodContainer.Languages, "Русский");
-                    Assert.AreEqual(goodContainer.PublishHouse, "БХВ-Петербург");
-                    Assert.AreEqual(goodContainer.RuTitle, "CSS3. Руководство разработчика");
-                    Assert.AreEqual(goodContainer.Link, "http://www.ozon.ru/context/detail/id/8465610/");
-                    Assert.AreEqual(goodContainer.ISBN, new List<string>
-                                                                {
-                                                                    "978-5-7502-0413-7",
-                                                                    "978-5-9775-0845-2"
-                                                                });
-                    Assert.AreEqual(goodContainer.Сategories.Chain, new List<string>
-                                                                {
-                                                                    "Книги",
-                                                                    "Нехудожественная литература",
-                                                                    "Компьютерная литература",
-                                                                    "Интернет и Web-страницы",
-                                                                    "Web-мастеринг. Языки и инструменты",
-                                                                    "ASP, Perl, CGI, Python и другие языки для разработки Web-сайтов",
-                                                                    "CSS3. Руководство разработчика"
-                                                                });
+                var urls = XDocument.Load(directory + "\\result.xml").
+                    Element("Urls").Elements("Url").Select(n => n.Value).ToList();
 
-                }
+                foreach (string url in urls)
+                    _networkMock.Verify(n => n.LoadDocument(url), Times.Once);    
+            }
+        }
 
-                [Test]
-                [ExpectedException(typeof(NullReferenceException))]
-                public void InvalidIsbnTest()
-                {
-                    var badContainer = OzonPageParser.Parse(InvalidIsbn);
-                }*/
+        /// <summary>
+        /// Производит сравнение xml с xDocument без учета символов переноса строк.
+        /// </summary>
+        private void CompareIgnoreWhiteSpaces(string xml, XDocument xDocument)
+        {
+            var xmlWithoutFormatting = xml.RemoveWhiteSpaces();
+            Assert.AreEqual(xmlWithoutFormatting, xDocument.ToString(SaveOptions.DisableFormatting));
+        }
+
     }
 }

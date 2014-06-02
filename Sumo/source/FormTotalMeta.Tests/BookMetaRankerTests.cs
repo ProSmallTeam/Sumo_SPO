@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using FormTotalMeta;
 using NUnit.Framework;
-using Sumo.Utilities;
+using Sumo.Test.Utilities;
 using XmlBookConverter;
 
 namespace FormTotalMeta.Tests

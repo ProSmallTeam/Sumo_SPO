@@ -37,9 +37,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +54,9 @@
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sumo.Utilities\Sumo.Utilities.csproj">
+    <ProjectReference Include="..\Sumo.Utilities\Sumo.Test.Utilities.csproj">
       <Project>{603AF945-776F-4E72-AF6A-9EB73D0D4099}</Project>
-      <Name>Sumo.Utilities</Name>
+      <Name>Sumo.Test.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\XmlBookConverter\XmlBookConverter.csproj">
       <Project>{83263186-7b44-447c-9807-6c72f41c2e95}</Project>

@@ -1,7 +1,7 @@
-﻿namespace Network
-{
-    using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
+namespace Sumo.Api.Network
+{
     /// <summary>
     /// Класс html страницы.
     /// </summary>
@@ -25,10 +25,10 @@
         /// <param name="htmlDocument">
         /// The html Document.
         /// </param>
-        internal Page(string documentUrl, HtmlDocument htmlDocument)
+        public Page(string documentUrl, HtmlDocument htmlDocument)
         {
-            this.Url = documentUrl;
-            this.Document = htmlDocument;
+            Url = documentUrl;
+            Document = htmlDocument;
         }
 
         /// <summary>

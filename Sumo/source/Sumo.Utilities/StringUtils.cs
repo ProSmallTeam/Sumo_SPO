@@ -1,8 +1,8 @@
-﻿namespace Sumo.Utilities
-{
-    using System.IO;
-    using System.Text;
+﻿using System.IO;
+using System.Text;
 
+namespace Sumo.Test.Utilities
+{
     public static class StringUtils
     {
         public static string RemoveWhiteSpaces(this string str)

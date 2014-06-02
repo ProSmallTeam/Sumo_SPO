@@ -1,13 +1,11 @@
-﻿namespace Network
+﻿using System.IO;
+using System.Net;
+using System.Text;
+using HtmlAgilityPack;
+using Sumo.Api.Network;
+
+namespace MetaLoader
 {
-    using System.IO;
-    using System.Net;
-    using System.Text;
-
-    using HtmlAgilityPack;
-
-    using Network.Interfaces;
-
     /// <summary>
     /// The http network.
     /// </summary>

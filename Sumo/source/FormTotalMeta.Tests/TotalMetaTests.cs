@@ -1,4 +1,4 @@
-﻿using Sumo.Utilities;
+﻿using Sumo.Test.Utilities;
 
 namespace FormTotalMeta.Tests
 {
