@@ -15,12 +15,6 @@ namespace Sumo.Api
 
         List<Book> GetBooks(string query, int limit, int offset);
 
-        int InsertTask(Task task, bool flagOfHighPriority);
-
-        int RemoveTask(Task task);
-
-        List<Task> GetTask(int quantity);
-
         CategoriesMultiList GetStatisticTree(string query);
 
     }

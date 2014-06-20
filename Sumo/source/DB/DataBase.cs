@@ -10,7 +10,7 @@ namespace DB
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
 
-    public class DataBase : IDataBase
+    public class DataBase : IDataBase, ITaskManagerDBProvider
     {
         public MongoDatabase Database;
 
@@ -18,7 +18,7 @@ namespace DB
 
         private readonly BookMeta bookMeta;
         private readonly Statistic statistic;
-        private readonly TaskManager taskManager;
+        private readonly TaskManagerDBProvider _taskManagerDBProvider;
 
         #region Коллекции
 
@@ -49,7 +49,7 @@ namespace DB
 
             bookMeta = new BookMeta(Books, AlternativeMeta);
             statistic = new Statistic(Books, Attributes);
-            taskManager = new TaskManager(Tasks);
+            _taskManagerDBProvider = new TaskManagerDBProvider(Tasks);
         }
 
         #region BookMeta
@@ -94,17 +94,17 @@ namespace DB
 
         public int InsertTask(Task task, bool flagOfHighPriority = false)
         {
-            return taskManager.InsertTask(task, flagOfHighPriority);
+            return _taskManagerDBProvider.InsertTask(task, flagOfHighPriority);
         }
 
         public int RemoveTask(Task task)
         {
-            return taskManager.RemoveTask(task);
+            return _taskManagerDBProvider.RemoveTask(task);
         }
 
         public List<Task> GetTask(int quantity)
         {
-            return taskManager.Get(quantity);
+            return _taskManagerDBProvider.GetTask(quantity);
         }
 
         #endregion

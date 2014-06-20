@@ -49,6 +49,7 @@
     <Compile Include="IDbMetaManager.cs" />
     <Compile Include="IDbTaskManager.cs" />
     <Compile Include="IDbBookManager.cs" />
+    <Compile Include="ITaskManagerDBProvider.cs" />
     <Compile Include="MetaManagerStub.cs" />
     <Compile Include="Network\INetwork.cs" />
     <Compile Include="Network\Page.cs" />
