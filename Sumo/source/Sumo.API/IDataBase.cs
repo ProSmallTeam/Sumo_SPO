@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Sumo.Api;
 
-namespace DB
+namespace Sumo.Api
 {
     public interface IDataBase
     {
