@@ -45,7 +45,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DBTaskManager\DBTaskManager.csproj">
+    <ProjectReference Include="..\..\DBTaskManager\DBTaskManager.csproj">
       <Project>{61eaf641-904d-441e-ac61-2153f87d0413}</Project>
       <Name>DBTaskManager</Name>
     </ProjectReference>

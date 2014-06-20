@@ -55,9 +55,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormTotalMeta.Tests", "sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService", "source\WCF\TaskService\TaskService.csproj", "{CFD2975B-35AF-4AD5-BF4C-5BE88E9DD81D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskManager", "DBTaskManager\DBTaskManager.csproj", "{61EAF641-904D-441E-AC61-2153F87D0413}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskManager", "source\DBTaskManager\DBTaskManager.csproj", "{61EAF641-904D-441E-AC61-2153F87D0413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskManager.Tests", "DBTaskManager.Tests\DBTaskManager.Tests.csproj", "{25AA7C51-F90E-43F1-B79A-052A84407555}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskManager.Tests", "source\DBTaskManager.Tests\DBTaskManager.Tests.csproj", "{25AA7C51-F90E-43F1-B79A-052A84407555}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
