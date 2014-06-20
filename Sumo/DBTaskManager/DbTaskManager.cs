@@ -26,12 +26,18 @@ namespace DBTaskManager
 
         public void AddTasks(string[] pathsList)
         {
-            pathsList.Select(t => _dataBase.InsertTask(new Task {PathToFile = t}, false));
+            foreach (var task in pathsList)
+            {
+                _dataBase.InsertTask(new Task {PathToFile = task}, false);
+            }
         }
 
         public void AddTasksWithHightPriority(string[] pathsList)
         {
-            pathsList.Select(t => _dataBase.InsertTask(new Task { PathToFile = t }, true));
+            foreach (var task in pathsList)
+            {
+                _dataBase.InsertTask(new Task { PathToFile = task }, true);
+            }
         }
 
         public string TestOperation(string str)

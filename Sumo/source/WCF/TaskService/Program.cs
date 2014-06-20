@@ -17,7 +17,7 @@ namespace TaskService
 
             Console.WriteLine("Hell0");
 
-            var dbMetaManagerHost = GetHost(typeof(DbTaskManager));
+            var dbMetaManagerHost = GetHost(typeof(DBTaskManager.DbTaskManager));
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
 
