@@ -90,7 +90,57 @@ namespace SumoViewer
                 MessageBox.Show(aException.Message);
             }
             TreeListControl.EndDataUpdate();
+            WebBrowser.NavigateToString(BookToHtml(null));
         }
+
+        private string BookToHtml(Book book)
+        {
+            var result = "<html><head>" +
+                        "<meta http-equiv=\"Content-Type\"  content=\"text/html; charset=utf-8\" />" +
+                         "<style type=\"text/css\"> " +
+                         ".title{ font-weight: bold;} " +
+                         ".text{ float:right }" +
+                         ".image{ float: left; margin-right: 10px; margin-bottom: 20px; width 180px}" +
+                         ".main_info{ width: 400px}.text{ word-wrap: break-word }" +
+                         "</style></head>";
+            result += "<body width=\"600px\"><h1>"
+                //+ book.Name
+                      + "Имя книги:" +
+                      "<br/>  the interest book";
+            // + "</h1><div ><div class=\"image\"><img src=\"" +
+            //      "http://my-poker-life.ucoz.ru/asdasda.jpg\"></div>";
+
+            var content = "";
+            //if (book.SecondaryFields.ContainsKey("Содержание"))
+            //{
+            //    var contentList = book.SecondaryFields["Содержание"];
+            //    content = contentList.Aggregate(content, (current, s) => current + s + "<br/><br/>");
+            //    book.SecondaryFields.Remove("Содержание");
+            //}
+            //else content = "Отсутствует";
+
+            result += "<div class=\"main_info\">";
+
+            //foreach (var tag in book.SecondaryFields)
+            //{
+            //    result += "<span class=\"title\">" + tag.Key + ": </span><br/>";
+            //    foreach (var value in tag.Value)
+            //    {
+            //        result += "<span class=\"text\">" + value + "</span><br/>";
+            //    }
+            //}
+
+
+            result += "</div>";
+            result += "</div><div class=\"content\" style=\"clear: both\"><h2>Описание</h2><span>" +
+                //content + 
+                      "</span></div >";
+
+            result += "</div></body></html>";
+
+
+            return result;
+        } 
 
         public void SetNode(TreeListNode nodeParent, List<CategoriesMultiList> list)
         {
