@@ -60,15 +60,18 @@ namespace MetaLoaderLib.Tests
         
         [Test]
         public void OzonShopMultiResultsTest()
-        {            
+        {
+            int c = 0;
             foreach (var directory in Directory.GetDirectories(".\\htmFiles\\Multi"))
             {
+                _networkMock.Setup(n => n.LoadDocument(It.IsAny<string>())).Returns(new Page("", new HtmlDocument()));
+
                 var sampleBody = new StreamReader(directory + "\\Sample.htm", Encoding.Default).ReadToEnd();
 
                 var htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(sampleBody);
 
-                _shop.ParseMultiPage(htmlDocument).ToList();
+                _shop.ParseMultiPage(htmlDocument);
 
                 Trace.WriteLine(directory + "\\result.xml");
 
