@@ -90,8 +90,11 @@ namespace OzonShop
 
             foreach (var bookHrefBlock in bookHrefBlocks)
             {
-                var bookHref = bookHrefBlock.SelectNodes("//a[@class='jsUpdateLink jsPic']");
-                Page page = Network.LoadDocument("http://www.ozon.ru" + bookHref);
+                var bookHrefDocument = new HtmlDocument();
+                bookHrefDocument.LoadHtml(bookHrefBlock.OuterHtml);
+
+                var bookHref = bookHrefDocument.DocumentNode.SelectNodes("//a[@class='jsUpdateLink jsPic']")[0].Attributes["href"].Value;
+                var page = Network.LoadDocument(bookHref);
                 if (page != null)
                     metaContainers.AddRange(Parse(page));
             }
