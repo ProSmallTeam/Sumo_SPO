@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -213,6 +214,26 @@ namespace SumoViewer
             
             GetNewBooks();
             InitDrives();
+        }
+
+        private void AddBookClick(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            var dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Show open file dialog box
+            var result = dlg.ShowDialog();
+
+            string filename = string.Empty;
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                filename = dlg.FileName;
+            }
+
+            Trace.WriteLine(filename);
+
         }
     }
 }
