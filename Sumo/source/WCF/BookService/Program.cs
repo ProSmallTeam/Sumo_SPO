@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 using DBMetaManager;
 
 namespace BookService
@@ -13,7 +15,7 @@ namespace BookService
 
             Console.WriteLine("Hell0");
 
-            var dbMetaManagerHost = BookServiceHost.Get(typeof(DbMetaManager));
+            var dbMetaManagerHost = BookServiceHostCreator.Get(typeof(DbMetaManager));
             dbMetaManagerHost.Open();
             Console.WriteLine("Сервис запущен");
 

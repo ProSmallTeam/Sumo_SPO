@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using Sumo.Api;
-using DB;
 
 namespace DBMetaManager
 {
-    [ServiceBehavior(
-        InstanceContextMode = InstanceContextMode.Single, 
-        ConcurrencyMode = ConcurrencyMode.Multiple)
-    ]
+    [ServiceBehavior]
     public class DbMetaManager : IDbMetaManager
     {
         private readonly IDataBase _dataBase;

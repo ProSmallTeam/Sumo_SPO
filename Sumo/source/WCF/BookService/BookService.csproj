@@ -50,23 +50,38 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookServiceHost.cs" />
+    <Compile Include="BookServiceHostCreator.cs" />
+    <Compile Include="DbMetaManagerInstanceProvider.cs" />
+    <Compile Include="DbMetaManagerServiceHost.cs" />
+    <Compile Include="BooksServiceHostFactory.cs" />
+    <Compile Include="IBooksServiceContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReleasingBooksServiceContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
       <Project>{3c278094-3c15-44b5-9897-c080679b4af8}</Project>
       <Name>DBMetaManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DB\DB.csproj">
+      <Project>{029362cc-bb87-45d7-bc45-4dd3cf9cd8d1}</Project>
+      <Name>DB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCF_Exploration\WCF_Exploration.csproj">
+      <Project>{9832C9F5-2AA5-4C3F-9771-0E4FD46965DC}</Project>
+      <Name>WCF_Exploration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

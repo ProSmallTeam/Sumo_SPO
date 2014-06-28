@@ -73,9 +73,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
+      <Project>{3C278094-3C15-44B5-9897-C080679B4AF8}</Project>
+      <Name>DBMetaManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookService\BookService.csproj">
+      <Project>{5FF96FA6-D008-4096-9720-D3DEE3482ACF}</Project>
+      <Name>BookService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

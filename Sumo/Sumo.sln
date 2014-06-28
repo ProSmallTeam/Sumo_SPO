@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTaskManager.Tests", "sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF_Exploration", "source\WCF\WCF_Exploration\WCF_Exploration.csproj", "{9832C9F5-2AA5-4C3F-9771-0E4FD46965DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService1", "WcfService1\WcfService1.csproj", "{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -331,6 +333,16 @@ Global
 		{9832C9F5-2AA5-4C3F-9771-0E4FD46965DC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9832C9F5-2AA5-4C3F-9771-0E4FD46965DC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9832C9F5-2AA5-4C3F-9771-0E4FD46965DC}.Release|x86.ActiveCfg = Release|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{41FD5F8A-5ED0-4D15-A908-AD382E0A7BC8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

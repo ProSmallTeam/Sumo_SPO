@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.ServiceModel;
 using BoockServie.Test.BoockServiceStub;
+using BookService;
+using DBMetaManager;
 using NUnit.Framework;
 
 namespace BoockServie.Test
@@ -36,6 +38,13 @@ namespace BoockServie.Test
             Trace.WriteLine(sessionId);
             Trace.WriteLine(session.Count.ToString());
             Assert.AreEqual(10, session.SessionId);
+        }
+
+        [Test]
+        public void TestDi()
+        {
+            var dbMetaManagerHost = BookServiceHostCreator.Get(typeof(DbMetaManager));
+            dbMetaManagerHost.Open();
         }
     }
 }
