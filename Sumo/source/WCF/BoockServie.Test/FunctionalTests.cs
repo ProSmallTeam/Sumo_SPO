@@ -40,11 +40,5 @@ namespace BoockServie.Test
             Assert.AreEqual(10, session.SessionId);
         }
 
-        [Test]
-        public void TestDi()
-        {
-            var dbMetaManagerHost = BookServiceHostCreator.Get(typeof(DbMetaManager));
-            dbMetaManagerHost.Open();
-        }
     }
 }

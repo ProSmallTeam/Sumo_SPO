@@ -5,7 +5,7 @@ using Sumo.Api;
 
 namespace BookService
 {
-    public class ReleasingBooksServiceContainer : IBooksServiceContainer
+    public class DbMetaManagerServiceContainer : IBooksServiceContainer
     {
         public object ResolveService()
         {

@@ -53,14 +53,13 @@
     <Reference Include="System.ServiceModel.Activation" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookServiceHostCreator.cs" />
     <Compile Include="DbMetaManagerInstanceProvider.cs" />
     <Compile Include="DbMetaManagerServiceHost.cs" />
     <Compile Include="BooksServiceHostFactory.cs" />
     <Compile Include="IBooksServiceContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReleasingBooksServiceContainer.cs" />
+    <Compile Include="DbMetaManagerServiceContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

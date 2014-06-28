@@ -43,14 +43,23 @@
     <Compile Include="App.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StubbingDbMetaManagerServiceContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DBMetaManager\DBMetaManager.csproj">
+      <Project>{3C278094-3C15-44B5-9897-C080679B4AF8}</Project>
+      <Name>DBMetaManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sumo.API\Sumo.Api.csproj">
       <Project>{feb2fab1-3f61-47be-9041-1cd2720413d3}</Project>
       <Name>Sumo.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookService\BookService.csproj">
+      <Project>{5FF96FA6-D008-4096-9720-D3DEE3482ACF}</Project>
+      <Name>BookService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

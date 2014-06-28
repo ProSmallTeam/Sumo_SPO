@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using DBMetaManager;
+using Sumo.Api;
 
 namespace BookService
 {
@@ -11,7 +12,7 @@ namespace BookService
 
         public BooksServiceHostFactory()
         {
-            _container = new ReleasingBooksServiceContainer();
+            _container = new DbMetaManagerServiceContainer();
         }
 
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)
